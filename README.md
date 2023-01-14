@@ -2,7 +2,19 @@
 Apis we are using are:
 * placeholder
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+apis testing
+* [breed](https://rapidapi.com/encurate/api/catbreeddb/)
+* [breed](https://rapidapi.com/myapos--FqlEzvrlv/api/cat-breeds/)
+* [breed](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
+
+
+* [facts](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
+* [facts](https://rapidapi.com/maketest-1YGgU5ZOtA/api/random-cat-fact)
+* [facts](https://rapidapi.com/brianiswu/api/cat-facts/)
+* [facts](https://rapidapi.com/standingapi-standingapi-default/api/daily-cat-facts/)
+
+* [fish](https://www.fishwatch.gov/developers)
 
 ## Getting Started
 
@@ -17,3 +29,5 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+get api keys from apis provided above and put them in `.env.local` by following the `.env.example` file. 
