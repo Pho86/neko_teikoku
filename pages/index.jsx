@@ -3,13 +3,50 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
+import { useEffect } from 'react';
+
+import { selectRandomFromArray } from '@/util';
 
 const inter = Inter({ subsets: ['latin'] });
 
-import { useEffect } from 'react';
 
-export default function Home() {
+export default function Home({ data }) {
+
+  if (data) {
+    console.log(data)
+  }
+  
+  const options = {
+    method: 'GET',
+    url: 'https://animals-by-api-ninjas.p.rapidapi.com/v1/animals',
+    headers: {
+      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
+      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
+    },
+    params: { name: 'cat' },
+  };
+
+  const getData = async () => {
+    try {
+      // const result = await axios.request(options)
+      // const result = await axios.get(`https://www.fishwatch.gov/api/species`)
+      // const result = await axios.get(`https://acnhapi.com/v1/`)
+      // const random = selectRandomFromArray(result.data)
+      // console.log(result)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  useEffect(() => {
+    getData();
+  }, [])
+
+
   return (
+
     <>
       <Head>
         <title>Cat Game</title>
@@ -25,10 +62,21 @@ export default function Home() {
 }
 
 export async function getServerSideProps(context) {
-  let data = null;
-  // const { data } = await axios({
-
-  // })
+  let url = "http://localhost:3000/api/catfacts";
+  // if (process.env.VERCEL_URL) {
+  //   url = `https://${process.env.VERCEL_URL}/api/catbreedapi`;
+  // }
+  const { data } = await axios({
+    method: 'get',
+    url: url,
+    // params: {
+    //   name: 'cat'
+    // },
+    headers: {
+      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
+      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
+    },
+  })
   return {
     props: { data }, // will be passed to the page component as props
   }
