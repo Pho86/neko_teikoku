@@ -1,10 +1,9 @@
 # Cat Game
 Apis we are using are:
-* placeholder
+* [breed](https://rapidapi.com/encurate/api/catbreeddb/)
 
 
 apis testing
-* [breed](https://rapidapi.com/encurate/api/catbreeddb/)
 * [breed](https://rapidapi.com/myapos--FqlEzvrlv/api/cat-breeds/)
 * [breed](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
 

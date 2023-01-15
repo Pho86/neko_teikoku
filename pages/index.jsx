@@ -3,27 +3,25 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { selectRandomFromArray } from '@/util';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
 
 export default function Home({ data }) {
 
-  if (data) {
-    console.log(data)
-  }
-  
+  const [cats, setCats] = useState([]);
+
   const options = {
     method: 'GET',
-    url: 'https://animals-by-api-ninjas.p.rapidapi.com/v1/animals',
+    url: 'http://localhost:3000/api/catbreed',
     headers: {
       'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
       'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
     },
-    params: { name: 'cat' },
   };
 
   const getData = async () => {
@@ -32,7 +30,9 @@ export default function Home({ data }) {
       // const result = await axios.get(`https://www.fishwatch.gov/api/species`)
       // const result = await axios.get(`https://acnhapi.com/v1/`)
       // const random = selectRandomFromArray(result.data)
-      // console.log(result)
+      // console.log(result.data)
+      // setCats(result.data)
+      // console.log(cats)
     }
     catch (error) {
       console.log(error)
@@ -41,7 +41,9 @@ export default function Home({ data }) {
 
 
   useEffect(() => {
-    getData();
+    const random = selectRandomFromArray(data)
+    console.log(random)
+
   }, [])
 
 
@@ -56,13 +58,23 @@ export default function Home({ data }) {
       </Head>
       <main className={`${inter.className} ${styles.main}`}>
         <h1>Cat Test</h1>
+        {data.map((cat) => {
+          return (
+            <div key={cat.id}>
+              <h1>{cat.breedName}</h1>
+              <p>{cat.origin}</p>
+              <p>{cat.breedDescription}</p>
+              <p>{cat.furColor}</p>
+            </div>
+          )
+        })}
       </main>
     </>
   )
 }
 
 export async function getServerSideProps(context) {
-  let url = "http://localhost:3000/api/catfacts";
+  let url = "http://localhost:3000/api/catbreed";
   // if (process.env.VERCEL_URL) {
   //   url = `https://${process.env.VERCEL_URL}/api/catbreedapi`;
   // }
