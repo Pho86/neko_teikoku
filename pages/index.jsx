@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -8,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { selectRandomFromArray } from '@/util';
 
 
-const inter = Inter({ subsets: ['latin'] });
 
 
 export default function Home({ data }) {
@@ -56,7 +54,7 @@ export default function Home({ data }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${inter.className} ${styles.main}`}>
+      <main className={`${styles.main}`}>
         <h1>Cat Test</h1>
         {data.map((cat) => {
           return (
@@ -76,14 +74,11 @@ export default function Home({ data }) {
 export async function getServerSideProps(context) {
   let url = "http://localhost:3000/api/catbreed";
   // if (process.env.VERCEL_URL) {
-  //   url = `https://${process.env.VERCEL_URL}/api/catbreedapi`;
+  //   url = `https://${process.env.VERCEL_URL}/api/catbreed`;
   // }
   const { data } = await axios({
     method: 'get',
     url: url,
-    // params: {
-    //   name: 'cat'
-    // },
     headers: {
       'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
       'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
