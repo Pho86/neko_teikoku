@@ -11,7 +11,7 @@ padding: ${props => props.padding};
 width: ${props => props.width};
 `
 
-export default function AppText({
+export default function Typography({
    text,
    size,
    weight,

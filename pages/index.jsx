@@ -5,13 +5,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { selectRandomFromArray } from '@/util';
-
+import CatCard from '@/components/Molecules/CatCard';
+import CatDexCard from '@/components/Molecules/CatDexCard';
 
 
 
 export default function Home({ data }) {
 
   const [cats, setCats] = useState([]);
+  const [cardId, setCardID] = useState()
 
   const options = {
     method: 'GET',
@@ -68,16 +70,15 @@ export default function Home({ data }) {
             </div>
           )
         })} */}
-        {cats && cats.map((cat) => {
+        {cats && cats.map((cat, i) => {
           return (
             <div key={cat.id}>
-              <h1>{cat.breedName}</h1>
-              <p>{cat.origin}</p>
-              <p>{cat.breedDescription}</p>
-              <p>{cat.furColor}</p>
+              <CatCard catData={cat} onClick={()=>{ setCardID(cat.id)}}/>
+              <CatDexCard catData={cat} show={cardId} onExit={()=>{ setCardID(0)}}/>
             </div>
           )
         })}
+
       </main>
     </>
   )
