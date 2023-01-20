@@ -24,12 +24,12 @@ export default function Home({ data }) {
 
   const getData = async () => {
     try {
-      // const result = await axios.request(options)
+      const result = await axios.request(options)
       // const result = await axios.get(`https://www.fishwatch.gov/api/species`)
       // const result = await axios.get(`https://acnhapi.com/v1/`)
       // const random = selectRandomFromArray(result.data)
-      // console.log(result.data)
-      // setCats(result.data)
+      console.log(result.data)
+      setCats(result.data)
       // console.log(cats)
     }
     catch (error) {
@@ -39,8 +39,10 @@ export default function Home({ data }) {
 
 
   useEffect(() => {
-    const random = selectRandomFromArray(data)
-    console.log(random)
+    getData()
+    // const random = selectRandomFromArray(data)
+    // console.log(random)
+
 
   }, [])
 
@@ -56,7 +58,17 @@ export default function Home({ data }) {
       </Head>
       <main className={`${styles.main}`}>
         <h1>Cat Test</h1>
-        {data.map((cat) => {
+        {/* {data && data.map((cat) => {
+          return (
+            <div key={cat.id}>
+              <h1>{cat.breedName}</h1>
+              <p>{cat.origin}</p>
+              <p>{cat.breedDescription}</p>
+              <p>{cat.furColor}</p>
+            </div>
+          )
+        })} */}
+        {cats && cats.map((cat) => {
           return (
             <div key={cat.id}>
               <h1>{cat.breedName}</h1>
@@ -71,20 +83,20 @@ export default function Home({ data }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  let url = "http://localhost:3000/api/catbreed";
-  // if (process.env.VERCEL_URL) {
-  //   url = `https://${process.env.VERCEL_URL}/api/catbreed`;
-  // }
-  const { data } = await axios({
-    method: 'get',
-    url: url,
-    headers: {
-      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
-      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
-    },
-  })
-  return {
-    props: { data }, // will be passed to the page component as props
-  }
-}
+// export async function getServerSideProps(context) {
+//   let url = "http://localhost:3000/api/catbreed";
+//   // if (process.env.VERCEL_URL) {
+//   //   url = `https://${process.env.VERCEL_URL}/api/catbreed`;
+//   // }
+//   const { data } = await axios({
+//     method: 'get',
+//     url: url,
+//     headers: {
+//       'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
+//       'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
+//     },
+//   })
+//   return {
+//     props: { data }, // will be passed to the page component as props
+//   }
+// }
