@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { selectRandomFromArray } from '@/util';
 import CatCard from '@/components/Molecules/CatCard';
 import CatDexCard from '@/components/Molecules/CatDexCard';
+import CatDex from '@/components/Organisms/CatDex';
 
 
 
@@ -14,22 +15,17 @@ export default function Home({ data }) {
 
   const [cats, setCats] = useState([]);
   const [cardId, setCardID] = useState()
+  const [catDex, setCatDex] = useState(false)
 
   const options = {
     method: 'GET',
     url: 'http://localhost:3000/api/catbreed',
-    headers: {
-      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
-      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
-    },
   };
 
+
   const getData = async () => {
+    const result = await axios.request(options)
     try {
-      const result = await axios.request(options)
-      // const result = await axios.get(`https://www.fishwatch.gov/api/species`)
-      // const result = await axios.get(`https://acnhapi.com/v1/`)
-      // const random = selectRandomFromArray(result.data)
       console.log(result.data)
       setCats(result.data)
       // console.log(cats)
@@ -60,24 +56,11 @@ export default function Home({ data }) {
       </Head>
       <main className={`${styles.main}`}>
         <h1>Cat Test</h1>
-        {/* {data && data.map((cat) => {
-          return (
-            <div key={cat.id}>
-              <h1>{cat.breedName}</h1>
-              <p>{cat.origin}</p>
-              <p>{cat.breedDescription}</p>
-              <p>{cat.furColor}</p>
-            </div>
-          )
-        })} */}
-        {cats && cats.map((cat, i) => {
-          return (
-            <div key={cat.id}>
-              <CatCard catData={cat} onClick={()=>{ setCardID(cat.id)}}/>
-              <CatDexCard catData={cat} show={cardId} onExit={()=>{ setCardID(0)}}/>
-            </div>
-          )
-        })}
+
+        <button onClick={() => { setCatDex(!catDex) }}>TESTTEST</button>
+        <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }}/>
+
+
 
       </main>
     </>
@@ -92,10 +75,6 @@ export default function Home({ data }) {
 //   const { data } = await axios({
 //     method: 'get',
 //     url: url,
-//     headers: {
-//       'X-RapidAPI-Key': process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY,
-//       'X-RapidAPI-Host': process.env.NEXT_PUBLIC_X_RAPIDAPI_HOST,
-//     },
 //   })
 //   return {
 //     props: { data }, // will be passed to the page component as props

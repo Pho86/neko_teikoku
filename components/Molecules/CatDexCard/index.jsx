@@ -3,7 +3,7 @@ import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from 'framer-motion';
 import { EmptySpace } from "@/components/Atoms/EmptySpacer";
 import Image from "next/image";
-import { OpacityBackground, PopUpDiv as CatDexCardDiv } from "@/components/Atoms/Popup";
+import { OpacityBackgroundFade, PopUp as CatDexCardDiv } from "@/components/Atoms/Popup";
 
 const CatDexCardTitle = styled.div`
 background-color:white;
@@ -45,15 +45,12 @@ export default function CatDexCard({
 
 
             {catData.id === show && <>
-               <OpacityBackground onClick={onExit}
-                  initial={{ opacity: .1 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-               />
+               <OpacityBackgroundFade onClick={onExit} transform={"translate(-23%, -30%)"}/>
                <CatDexCardDiv
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
+                  width={"100%"}
                >
                   <CatDexCardTitle>
                      <Typography
