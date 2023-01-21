@@ -4,9 +4,6 @@ import styles from '@/styles/Home.module.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import { selectRandomFromArray } from '@/util';
-import CatCard from '@/components/Molecules/CatCard';
-import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 
 
@@ -14,21 +11,22 @@ import CatDex from '@/components/Organisms/CatDex';
 export default function Home({ data }) {
 
   const [cats, setCats] = useState([]);
-  const [cardId, setCardID] = useState()
-  const [catDex, setCatDex] = useState(false)
+  const [catDex, setCatDex] = useState(false);
 
-  const options = {
+  const catOptions = {
     method: 'GET',
     url: 'http://localhost:3000/api/catbreed',
   };
+  if (process.env.VERCEL_URL) {
+    options.url = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
+  }
 
 
   const getData = async () => {
-    const result = await axios.request(options)
+    const result = await axios.request(catOptions)
     try {
       console.log(result.data)
       setCats(result.data)
-      // console.log(cats)
     }
     catch (error) {
       console.log(error)
@@ -38,9 +36,6 @@ export default function Home({ data }) {
 
   useEffect(() => {
     getData()
-    // const random = selectRandomFromArray(data)
-    // console.log(random)
-
 
   }, [])
 
@@ -57,8 +52,8 @@ export default function Home({ data }) {
       <main className={`${styles.main}`}>
         <h1>Cat Test</h1>
 
-        <button onClick={() => { setCatDex(!catDex) }}>TESTTEST</button>
-        <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }}/>
+        <button onClick={() => { setCatDex(!catDex) }}>Open CatDex</button>
+        <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} />
 
 
 

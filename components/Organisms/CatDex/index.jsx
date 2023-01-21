@@ -13,6 +13,9 @@ display:grid;
 grid-template-columns: repeat(2, 1fr);
 justify-items:center;
 gap:3em;
+@media (max-width: 1280px) {
+   grid-template-columns: repeat(1, 1fr);
+ }
 `
 const GridItem = styled.div`
 display:grid
@@ -37,7 +40,7 @@ export default function CatDex({
                      initial={{ opacity: 0 }}
                      animate={{ opacity: 1 }}
                      exit={{ opacity: 0 }}
-                     width={"60%"}
+                     width={"60vw"}
                   >
                      <button onClick={() => {
                         if (currentPage > 1) {
@@ -45,7 +48,7 @@ export default function CatDex({
                            setPageMin(pageMin - 6);
                            setPageLimit(pageLimit - 6);
                         }
-                     }}>TEST</button>
+                     }}>BACK</button>
                      <PopUpGrid>
                         {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
                            return (
@@ -62,7 +65,7 @@ export default function CatDex({
                            setPageMin(pageMin + 6);
                            setPageLimit(pageLimit + 6);
                         }
-                     }}>TEST</button>
+                     }}>NEXT</button>
                   </PopUpDiv>
                </>}
          </AnimatePresence>

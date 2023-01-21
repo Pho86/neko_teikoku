@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-// limited to 100 requests per day, so have multiple keys to bypass the limit requests if 1 fails, just in case.
+// limited to 100 requests per day, so have multiple keys to bypass the limit requests if limit is reached, just in case
+
 export default async function handler(req, res) {
    try {
       let { data } = await axios({

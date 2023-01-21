@@ -8,8 +8,13 @@ padding:1.2em 2em;
 display:flex;
 justify-content:space-between;
 border-radius:1em;
-min-width:350px;
+min-width:325px;
 cursor:pointer;
+transition:all .1s ease-in-out;
+&:hover {
+   box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
 `
 const CatTextDiv = styled.div`
 display:flex;

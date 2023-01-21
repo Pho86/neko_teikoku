@@ -17,7 +17,6 @@ width:95%;
 const CatDexCardContent = styled.div`
 display:grid;
 grid-template-columns:45% 55%;
-margin-top:5%;
 `
 const CatDexImage = styled.div`
 display: flex;
@@ -45,7 +44,7 @@ export default function CatDexCard({
 
 
             {catData.id === show && <>
-               <OpacityBackgroundFade onClick={onExit} transform={"translate(-23%, -30%)"}/>
+               <OpacityBackgroundFade onClick={onExit} transform={"translate(-23%, -30%)"} />
                <CatDexCardDiv
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -63,7 +62,7 @@ export default function CatDexCard({
                      />
                      <EmptySpace axis={"horizontal"} size={30} />
                   </CatDexCardTitle>
-
+                  <EmptySpace axis={"vertical"} size={35}/>
                   <CatDexCardContent>
                      <CatDexImage>
                         <Image src={`${catData.imgThumb}`} width={300} height={300} alt="cat" style={{ borderRadius: "50%", textAlign: "center" }} />
