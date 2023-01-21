@@ -10,6 +10,7 @@ left:0;
 top:0;
 cursor:pointer;
 transform: ${props => props.transform || ""};
+z-index:50;
 `
 
 export const PopUp = styled(motion.div)`
@@ -20,11 +21,12 @@ position:fixed;
 transform: translate(-50%, -50%);
 padding:2em 2em;
 border-radius:.5em;
-width:${props=> props.width || "65%"};
+width:${props => props.width || "65%"};
 display:flex;
 flex-direction:column;
 align-items:center;
 cursor:auto;
+z-index:55;
 `
 
 export function OpacityBackgroundFade({

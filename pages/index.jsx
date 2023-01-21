@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import CatDex from '@/components/Organisms/CatDex';
+import UserInterface from '@/components/Organisms/UserInterface';
 
 
 
@@ -35,7 +36,7 @@ export default function Home({ data }) {
 
 
   useEffect(() => {
-    getData()
+    // getData()
 
   }, [])
 
@@ -54,7 +55,7 @@ export default function Home({ data }) {
 
         <button onClick={() => { setCatDex(!catDex) }}>Open CatDex</button>
         <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} />
-
+        <UserInterface />
 
 
       </main>
