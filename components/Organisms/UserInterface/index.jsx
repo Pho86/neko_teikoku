@@ -30,13 +30,15 @@ const ColIcon = styled.div`
 display:flex;
 flex-direction:column;
 justify-content:center;
-text-align:${props=> props.textAlign || "center"};
+text-align:${props => props.textAlign || "center"};
 gap:.5em;
+cursor:pointer;
 `
 const RowIcon = styled.div`
 display:flex;
 gap:${props => props.gap || ".5em"};
 transform:${props => props.transform || ""};
+cursor:pointer;
 `
 const MotionRowDiv = styled(motion.ColIcon)`
 `
@@ -49,6 +51,7 @@ export default function UserInterface({
    catData,
    weatherData,
    userData,
+   onCatDexClick = () => { },
 }) {
    const [CookShow, setCookShow] = useState(false)
    return (
@@ -79,7 +82,7 @@ export default function UserInterface({
 
          </TopIcons>
          <BottomIcons>
-            <ColIcon>
+            <ColIcon onClick={onCatDexClick}>
                <IconButton image={"/favicon.ico"} alt="CatDex Button" />
                <Typography
                   text={"Cat Dex"}
@@ -97,35 +100,35 @@ export default function UserInterface({
             </ColIcon>
 
             <ColIcon>
-            <AnimatePresence>
+               <AnimatePresence>
 
-               {CookShow &&
-                  <motion.div 
-                  initial={{opacity:0, y:100, x:"-25%"}}
-                  animate={{opacity:1, y:-20}}
-                  exit={{opacity:0, y:40}}
-                  >
-                     <RowIcon gap={"2em"}>
-                        <ColIcon>
-                           <IconButton image={"/favicon.ico"} alt="Cooking Button" />
-                           <Typography
-                              text={"Place"}
-                              weight={"bold"}
-                              size={"1.2em"}
+                  {CookShow &&
+                     <motion.div
+                        initial={{ opacity: 0, y: 100, x: "-25%" }}
+                        animate={{ opacity: 1, y: -20 }}
+                        exit={{ opacity: 0, y: 80 }}
+                     >
+                        <RowIcon gap={"2em"}>
+                           <ColIcon>
+                              <IconButton image={"/favicon.ico"} alt="Cooking Button" />
+                              <Typography
+                                 text={"Place"}
+                                 weight={"bold"}
+                                 size={"1.2em"}
                               />
-                        </ColIcon>
-                        <ColIcon>
-                           <IconButton image={"/favicon.ico"} alt="Cooking Button" />
-                           <Typography
-                              text={"Cook"}
-                              weight={"bold"}
-                              size={"1.2em"}
+                           </ColIcon>
+                           <ColIcon>
+                              <IconButton image={"/favicon.ico"} alt="Cooking Button" />
+                              <Typography
+                                 text={"Cook"}
+                                 weight={"bold"}
+                                 size={"1.2em"}
                               />
-                        </ColIcon>
-                     </RowIcon>
-                  </motion.div>
-               }
-                  </AnimatePresence>
+                           </ColIcon>
+                        </RowIcon>
+                     </motion.div>
+                  }
+               </AnimatePresence>
                <ColIcon onClick={() => { setCookShow(!CookShow) }} textAlign={"left"}>
                   <IconButton image={"/favicon.ico"} alt="Treats Button" />
                   <Typography
@@ -133,7 +136,7 @@ export default function UserInterface({
                      weight={"bold"}
                      size={"1.2em"}
                      padding={"0 1.4em"}
-                     />
+                  />
                </ColIcon>
             </ColIcon>
 

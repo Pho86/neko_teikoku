@@ -44,7 +44,7 @@ export default function CatDexCard({
 
 
             {catData.id === show && <>
-               <OpacityBackgroundFade onClick={onExit} transform={"translate(-23%, -30%)"} />
+               <OpacityBackgroundFade onClick={onExit} />
                <CatDexCardDiv
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

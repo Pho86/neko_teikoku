@@ -36,7 +36,7 @@ export default function Home({ data }) {
 
 
   useEffect(() => {
-    // getData()
+    getData()
 
   }, [])
 
@@ -53,9 +53,8 @@ export default function Home({ data }) {
       <main className={`${styles.main}`}>
         <h1>Cat Test</h1>
 
-        <button onClick={() => { setCatDex(!catDex) }}>Open CatDex</button>
         <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} />
-        <UserInterface />
+        <UserInterface onCatDexClick={() => { setCatDex(!catDex) }} />
 
 
       </main>

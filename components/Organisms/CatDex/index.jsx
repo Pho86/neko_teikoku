@@ -7,6 +7,7 @@ import { useState } from "react";
 const PopUpDiv = styled(PopUp)`
 flex-direction:row;
 justify-content:space-between;
+gap:1em;
 `
 const PopUpGrid = styled.div`
 display:grid;

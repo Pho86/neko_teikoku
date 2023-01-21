@@ -3,13 +3,13 @@ import { motion } from "framer-motion"
 
 export const OpacityBackground = styled(motion.div)`
 background: rgba(0, 0, 0, 5);
-width:103vw;
-height:105vh;
+width:100vw;
+height:100vh;
 position:fixed;
-left:0;
-top:0;
+left:50%;
+top:50%;
 cursor:pointer;
-transform: ${props => props.transform || ""};
+transform: ${props => props.transform || "translate(-50%, -50%)"};
 z-index:50;
 `
 
@@ -19,11 +19,12 @@ top: 50%;
 left: 50%;
 position:fixed;
 transform: translate(-50%, -50%);
-padding:2em 2em;
+padding:2.3em 2em;
 border-radius:.5em;
 width:${props => props.width || "65%"};
 display:flex;
 flex-direction:column;
+justify-content:space-between;
 align-items:center;
 cursor:auto;
 z-index:55;
