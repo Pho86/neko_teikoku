@@ -58,7 +58,7 @@ export default function UserInterface({
       <UserInterfaceDiv>
          <TopIcons>
             <RowIcon>
-               <IconButton image={"/favicon.ico"} alt="Profile Icon" />
+               <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
                <Typography
                   text={"NAME"}
                   weight={"bold"}
@@ -66,7 +66,7 @@ export default function UserInterface({
                />
             </RowIcon>
             <RowIcon>
-               <IconButton image={"/favicon.ico"} alt="Weather Icon" />
+               <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
                <WeatherDiv>
                   <Typography
                      text={"Weather"}
@@ -83,7 +83,7 @@ export default function UserInterface({
          </TopIcons>
          <BottomIcons>
             <ColIcon onClick={onCatDexClick}>
-               <IconButton image={"/favicon.ico"} alt="CatDex Button" />
+               <IconButton image={"/cats/caticon.svg"} alt="CatDex Button" />
                <Typography
                   text={"Cat Dex"}
                   weight={"bold"}
@@ -91,7 +91,7 @@ export default function UserInterface({
                />
             </ColIcon>
             <ColIcon>
-               <IconButton image={"/favicon.ico"} alt="Items Button" />
+               <IconButton image={"/cats/caticon.svg"} alt="Items Button" />
                <Typography
                   text={"Items"}
                   weight={"bold"}
@@ -110,7 +110,7 @@ export default function UserInterface({
                      >
                         <RowIcon gap={"2em"}>
                            <ColIcon>
-                              <IconButton image={"/favicon.ico"} alt="Cooking Button" />
+                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" />
                               <Typography
                                  text={"Place"}
                                  weight={"bold"}
@@ -118,7 +118,7 @@ export default function UserInterface({
                               />
                            </ColIcon>
                            <ColIcon>
-                              <IconButton image={"/favicon.ico"} alt="Cooking Button" />
+                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" />
                               <Typography
                                  text={"Cook"}
                                  weight={"bold"}
@@ -130,7 +130,7 @@ export default function UserInterface({
                   }
                </AnimatePresence>
                <ColIcon onClick={() => { setCookShow(!CookShow) }} textAlign={"left"}>
-                  <IconButton image={"/favicon.ico"} alt="Treats Button" />
+                  <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
                   <Typography
                      text={"Cook"}
                      weight={"bold"}

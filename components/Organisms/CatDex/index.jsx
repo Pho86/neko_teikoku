@@ -4,6 +4,9 @@ import { PopUp, OpacityBackgroundFade } from "@/components/Atoms/Popup";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
+import Cat from "@/components/Atoms/Cat";
+import { selectRandomFromArray } from "@/util";
+import { useEffect } from "react";
 const PopUpDiv = styled(PopUp)`
 flex-direction:row;
 justify-content:space-between;
@@ -24,13 +27,17 @@ display:grid
 export default function CatDex({
    catData,
    onExit = () => { },
-   catDex
+   catDex,
+   activeCats = [],
+   catCard,
+   selectCatCard = (id) => { return id; },
+
 }) {
    const [cardId, setCardID] = useState()
    const [page, setPage] = useState([0, 6, 1])
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
-   const [currentPage, setCurrentPage] = useState(1)
+   const [currentPage, setCurrentPage] = useState(1);
    return (
       <>
          <AnimatePresence>
@@ -54,7 +61,7 @@ export default function CatDex({
                         {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
                            return (
                               <GridItem key={cat.id}>
-                                 <CatCard catData={cat} onClick={() => { setCardID(cat.id) }} />
+                                 <CatCard catData={cat} onClick={() => { selectCatCard(cat.id) }} />
                                  <CatDexCard catData={cat} show={cardId} onExit={() => { setCardID(0) }} />
                               </GridItem>
                            )
@@ -69,7 +76,12 @@ export default function CatDex({
                      }}>NEXT</button>
                   </PopUpDiv>
                </>}
+
+            {/* {activeCats && activeCats.map((cat, i) => {
+               return <Cat key={i} image={cat.imgSourceURL} alt={"MEOW MEOW"} />
+            })} */}
          </AnimatePresence>
+
       </>
    )
 }

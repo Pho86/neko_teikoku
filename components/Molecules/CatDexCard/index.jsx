@@ -49,7 +49,7 @@ export default function CatDexCard({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  width={"100%"}
+                  width={"65%"}
                >
                   <CatDexCardTitle>
                      <Typography
