@@ -40,8 +40,6 @@ gap:${props => props.gap || ".5em"};
 transform:${props => props.transform || ""};
 cursor:pointer;
 `
-const MotionRowDiv = styled(motion.ColIcon)`
-`
 const WeatherDiv = styled.div`
 display:flex;
 flex-direction:column;

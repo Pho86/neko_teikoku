@@ -28,8 +28,6 @@ export default function CatDex({
    catData,
    onExit = () => { },
    catDex,
-   activeCats = [],
-   catCard,
    selectCatCard = (id) => { return id; },
 
 }) {
@@ -62,7 +60,7 @@ export default function CatDex({
                            return (
                               <GridItem key={cat.id}>
                                  <CatCard catData={cat} onClick={() => { selectCatCard(cat.id) }} />
-                                 <CatDexCard catData={cat} show={cardId} onExit={() => { setCardID(0) }} />
+                                 {/* <CatDexCard catData={cat} show={cardId} onExit={() => { setCardID(0) }} /> */}
                               </GridItem>
                            )
                         })}

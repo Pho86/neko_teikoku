@@ -7,3 +7,14 @@ export function selectRandomFromArray(array) {
    let randomValue = array[Math.floor(Math.random() * array.length)]
    return randomValue
 }
+
+
+/**
+ * @desc 
+ * @param {*} min 
+ * @param {*} max 
+ * @returns 
+ */
+export function generateRandomNumber(min, max) {
+   return Math.floor(Math.random() * (max - min + 1) + min);
+}

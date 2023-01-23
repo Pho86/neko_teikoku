@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { selectRandomFromArray } from "@/util";
+import { selectRandomFromArray, generateRandomNumber } from "@/util";
 import { useEffect, useState } from "react";
 
 const CatImage = styled(Image)`
@@ -50,9 +50,7 @@ export default function Cat({
       console.log(y, x)
    }, [])
 
-   function generateRandomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-   }
+   
    return (
       <CatBox>
          <CatArea

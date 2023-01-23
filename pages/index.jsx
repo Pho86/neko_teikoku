@@ -7,7 +7,7 @@ import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
-import { selectRandomFromArray } from '@/util';
+import { selectRandomFromArray, generateRandomNumber } from '@/util';
 
 
 
@@ -17,6 +17,7 @@ export default function Home({ data }) {
   const [catDex, setCatDex] = useState(false);
   const [catCard, setCatCard] = useState(0);
   const [randomCat, setRandomCat] = useState();
+  const [randomCats, setRandomCats] = useState([])
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
 
@@ -50,8 +51,12 @@ export default function Home({ data }) {
   useEffect(() => {
     async function get() {
       const data = await getData()
-      let random = selectRandomFromArray(data)
-      setRandomCat(random)
+      const amountOfCats = generateRandomNumber(1, 2)
+      for (let i = 0; i < amountOfCats; i++) {
+        let random = selectRandomFromArray(data)
+        randomCats.push(random)
+      }
+      // setRandomCats(random)
     }
     get();
   }, [])
@@ -76,7 +81,10 @@ export default function Home({ data }) {
           )
         })}
         <UserInterface onCatDexClick={() => { setCatDex(!catDex) }} />
-        {randomCat && <Cat catData={randomCat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(randomCat.id); setCatCard(randomCat.id); }} />}
+        {/* {randomCat && <Cat catData={randomCat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(randomCat.id); setCatCard(randomCat.id); }} />} */}
+        {randomCats && randomCats.map((cat, i) => {
+          return <Cat key={i} catData={randomCat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
+        })}
       </main>
     </>
   )
