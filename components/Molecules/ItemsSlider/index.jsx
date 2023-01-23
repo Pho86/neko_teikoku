@@ -48,10 +48,10 @@ export default function ItemsSlider({
          <AnimatePresence>
             {active &&
                <SliderDiv
-                  initial={{ opacity: 0, y: 100 }}
+                  initial={{ opacity: 0, y: 150 }}
                   animate={{ opacity: 1, y: 10 }}
-                  exit={{ opacity: 0, y: -100 }}
-                  >
+                  exit={{ opacity: 0, y: 150 }}
+               >
                   <CloseButton onClick={onExit}>Close</CloseButton>
                   <button onClick={() => {
                      if (currentPage > 1) {

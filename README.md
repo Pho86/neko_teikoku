@@ -1,18 +1,9 @@
 # About Neko Teikoku
-Neko Teikoku is a cozy cat game.
+Neko Teikoku is a cozy cat web application meant to make you feel cozy.
 
 Apis we are using are:
 * [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
-
-deciding between
 * [OpenWeatherMapApi](https://openweathermap.org/api)
-
-apis testing
-* [breed](https://rapidapi.com/myapos--FqlEzvrlv/api/cat-breeds/)
-* [breed](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
-
-
-* [fish](https://www.fishwatch.gov/developers)
 
 ## Getting Started
 
