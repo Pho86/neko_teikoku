@@ -21,13 +21,11 @@ export default function Home({ data }) {
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
 
-  const catOptions = {
-    method: 'GET',
-    url: 'http://localhost:3000/api/catbreed',
-  };
+  let catUrl = 'http://localhost:3000/api/catbreed'
   if (process.env.VERCEL_URL) {
-    options.url = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
+    catUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
   }
+
   let apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_KEY;
   let lang = "en";
   let units = "metric";
@@ -35,7 +33,7 @@ export default function Home({ data }) {
 
 
   const getData = async () => {
-    const result = await axios.request(catOptions)
+    const result = await axios.get(catUrl)
     const weatherResult = await axios.get(weatherURL)
     try {
       setCats(result.data)
@@ -71,7 +69,7 @@ export default function Home({ data }) {
       </Head>
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
-        <h2>Meowing @ {weather && weather.name}</h2>
+        <h2 className={styles.head} >Meowing @ {weather && weather.name}</h2>
 
         <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
         {cats && cats.map((cat, i) => {
