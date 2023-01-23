@@ -3,16 +3,7 @@ Neko Teikoku is a cozy cat game.
 
 Apis we are using are:
 * [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
-
-deciding between
 * [OpenWeatherMapApi](https://openweathermap.org/api)
-
-apis testing
-* [breed](https://rapidapi.com/myapos--FqlEzvrlv/api/cat-breeds/)
-* [breed](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
-
-
-* [fish](https://www.fishwatch.gov/developers)
 
 ## Getting Started
 
