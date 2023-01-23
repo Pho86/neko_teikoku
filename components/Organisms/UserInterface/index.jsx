@@ -100,16 +100,15 @@ export default function UserInterface({
                   size={"1.2em"}
                />
             </ColIcon>
-            {setItems && <ItemsSlider active={setItems} 
-               onExit={() => { setItemsShow(false) }} />}
+            <ItemsSlider active={setItems}
+               onExit={() => { setItemsShow(false) }} />
 
             <ColIcon>
                <AnimatePresence>
-
                   {CookShow &&
                      <motion.div
                         initial={{ opacity: 0, y: 100, x: "-25%" }}
-                        animate={{ opacity: 1, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 80 }}
                      >
                         <RowIcon gap={"2em"}>

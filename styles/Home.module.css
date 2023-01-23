@@ -5,3 +5,7 @@
   align-items: center;
   min-height: 100vh;
 }
+
+.head {
+  padding-bottom: .5em;
+}
