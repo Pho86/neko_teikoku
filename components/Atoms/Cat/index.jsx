@@ -17,6 +17,9 @@ user-select: none;
 -webkit-user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
+&:hover{
+   filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.4));
+}
 `
 const CatBox = styled(motion.div)`
 width:100vw;
