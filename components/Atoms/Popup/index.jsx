@@ -10,7 +10,7 @@ left:50%;
 top:50%;
 cursor:pointer;
 transform: ${props => props.transform || "translate(-50%, -50%)"};
-z-index:50;
+z-index:55;
 `
 
 export const PopUp = styled(motion.div)`
@@ -27,7 +27,7 @@ flex-direction:column;
 justify-content:space-between;
 align-items:center;
 cursor:auto;
-z-index:55;
+z-index:56;
 `
 
 export function OpacityBackgroundFade({

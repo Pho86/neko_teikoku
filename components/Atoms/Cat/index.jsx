@@ -50,15 +50,15 @@ export default function Cat({
       console.log(y, x)
    }, [])
 
-   
+
    return (
       <CatBox>
          <CatArea
             initial={{ x: x, y: y }}
-            animate={{ x: x, y:y }}
+            animate={{ x: x, y: y }}
             transition={{ duration: .2 }}
             whileHover={{
-               scale: 1.1,
+               scale: 1.2,
                transition: { duration: .15 },
             }}
             drag={true}

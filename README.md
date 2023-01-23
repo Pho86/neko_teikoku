@@ -5,7 +5,6 @@ Apis we are using are:
 * [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
 
 deciding between
-* [WeatherApi](https://www.weatherapi.com/)
 * [OpenWeatherMapApi](https://openweathermap.org/api)
 
 apis testing

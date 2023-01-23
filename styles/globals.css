@@ -29,4 +29,8 @@ a {
   text-decoration: none;
 }
 
-
+.background {
+  background-image: url("/placeback.png");
+  background-size: cover;
+  background-position: center;
+}

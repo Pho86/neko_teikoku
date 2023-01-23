@@ -73,10 +73,6 @@ export default function CatDex({
                      }}>NEXT</button>
                   </PopUpDiv>
                </>}
-
-            {/* {activeCats && activeCats.map((cat, i) => {
-               return <Cat key={i} image={cat.imgSourceURL} alt={"MEOW MEOW"} />
-            })} */}
          </AnimatePresence>
 
       </>
