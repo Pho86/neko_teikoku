@@ -1,17 +1,16 @@
-# Cat Game
-Apis we are using are:
-* [breed](https://rapidapi.com/encurate/api/catbreeddb/)
+# About Neko Teikoku
+Neko Teikoku is a cozy cat game.
 
+Apis we are using are:
+* [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
+
+deciding between
+* [OpenWeatherMapApi](https://openweathermap.org/api)
 
 apis testing
 * [breed](https://rapidapi.com/myapos--FqlEzvrlv/api/cat-breeds/)
 * [breed](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
 
-
-* [facts](https://rapidapi.com/apininjas/api/cats-by-api-ninjas/)
-* [facts](https://rapidapi.com/maketest-1YGgU5ZOtA/api/random-cat-fact)
-* [facts](https://rapidapi.com/brianiswu/api/cat-facts/)
-* [facts](https://rapidapi.com/standingapi-standingapi-default/api/daily-cat-facts/)
 
 * [fish](https://www.fishwatch.gov/developers)
 
