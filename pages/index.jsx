@@ -36,10 +36,11 @@ export default function Home({ data }) {
 
   const getData = async () => {
     const result = await axios.request(catOptions)
-    const weatherResult = axios.get(weatherURL)
+    const weatherResult = await axios.get(weatherURL)
     try {
       setCats(result.data)
       setWeather(weatherResult.data);
+      console.log(weatherResult.data)
       return result.data
     }
     catch (error) {
@@ -72,7 +73,7 @@ export default function Home({ data }) {
       </Head>
       <main className={`${styles.main}`}>
         <h1>Neko Teikoku</h1>
-        <h2>Meow</h2>
+        <h2>Meowing @ {weather && weather.name}</h2>
 
         <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
         {cats && cats.map((cat, i) => {
@@ -80,7 +81,7 @@ export default function Home({ data }) {
             <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} />
           )
         })}
-        <UserInterface onCatDexClick={() => { setCatDex(!catDex) }} />
+        <UserInterface weatherData={weather} onCatDexClick={() => { setCatDex(!catDex) }} />
         {/* {randomCat && <Cat catData={randomCat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(randomCat.id); setCatCard(randomCat.id); }} />} */}
         {randomCats && randomCats.map((cat, i) => {
           return <Cat key={i} catData={randomCat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />

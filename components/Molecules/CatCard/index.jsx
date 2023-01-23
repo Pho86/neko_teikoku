@@ -8,7 +8,7 @@ padding:1.2em 2em;
 display:flex;
 justify-content:space-between;
 border-radius:1em;
-min-width:325px;
+min-width:300px;
 cursor:pointer;
 transition:all .1s ease-in-out;
 &:hover {

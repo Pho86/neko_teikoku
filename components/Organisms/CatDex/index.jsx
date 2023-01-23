@@ -31,7 +31,6 @@ export default function CatDex({
    selectCatCard = (id) => { return id; },
 
 }) {
-   const [cardId, setCardID] = useState()
    const [page, setPage] = useState([0, 6, 1])
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
@@ -46,7 +45,7 @@ export default function CatDex({
                      initial={{ opacity: 0 }}
                      animate={{ opacity: 1 }}
                      exit={{ opacity: 0 }}
-                     width={"60vw"}
+                     width={"65vw"}
                   >
                      <button onClick={() => {
                         if (currentPage > 1) {

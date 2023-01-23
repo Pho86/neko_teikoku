@@ -46,7 +46,6 @@ flex-direction:column;
 justify-content:space-between;
 `
 export default function UserInterface({
-   catData,
    weatherData,
    userData,
    onCatDexClick = () => { },
@@ -54,6 +53,7 @@ export default function UserInterface({
    const [CookShow, setCookShow] = useState(false)
    return (
       <UserInterfaceDiv>
+
          <TopIcons>
             <RowIcon>
                <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
@@ -63,23 +63,27 @@ export default function UserInterface({
                   size={"1.2em"}
                />
             </RowIcon>
-            <RowIcon>
-               <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
-               <WeatherDiv>
-                  <Typography
-                     text={"Weather"}
-                     weight={"bold"}
-                     size={"1.2em"}
-                  />
-                  <Typography
-                     text={"42℃"}
-                     size={"1.2em"}
-                  />
-               </WeatherDiv>
-            </RowIcon>
+
+            {weatherData &&
+               <RowIcon>
+                  <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
+                  <WeatherDiv>
+                     <Typography
+                        text={weatherData.weather[0].main}
+                        weight={"bold"}
+                        size={"1.2em"}
+                     />
+                     <Typography
+                        text={`${weatherData.main.temp}℃`}
+                        size={"1.2em"}
+                     />
+                  </WeatherDiv>
+               </RowIcon>
+            }
 
          </TopIcons>
          <BottomIcons>
+
             <ColIcon onClick={onCatDexClick}>
                <IconButton image={"/cats/caticon.svg"} alt="CatDex Button" />
                <Typography
@@ -88,6 +92,7 @@ export default function UserInterface({
                   size={"1.2em"}
                />
             </ColIcon>
+
             <ColIcon>
                <IconButton image={"/cats/caticon.svg"} alt="Items Button" />
                <Typography
@@ -99,7 +104,6 @@ export default function UserInterface({
 
             <ColIcon>
                <AnimatePresence>
-
                   {CookShow &&
                      <motion.div
                         initial={{ opacity: 0, y: 100, x: "-25%" }}
@@ -127,6 +131,7 @@ export default function UserInterface({
                      </motion.div>
                   }
                </AnimatePresence>
+
                <ColIcon onClick={() => { setCookShow(!CookShow) }} textAlign={"left"}>
                   <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
                   <Typography
@@ -136,6 +141,7 @@ export default function UserInterface({
                      padding={"0 1.4em"}
                   />
                </ColIcon>
+
             </ColIcon>
 
          </BottomIcons>
