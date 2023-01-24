@@ -9,7 +9,7 @@ position:absolute;
 cursor:pointer;
 bottom:${props => props.bottom || ""};
 right:${props => props.right || ""};
-z-index:40;
+z-index:45;
 user-drag: none;
 -webkit-user-drag: none;
 user-select: none;
@@ -46,8 +46,8 @@ export default function Cat({
 
 
    useEffect(() => {
-      const x = generateRandomNumber(-250, 250);
-      const y = generateRandomNumber(-250, 250);
+      const x = generateRandomNumber(-45, 40);
+      const y = generateRandomNumber(-35, 25);
       setY(y)
       setX(x)
       console.log(y, x)
@@ -57,17 +57,13 @@ export default function Cat({
    return (
       <CatBox>
          <CatArea
-            initial={{ x: x, y: y }}
-            animate={{ x: x, y: y }}
+            initial={{ x: `${x}vw`, y: `${y}vh` }}
+            animate={{ x: `${x}vw`, y: `${y}vh` }}
             transition={{ duration: .2 }}
             whileHover={{
                scale: 1.2,
                transition: { duration: .15 },
             }}
-            drag={true}
-            dragConstraints={{ left: -350, right: 350, top: -250, bottom: 250 }}
-            dragElastic={0.1}
-            dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
          >
             <CatImage src={image} width={width} height={height} onClick={onClick} alt={alt} />
          </CatArea>

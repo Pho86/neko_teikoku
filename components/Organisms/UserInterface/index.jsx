@@ -14,13 +14,14 @@ pointer-events:none;
 display:flex;
 flex-direction:column;
 justify-content:space-between;
-z-index:50;
+z-index:44;
 `
 const TopIcons = styled.div`
 display:flex;
 align-items:flex-end;
 pointer-events:auto;
 justify-content:space-between;
+
 `
 const BottomIcons = styled.div`
 display:flex;
@@ -28,6 +29,7 @@ align-items:flex-end;
 bottom:0;
 pointer-events:auto;
 gap:2em;
+z-index:-25;
 `
 const ColIcon = styled.div`
 display:flex;
@@ -36,8 +38,10 @@ justify-content:center;
 text-align:${props => props.textAlign || "center"};
 gap:.5em;
 cursor:pointer;
+pointer-events:auto;
 `
 const RowIcon = styled.div`
+pointer-events:auto;
 display:flex;
 gap:${props => props.gap || ".5em"};
 transform:${props => props.transform || ""};
