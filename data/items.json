@@ -1,0 +1,38 @@
+[
+   {
+      "name": "Rice",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "Grass",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "Water",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "Ice",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "Mice",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "Monkey",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "Test",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "IDK",
+      "image": "/cats/caticon.svg"
+   },
+   {
+      "name": "NICE",
+      "image": "/cats/caticon.svg"
+   }
+]

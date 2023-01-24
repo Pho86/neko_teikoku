@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
 import { useState } from "react";
+import Items from "@/data/items.json"
+
 const SliderDiv = styled(motion.div)`
 position:fixed;
 bottom:0;
@@ -43,6 +45,8 @@ export default function ItemsSlider({
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
+
+   console.log(Items)
    return (
       <>
          <AnimatePresence>
@@ -60,38 +64,20 @@ export default function ItemsSlider({
                         setPageLimit(pageLimit - 6);
                      }
                   }}>BACK</button>
-                  <Grid>
-                     <GridItem>
-                        <ItemCard image="/cats/caticon.svg" alt="MEOW MEOW" />
-                        <Typography text={"Rice"} weight={"bold"} size={"1.2em"} />
-                     </GridItem>
-                     <GridItem>
-                        <ItemCard image="/cats/caticon.svg" alt="MEOW MEOW" />
-                        <Typography text={"Meow"} weight={"bold"} size={"1.2em"} />
-                     </GridItem>
-                     <GridItem>
-                        <ItemCard image="/cats/caticon.svg" alt="MEOW MEOW" />
-                        <Typography text={"Chicken"} weight={"bold"} size={"1.2em"} />
-                     </GridItem>
-                     <GridItem>
-                        <ItemCard image="/cats/caticon.svg" alt="MEOW MEOW" />
-                        <Typography text={"Monkey"} weight={"bold"} size={"1.2em"} />
-                     </GridItem>
-                     <GridItem>
-                        <ItemCard image="/cats/caticon.svg" alt="MEOW MEOW" />
-                        <Typography text={"Flour"} weight={"bold"} size={"1.2em"} />
-                     </GridItem>
-                     <GridItem>
-                        <ItemCard image="/cats/caticon.svg" alt="MEOW MEOW" />
-                        <Typography text={"Red"} weight={"bold"} size={"1.2em"} />
-                     </GridItem>
 
+                  <Grid>
+                     {Items && Items.slice(pageMin, pageLimit).map((item, i) => {
+                        return <GridItem key={i}>
+                           <ItemCard image={item.image} alt="MEOW MEOW" />
+                           <Typography text={item.name} weight={"bold"} size={"1.2em"} />
+                        </GridItem>
+                     })}
                   </Grid>
                   <button onClick={() => {
-                     if (currentPage > 1) {
-                        setCurrentPage(currentPage - 1);
-                        setPageMin(pageMin - 6);
-                        setPageLimit(pageLimit - 6);
+                     if (currentPage < 2) {
+                        setCurrentPage(currentPage + 1);
+                        setPageMin(pageMin + 6);
+                        setPageLimit(pageLimit + 6);
                      }
                   }}>Forward</button>
                </SliderDiv>
