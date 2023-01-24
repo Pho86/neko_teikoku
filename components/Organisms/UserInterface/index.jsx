@@ -29,7 +29,6 @@ align-items:flex-end;
 bottom:0;
 pointer-events:auto;
 gap:2em;
-z-index:-25;
 `
 const ColIcon = styled.div`
 display:flex;
