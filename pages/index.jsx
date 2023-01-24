@@ -27,14 +27,16 @@ export default function Home({ data }) {
   }
 
   let apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_KEY;
+  let apiKey1 = process.env.NEXT_PUBLIC_WEATHER_KEY;
   let lang = "en";
   let units = "metric";
-  const weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&appid=${apiKey}&lang=${lang}`
+  const OpenweatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&appid=${apiKey}&lang=${lang}`
+  const weatherURL = `http://api.weatherapi.com/v1/current.json?key=${apiKey1}&q=${location}&aqi=yes`
 
 
   const getData = async () => {
     const result = await axios.get(catUrl)
-    const weatherResult = await axios.get(weatherURL)
+    const weatherResult = await axios.get(OpenweatherURL)
     try {
       setCats(result.data)
       setWeather(weatherResult.data);
@@ -71,6 +73,7 @@ export default function Home({ data }) {
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
         <h2 className={styles.head} >Meowing @ {weather && weather.name}</h2>
+        {/* <h2 className={styles.head} >Meowing @ {weather && weather.location.name}</h2> */}
 
         <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
         {cats && cats.map((cat, i) => {
