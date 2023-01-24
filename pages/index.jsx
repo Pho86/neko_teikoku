@@ -47,16 +47,17 @@ export default function Home({ data }) {
   }
 
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getData()
-      const amountOfCats = generateRandomNumber(0, 2)
-      for (let i = 0; i < amountOfCats; i++) {
-        let random = selectRandomFromArray(data)
-        randomCats.push(random)
-      }
+  async function fetchData() {
+    const data = await getData()
+    const amountOfCats = generateRandomNumber(0, 5)
+    for (let i = 0; i < amountOfCats; i++) {
+      let random = selectRandomFromArray(data)
+      randomCats.push(random)
     }
+  }
+  useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

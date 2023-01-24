@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
 import { useState } from "react";
-import Items from "@/data/items.json"
+import ItemData from "@/data/items.json"
 
 const SliderDiv = styled(motion.div)`
 position:fixed;
@@ -46,7 +46,6 @@ export default function ItemsSlider({
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
 
-   console.log(Items)
    return (
       <>
          <AnimatePresence>
@@ -66,7 +65,7 @@ export default function ItemsSlider({
                   }}>BACK</button>
 
                   <Grid>
-                     {Items && Items.slice(pageMin, pageLimit).map((item, i) => {
+                     {ItemData && ItemData.slice(pageMin, pageLimit).map((item, i) => {
                         return <GridItem key={i}>
                            <ItemCard image={item.image} alt="MEOW MEOW" />
                            <Typography text={item.name} weight={"bold"} size={"1.2em"} />

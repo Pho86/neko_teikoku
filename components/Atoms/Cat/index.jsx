@@ -46,8 +46,8 @@ export default function Cat({
 
 
    useEffect(() => {
-      const x = generateRandomNumber(-50, 45);
-      const y = generateRandomNumber(-40, 25);
+      const x = generateRandomNumber(-45, 40);
+      const y = generateRandomNumber(-35, 25);
       setY(y)
       setX(x)
       console.log(y, x)
