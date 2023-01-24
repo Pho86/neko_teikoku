@@ -5,6 +5,8 @@ Apis we are using are:
 * [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
 * [OpenWeatherMapApi](https://openweathermap.org/api)
 
+* [WeatherAPI](https://www.weatherapi.com/)
+
 ## Getting Started
 
 First, run the development server:

@@ -44,7 +44,6 @@ const RowIcon = styled.div`
 pointer-events:auto;
 display:flex;
 gap:${props => props.gap || ".5em"};
-transform:${props => props.transform || ""};
 cursor:pointer;
 `
 const WeatherDiv = styled.div`
@@ -75,11 +74,13 @@ export default function UserInterface({
                <WeatherDiv>
                   <Typography
                      text={weatherData.weather[0].main}
+                     // text={weatherData.current.condition.text}
                      weight={"bold"}
                      size={"1.2em"}
                   />
                   <Typography
                      text={`${weatherData.main.temp}℃`}
+                     // text={`${weatherData.current.temp_c}℃`}
                      size={"1.2em"}
                   />
                </WeatherDiv>
