@@ -50,10 +50,12 @@ export default function Home({ data }) {
 
 
   async function fetchData() {
-    const data = await getData()
-    const amountOfCats = generateRandomNumber(0, 5)
+    const data = await getData();
+    const amountOfCats = generateRandomNumber(0, 2);
+    let cats = data;
     for (let i = 0; i < amountOfCats; i++) {
-      let random = selectRandomFromArray(data)
+      let random = selectRandomFromArray(data);
+      // cats.splice(i, 1)
       randomCats.push(random)
     }
   }

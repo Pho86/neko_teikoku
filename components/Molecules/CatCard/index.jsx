@@ -35,7 +35,7 @@ export default function CatCard({
                />
                <Typography
                   text={catData.breedName}
-                  weight={"bold"}
+                  weight={"500"}
                   size={"1.2em"}
                />
             </CatTextDiv>

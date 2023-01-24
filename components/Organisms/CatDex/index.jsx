@@ -4,13 +4,11 @@ import { PopUp, OpacityBackgroundFade } from "@/components/Atoms/Popup";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
-import Cat from "@/components/Atoms/Cat";
-import { selectRandomFromArray } from "@/util";
-import { useEffect } from "react";
+
 const PopUpDiv = styled(PopUp)`
 flex-direction:row;
 justify-content:space-between;
-gap:1em;
+gap:2em;
 `
 const PopUpGrid = styled.div`
 display:grid;
@@ -40,7 +38,7 @@ export default function CatDex({
          <AnimatePresence>
             {catDex === true &&
                <>
-                  <OpacityBackgroundFade key={"Background Fade"} onClick={onExit} />
+                  <OpacityBackgroundFade key={"CatDex Fade"} onClick={onExit} />
                   <PopUpDiv
                      initial={{ opacity: 0 }}
                      animate={{ opacity: 1 }}
@@ -72,7 +70,8 @@ export default function CatDex({
                         }
                      }}>NEXT</button>
                   </PopUpDiv>
-               </>}
+               </>
+            }
          </AnimatePresence>
 
       </>
