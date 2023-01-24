@@ -9,7 +9,7 @@ const UserInterfaceDiv = styled.div`
 position:fixed;
 width:100vw;
 height:100vh;
-padding:2em;
+padding:2.5em;
 pointer-events:none;
 display:flex;
 flex-direction:column;
@@ -29,7 +29,6 @@ align-items:flex-end;
 bottom:0;
 pointer-events:auto;
 gap:2em;
-z-index:-25;
 `
 const ColIcon = styled.div`
 display:flex;
@@ -143,7 +142,7 @@ export default function UserInterface({
                      text={"Cook"}
                      weight={"bold"}
                      size={"1.2em"}
-                     padding={"0 1.4em"}
+                     padding={"0 1.5em"}
                   />
                </ColIcon>
             </ColIcon>

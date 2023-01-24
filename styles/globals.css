@@ -3,8 +3,11 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-  --primary: #ECECEC;
+  --primary: #FEF9ED;
+  --border: #EF9771;
   --secondary: #D9D9D9;
+  --accent: #B4B0E3;
+  --secondary-accent: #4D4699;
   --white: 0, 0, 0;
   --black: 0, 0, 0;
 

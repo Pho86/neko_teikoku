@@ -50,7 +50,7 @@ export default function Cat({
       const y = generateRandomNumber(-35, 25);
       setY(y)
       setX(x)
-      console.log(y, x)
+      console.log(x, y)
    }, [])
 
 

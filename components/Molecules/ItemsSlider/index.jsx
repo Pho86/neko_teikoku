@@ -36,6 +36,9 @@ padding:1em 2em;
 border-radius:1em;
 border:none;
 top:-25%;
+right:0;
+margin-right:3%;
+cursor:pointer;
 `
 export default function ItemsSlider({
    active,

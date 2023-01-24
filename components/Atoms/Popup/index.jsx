@@ -19,15 +19,16 @@ top: 50%;
 left: 50%;
 position:fixed;
 transform: translate(-50%, -50%);
-padding:2.3em 2em;
-border-radius:.5em;
-width:${props => props.width || "65%"};
+padding:2.5em 2.5em;
+border-radius:1em;
+// width:${props => props.width || "65%"};
 display:flex;
 flex-direction:column;
 justify-content:space-between;
 align-items:center;
 cursor:auto;
 z-index:56;
+border: 5px solid var(--border);
 `
 
 export function OpacityBackgroundFade({
