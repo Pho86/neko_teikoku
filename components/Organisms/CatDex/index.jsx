@@ -1,9 +1,9 @@
 import CatCard from "@/components/Molecules/CatCard";
-import CatDexCard from "@/components/Molecules/CatDexCard";
 import { PopUp, OpacityBackgroundFade } from "@/components/Atoms/Popup";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
+import Image from "next/image";
 
 const PopUpDiv = styled(PopUp)`
 flex-direction:row;
@@ -19,6 +19,7 @@ gap:3em;
    grid-template-columns: repeat(1, 1fr);
  }
 `
+
 const GridItem = styled.div`
 display:grid
 `
@@ -45,13 +46,16 @@ export default function CatDex({
                      exit={{ opacity: 0 }}
                      width={"65vw"}
                   >
-                     <button onClick={() => {
-                        if (currentPage > 1) {
-                           setCurrentPage(currentPage - 1);
-                           setPageMin(pageMin - 6);
-                           setPageLimit(pageLimit - 6);
-                        }
-                     }}>BACK</button>
+                     <Image
+                        src="/icons/leftarrow.svg"
+                        alt="Go back" width={50} height={50}
+                        onClick={() => {
+                           if (currentPage > 1) {
+                              setCurrentPage(currentPage - 1);
+                              setPageMin(pageMin - 6);
+                              setPageLimit(pageLimit - 6);
+                           }
+                        }} />
                      <PopUpGrid>
                         {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
                            return (
@@ -62,13 +66,16 @@ export default function CatDex({
                            )
                         })}
                      </PopUpGrid>
-                     <button onClick={() => {
-                        if (currentPage < 14) {
-                           setCurrentPage(currentPage + 1);
-                           setPageMin(pageMin + 6);
-                           setPageLimit(pageLimit + 6);
-                        }
-                     }}>NEXT</button>
+                     <Image
+                        src="/icons/rightarrow.svg"
+                        alt="Go forward" width={50} height={50}
+                        onClick={() => {
+                           if (currentPage < 14) {
+                              setCurrentPage(currentPage + 1);
+                              setPageMin(pageMin + 6);
+                              setPageLimit(pageLimit + 6);
+                           }
+                        }} />
                   </PopUpDiv>
                </>
             }
