@@ -4,17 +4,21 @@ import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
 import { useState } from "react";
 import ItemData from "@/data/items.json"
-
+import Image from "next/image";
+import IconButton from "@/components/Atoms/IconButton";
 const SliderDiv = styled(motion.div)`
 position:fixed;
 bottom:0;
 left:0;
 width:100vw;
 padding:3em;
-background-color:#ECECEC;
+background-color:var(--primary);
+border-top: 6px solid var(--border);
 z-index:51;
 display:flex; 
 justify-content:space-between;
+align-items:center;
+pointer-events:auto;
 `
 const Grid = styled.div`
 display:grid;
@@ -59,13 +63,15 @@ export default function ItemsSlider({
                   exit={{ opacity: 0, y: 150 }}
                >
                   <CloseButton onClick={onExit}>Close</CloseButton>
-                  <button onClick={() => {
-                     if (currentPage > 1) {
-                        setCurrentPage(currentPage - 1);
-                        setPageMin(pageMin - 6);
-                        setPageLimit(pageLimit - 6);
-                     }
-                  }}>BACK</button>
+                  <IconButton
+                     image="/icons/leftarrow.svg"
+                     alt="Go backwards" width={75} height={75} onClick={() => {
+                        if (currentPage > 1) {
+                           setCurrentPage(currentPage - 1);
+                           setPageMin(pageMin - 6);
+                           setPageLimit(pageLimit - 6);
+                        }
+                     }} />
 
                   <Grid>
                      {ItemData && ItemData.slice(pageMin, pageLimit).map((item, i) => {
@@ -75,13 +81,17 @@ export default function ItemsSlider({
                         </GridItem>
                      })}
                   </Grid>
-                  <button onClick={() => {
-                     if (currentPage < 2) {
-                        setCurrentPage(currentPage + 1);
-                        setPageMin(pageMin + 6);
-                        setPageLimit(pageLimit + 6);
-                     }
-                  }}>Forward</button>
+                  <IconButton
+                     image="/icons/rightarrow.svg"
+                     alt="Go forward" width={75} height={75}
+                     onClick={() => {
+                        if (currentPage < 2) {
+                           setCurrentPage(currentPage + 1);
+                           setPageMin(pageMin + 6);
+                           setPageLimit(pageLimit + 6);
+                        }
+                     }}
+                  />
                </SliderDiv>
             }
          </AnimatePresence>

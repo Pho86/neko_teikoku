@@ -21,7 +21,6 @@ position:fixed;
 transform: translate(-50%, -50%);
 padding:2.5em 2.5em;
 border-radius:1em;
-// width:${props => props.width || "65%"};
 display:flex;
 flex-direction:column;
 justify-content:space-between;

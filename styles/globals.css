@@ -1,18 +1,25 @@
+
+/* @import url('https://fonts.googleapis.com/css2?family=Fredoka'); */
 :root {
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   --primary: #FEF9ED;
+  --white: #FFFFFF;
   --border: #EF9771;
+  --border-hard: #EB5E5E;
   --secondary: #D9D9D9;
   --accent: #B4B0E3;
+  --light-accent: #CFCCED;
   --secondary-accent: #4D4699;
-  --white: 0, 0, 0;
   --black: 0, 0, 0;
 
 }
 
+button, input {
+  font-family: 'Fredoka', sans-serif;
+}
 
 * {
   box-sizing: border-box;
