@@ -42,9 +42,10 @@ export default function CatDex({
                <>
                   <OpacityBackgroundFade key={"CatDex Fade"} onClick={onExit} />
                   <PopUpDiv
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     exit={{ opacity: 0 }}
+                     initial={{ opacity: 0, x: "-50%", y: "-100vh" }}
+                     animate={{ opacity: 1, x: "-50%", y: "-50%" }}
+                     exit={{ opacity: 0, y: "-150%" }}
+                     transition={{ delay: .05, duration: .5 }}
                      width={"65vw"}
                   >
                      <IconButton
