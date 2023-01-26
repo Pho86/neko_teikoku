@@ -5,7 +5,7 @@ import Typography from "@/components/Atoms/Text";
 import { useState } from "react";
 import ItemData from "@/data/items.json"
 import Image from "next/image";
-
+import IconButton from "@/components/Atoms/IconButton";
 const SliderDiv = styled(motion.div)`
 position:fixed;
 bottom:0;
@@ -18,6 +18,7 @@ z-index:51;
 display:flex; 
 justify-content:space-between;
 align-items:center;
+pointer-events:auto;
 `
 const Grid = styled.div`
 display:grid;
@@ -62,8 +63,8 @@ export default function ItemsSlider({
                   exit={{ opacity: 0, y: 150 }}
                >
                   <CloseButton onClick={onExit}>Close</CloseButton>
-                  <Image
-                     src="/icons/leftarrow.svg"
+                  <IconButton
+                     image="/icons/leftarrow.svg"
                      alt="Go backwards" width={75} height={75} onClick={() => {
                         if (currentPage > 1) {
                            setCurrentPage(currentPage - 1);
@@ -80,8 +81,8 @@ export default function ItemsSlider({
                         </GridItem>
                      })}
                   </Grid>
-                  <Image
-                     src="/icons/rightarrow.svg"
+                  <IconButton
+                     image="/icons/rightarrow.svg"
                      alt="Go forward" width={75} height={75}
                      onClick={() => {
                         if (currentPage < 2) {

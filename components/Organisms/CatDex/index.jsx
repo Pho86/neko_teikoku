@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
 import Image from "next/image";
+import IconButton from "@/components/Atoms/IconButton";
 
 const PopUpDiv = styled(PopUp)`
 flex-direction:row;
@@ -46,9 +47,9 @@ export default function CatDex({
                      exit={{ opacity: 0 }}
                      width={"65vw"}
                   >
-                     <Image
-                        src="/icons/leftarrow.svg"
-                        alt="Go back" width={50} height={50}
+                     <IconButton
+                        image="/icons/leftarrow.svg"
+                        alt="Go back" width={75} height={75}
                         onClick={() => {
                            if (currentPage > 1) {
                               setCurrentPage(currentPage - 1);
@@ -66,9 +67,9 @@ export default function CatDex({
                            )
                         })}
                      </PopUpGrid>
-                     <Image
-                        src="/icons/rightarrow.svg"
-                        alt="Go forward" width={50} height={50}
+                     <IconButton
+                        image="/icons/rightarrow.svg"
+                        alt="Go forward" width={75} height={75}
                         onClick={() => {
                            if (currentPage < 14) {
                               setCurrentPage(currentPage + 1);
