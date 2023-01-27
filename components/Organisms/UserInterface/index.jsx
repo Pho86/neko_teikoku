@@ -43,6 +43,9 @@ display:flex;
 gap:${props => props.gap || ".5em"};
 cursor:pointer;
 `
+const SliderIcons = styled(motion.div)`
+position:absolute;
+`
 const WeatherDiv = styled.div`
 display:flex;
 flex-direction:column;
@@ -106,10 +109,10 @@ export default function UserInterface({
             <ColIcon>
                <AnimatePresence>
                   {CookShow &&
-                     <motion.div
+                     <SliderIcons
                         initial={{ opacity: 0, y: 100, x: "-25%" }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 80 }}
+                        animate={{ opacity: 1, y: -125 }}
+                        exit={{ opacity: 0, y: 125 }}
                      >
                         <RowIcon gap={"2em"}>
                            <ColIcon>
@@ -129,16 +132,15 @@ export default function UserInterface({
                               />
                            </ColIcon>
                         </RowIcon>
-                     </motion.div>
+                     </SliderIcons>
                   }
                </AnimatePresence>
-               <ColIcon onClick={() => { setCookShow(!CookShow) }} textAlign={"left"}>
+               <ColIcon onClick={() => { setCookShow(!CookShow) }}>
                   <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
                   <Typography
                      text={"treats"}
                      weight={"600"}
                      size={"1.2em"}
-                     padding={"0 1.3em"}
                   />
                </ColIcon>
             </ColIcon>

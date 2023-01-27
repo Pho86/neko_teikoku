@@ -20,7 +20,8 @@ const CatDexCardDiv = styled(PopUpWithTab)`
 position:absolute;
 `
 const CatDexCardHead = styled.div`
-text-shadow: -1px -1px 0 #4D4699, 1px -1px 0 #4D4699, -1px 1px 0 #4D4699, 1px 1px 0 #4D4699;
+-webkit-text-stroke: 5px var(--secondary-accent);
+paint-order: stroke fill;
 `
 const CatDexCardContent = styled.div`
 display:grid;
