@@ -7,6 +7,15 @@ Apis we are using are:
 
 * [WeatherAPI](https://www.weatherapi.com/)
 
+## Technology used in the web application
+* Next JS,
+* React,
+* Axios,
+* Styled-components,
+* Framer Motion,
+* Lottie React,
+* Firebase
+
 ## Getting Started
 
 First, run the development server:

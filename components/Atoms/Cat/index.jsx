@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { selectRandomFromArray, generateRandomNumber } from "@/util";
+import { generateRandomNumber } from "@/util";
 import { useEffect, useState } from "react";
 
 const CatImage = styled(Image)`
@@ -18,7 +18,7 @@ user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
 &:hover{
-   filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.4));
+   filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
 }
 `
 const CatBox = styled(motion.div)`
@@ -29,6 +29,8 @@ display:flex;
 justify-content:center;
 align-items:center;
 pointer-events:none;
+left:0;
+top:0;
 `
 const CatArea = styled(motion.div)`
 `

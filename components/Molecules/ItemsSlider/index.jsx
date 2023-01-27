@@ -4,22 +4,10 @@ import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
 import { useState } from "react";
 import ItemData from "@/data/items.json"
-import Image from "next/image";
+import Button from "@/components/Atoms/Button";
 import IconButton from "@/components/Atoms/IconButton";
-const SliderDiv = styled(motion.div)`
-position:fixed;
-bottom:0;
-left:0;
-width:100vw;
-padding:3em;
-background-color:var(--primary);
-border-top: 6px solid var(--border);
-z-index:51;
-display:flex; 
-justify-content:space-between;
-align-items:center;
-pointer-events:auto;
-`
+import { Slider } from "@/components/Atoms/Slider";
+
 const Grid = styled.div`
 display:grid;
 grid-template-columns:repeat(6, 1fr);
@@ -34,15 +22,10 @@ align-items: center;
 justify-content: center;
 flex-direction:column;
 `
-const CloseButton = styled.button`
+const CloseButtonCont = styled.div`
 position:fixed;
-padding:1em 2em;
-border-radius:1em;
-border:none;
-top:-25%;
-right:0;
-margin-right:3%;
-cursor:pointer;
+top:calc(-25% - 3em);
+right:3%;
 `
 export default function ItemsSlider({
    active,
@@ -57,14 +40,19 @@ export default function ItemsSlider({
       <>
          <AnimatePresence>
             {active &&
-               <SliderDiv
-                  initial={{ opacity: 0, y: 150 }}
-                  animate={{ opacity: 1, y: 10 }}
-                  exit={{ opacity: 0, y: 150 }}
+               <Slider
+                  initial={{ y: "30vh" }}
+                  animate={{ y: 10 }}
+                  exit={{ y: "30vh" }}
+                  transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                >
-                  <CloseButton onClick={onExit}>Close</CloseButton>
+                  <CloseButtonCont>
+                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-light)" alt="exit button" colorhover="var(--border-hard)"/>
+                  </CloseButtonCont>
                   <IconButton
-                     image="/icons/leftarrow.svg"
+                     image="/icons/leftarrowlight.svg"
+                     hover
+                     secondImage="/icons/leftarrow.svg"
                      alt="Go backwards" width={75} height={75} onClick={() => {
                         if (currentPage > 1) {
                            setCurrentPage(currentPage - 1);
@@ -77,12 +65,15 @@ export default function ItemsSlider({
                      {ItemData && ItemData.slice(pageMin, pageLimit).map((item, i) => {
                         return <GridItem key={i}>
                            <ItemCard image={item.image} alt="MEOW MEOW" />
-                           <Typography text={item.name} weight={"bold"} size={"1.2em"} />
+                           <Typography text={"x1"} weight={"400"} size={".9em"} />
+                           <Typography text={item.name} weight={"500"} size={"1.2em"} />
                         </GridItem>
                      })}
                   </Grid>
                   <IconButton
-                     image="/icons/rightarrow.svg"
+                     image="/icons/rightarrowlight.svg"
+                     hover
+                     secondImage="/icons/rightarrow.svg"
                      alt="Go forward" width={75} height={75}
                      onClick={() => {
                         if (currentPage < 2) {
@@ -92,7 +83,7 @@ export default function ItemsSlider({
                         }
                      }}
                   />
-               </SliderDiv>
+               </Slider>
             }
          </AnimatePresence>
       </>
