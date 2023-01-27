@@ -6,20 +6,8 @@ import { useState } from "react";
 import ItemData from "@/data/items.json"
 import Image from "next/image";
 import IconButton from "@/components/Atoms/IconButton";
-const SliderDiv = styled(motion.div)`
-position:fixed;
-bottom:0;
-left:0;
-width:100vw;
-padding:3em;
-background-color:var(--primary);
-border-top: 6px solid var(--border);
-z-index:51;
-display:flex; 
-justify-content:space-between;
-align-items:center;
-pointer-events:auto;
-`
+import { Slider } from "@/components/Atoms/Slider";
+import ArrowButton from "@/components/Atoms/ArrowButton";
 const Grid = styled.div`
 display:grid;
 grid-template-columns:repeat(6, 1fr);
@@ -57,14 +45,17 @@ export default function ItemsSlider({
       <>
          <AnimatePresence>
             {active &&
-               <SliderDiv
-                  initial={{ opacity: 0, y: 150 }}
-                  animate={{ opacity: 1, y: 10 }}
-                  exit={{ opacity: 0, y: 150 }}
+               <Slider
+                  initial={{ y: "30vh" }}
+                  animate={{ y: 10 }}
+                  exit={{ y: "30vh" }}
+                  transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                >
                   <CloseButton onClick={onExit}>Close</CloseButton>
                   <IconButton
                      image="/icons/leftarrow.svg"
+                     hover
+                     secondImage="/icons/leftarrowlight.svg"
                      alt="Go backwards" width={75} height={75} onClick={() => {
                         if (currentPage > 1) {
                            setCurrentPage(currentPage - 1);
@@ -83,6 +74,8 @@ export default function ItemsSlider({
                   </Grid>
                   <IconButton
                      image="/icons/rightarrow.svg"
+                     hover
+                     secondImage="/icons/rightarrowlight.svg"
                      alt="Go forward" width={75} height={75}
                      onClick={() => {
                         if (currentPage < 2) {
@@ -92,7 +85,7 @@ export default function ItemsSlider({
                         }
                      }}
                   />
-               </SliderDiv>
+               </Slider>
             }
          </AnimatePresence>
       </>

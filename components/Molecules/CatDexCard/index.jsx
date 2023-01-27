@@ -3,7 +3,7 @@ import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from 'framer-motion';
 import { EmptySpace } from "@/components/Atoms/EmptySpacer";
 import Image from "next/image";
-import { OpacityBackgroundFade, PopUp } from "@/components/Atoms/Popup";
+import { OpacityBackgroundFade, PopUp, PopUpWithTab } from "@/components/Atoms/Popup";
 
 const CatDexCardTitle = styled.div`
 background-color:#B4B0E3;
@@ -15,7 +15,8 @@ box-shadow: 0px 4px 2px 0px #D9D9D9;
 width:95%;
 color:white;
 `
-const CatDexCardDiv = styled(PopUp)`
+const CatDexCardDiv = styled(PopUpWithTab)`
+position:absolute;
 `
 const CatDexCardHead = styled.div`
 text-shadow: -1px -1px 0 #4D4699, 1px -1px 0 #4D4699, -1px 1px 0 #4D4699, 1px 1px 0 #4D4699;
@@ -36,7 +37,7 @@ justify-content: center;
 const CatDexCardText = styled.div`
 display:flex;
 flex-direction:column;
-gap:2em;
+gap:1em;
 `
 const CatDexCardContentText = styled.div`
 background-color:white;
@@ -47,105 +48,99 @@ border-bottom: 4px solid var(--accent);
 `
 const CatDexCardContentDescription = styled(CatDexCardContentText)`
 text-align:left;
+max-width:32em;
 `
-const CatDexCardTab = styled.div`
-position:absolute;
-width:125px;
-height:50px;
-border-radius: 1.5em 1.5em 0 0;
-background-color:var(--border);
-z-index:55;
-display:flex;
-justify-content:center;
-align-items:center;
-`
+
 export default function CatDexCard({
    catData,
    show,
    onExit = () => { },
+   onCatExit = () => { }
 }) {
    return (
       <>
          <AnimatePresence>
-
-
             {catData.id === show && <>
                <OpacityBackgroundFade onClick={onExit} />
-               {/* <CatDexCardTab>
-                  <Typography
-                     text="cat dex"
-                     color="var(--white)"
-                     weight="500" />
-               </CatDexCardTab> */}
                <CatDexCardDiv
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  width={"65%"}
-               >
-                  <CatDexCardTitle>
-                     <Typography
-                        text={`no. ${catData.id}`}
-                     />
-                     <CatDexCardHead>
-                        <Typography
-                           text={catData.breedName}
-                           weight={"bold"}
-                           size={"1.2em"}
-                        />
-                     </CatDexCardHead>
-                     <EmptySpace axis={"horizontal"} size={30} />
-                  </CatDexCardTitle>
-                  <EmptySpace axis={"vertical"} size={35} />
-                  <CatDexCardContent>
-                     <CatDexImage>
-                        <Image src={`${catData.imgThumb}`} width={300} height={300} alt="cat" style={{ borderRadius: "50%", textAlign: "center" }} />
-                     </CatDexImage>
-                     <CatDexCardText>
-                        <div>
+                  initial={{ x: "100vw", }}
+                  animate={{ x: "-0%" }}
+                  exit={{ x: "100vw" }}
+                  transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
+                  title={"Cat Dex"}
+                  onExit={onExit}
+                  exitTab
+                  catDexTab
+                  onCatDex={onCatExit}
+                  content={
+                     <>
+                        <CatDexCardTitle>
                            <Typography
-                              text={"Cat Breed"}
-                              size={"1.2em"}
-                              padding={"0 0 0 .5em"}
-                              color={"var(--secondary-accent)"}
+                              text={`no. ${catData.id}`}
                            />
-                           <CatDexCardContentText>
+                           <CatDexCardHead>
                               <Typography
                                  text={catData.breedName}
+                                 weight={"bold"}
                                  size={"1.2em"}
                               />
-                           </CatDexCardContentText>
-                        </div>
-                        <div>
-                           <Typography
-                              text={"Native Country"}
-                              size={"1.2em"}
-                              padding={"0 0 0 .5em"}
-                              color={"var(--secondary-accent)"}
-                           />
-                           <CatDexCardContentText>
-                              <Typography
-                                 text={catData.origin}
-                                 size={"1.2em"}
-                              />
-                           </CatDexCardContentText>
-                        </div>
-                        <div>
-                           <Typography
-                              text={"Description"}
-                              size={"1.2em"}
-                              padding={"0 0 0 .5em"}
-                              color={"var(--secondary-accent)"}
-                           />
-                           <CatDexCardContentDescription>
-                              <Typography
-                                 text={catData.breedDescription}
-                                 size={"1em"}
-                              />
-                           </CatDexCardContentDescription>
-                        </div>
-                     </CatDexCardText>
-                  </CatDexCardContent>
+                           </CatDexCardHead>
+                           <EmptySpace axis={"horizontal"} size={30} />
+                        </CatDexCardTitle>
+                        <EmptySpace axis={"vertical"} size={15} />
+                        <CatDexCardContent>
+                           <CatDexImage>
+                              <Image src={`${catData.imgThumb}`} width={300} height={300} alt="cat" style={{ borderRadius: "50%", textAlign: "center" }} />
+                           </CatDexImage>
+                           <CatDexCardText>
+                              <div>
+                                 <Typography
+                                    text={"Cat Breed"}
+                                    size={"1.2em"}
+                                    padding={"0 0 0 .5em"}
+                                    color={"var(--secondary-accent)"}
+                                 />
+                                 <CatDexCardContentText>
+                                    <Typography
+                                       text={catData.breedName}
+                                       size={"1.2em"}
+                                    />
+                                 </CatDexCardContentText>
+                              </div>
+                              <div>
+                                 <Typography
+                                    text={"Native Country"}
+                                    size={"1.2em"}
+                                    padding={"0 0 0 .5em"}
+                                    color={"var(--secondary-accent)"}
+                                 />
+                                 <CatDexCardContentText>
+                                    <Typography
+                                       text={catData.origin}
+                                       size={"1.2em"}
+                                    />
+                                 </CatDexCardContentText>
+                              </div>
+                              <div>
+                                 <Typography
+                                    text={"Description"}
+                                    size={"1.2em"}
+                                    padding={"0 0 0 .5em"}
+                                    color={"var(--secondary-accent)"}
+                                 />
+                                 <CatDexCardContentDescription>
+                                    <Typography
+                                       text={catData.breedDescription}
+                                       size={"1em"}
+                                    />
+                                 </CatDexCardContentDescription>
+                              </div>
+                           </CatDexCardText>
+                        </CatDexCardContent>
+                     </>
+                  }
+               >
+
                </CatDexCardDiv>
             </>
             }

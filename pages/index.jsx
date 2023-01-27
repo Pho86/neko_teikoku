@@ -8,8 +8,24 @@ import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
+import styled from 'styled-components';
 
-
+const GameArea = styled.div`
+position:absolute;
+width:100vw;
+height:100vh;
+padding:2.5em;
+display:flex;
+align-items:center;
+justify-content:center;
+`
+const PopUps = styled.div`
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+`
 
 export default function Home({ data }) {
 
@@ -61,7 +77,7 @@ export default function Home({ data }) {
   }
   useEffect(() => {
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -74,20 +90,22 @@ export default function Home({ data }) {
       </Head>
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
-        <h2 className={styles.head} >Meowing @ {weather && weather.name}</h2>
-        {/* <h2 className={styles.head} >Meowing @ {weather && weather.location.name}</h2> */}
-
-        <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
-        {cats && cats.map((cat, i) => {
-          return (
-            <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} />
-          )
-        })}
         <UserInterface weatherData={weather} onCatDexClick={() => { setCatDex(!catDex) }} />
+        <GameArea>
+          <PopUps>
+            <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
+            {cats && cats.map((cat, i) => {
+              return (
+                <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
+              )
+            })}
+          </PopUps>
 
+        </GameArea>
         {randomCats && randomCats.map((cat, i) => {
           return <Cat key={i} catData={cat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
+        <h2 className={styles.head} >Meowing @ {weather && weather.name}</h2>
       </main>
     </>
   )

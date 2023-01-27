@@ -6,15 +6,15 @@
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   --primary: #FEF9ED;
+  --secondary: #D9D9D9;
   --white: #FFFFFF;
   --border: #EF9771;
+  --border-light:#F48989;
   --border-hard: #EB5E5E;
-  --secondary: #D9D9D9;
   --accent: #B4B0E3;
   --light-accent: #CFCCED;
   --secondary-accent: #4D4699;
   --black: 0, 0, 0;
-
 }
 
 button, input {
