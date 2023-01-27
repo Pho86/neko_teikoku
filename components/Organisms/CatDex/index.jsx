@@ -36,7 +36,7 @@ export default function CatDex({
                <>
                   <OpacityBackgroundFade key={"CatDex Fade"} onClick={onExit} />
                   <PopUpWithTab
-                     title={"Cat Dex"}
+                     title={"cat dex"}
                      onExit={onExit}
                      size={"1.2em"}
                      direction="row"

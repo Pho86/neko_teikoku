@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
+const Button = styled.button`
+outline:none;
+border:none;
+background:none;
+`
+
 const ImageBut = styled(Image)`
 cursor:pointer;
-transition: all 1s;
+transition: all .2s;
 &:hover{
    filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
 }
@@ -19,8 +25,7 @@ export default function IconButton({
    secondImage
 }) {
    const [ishovering, sethovering] = useState(false);
-   return <div onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} >
-
+   return <Button onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} >
       {hover ?
          <>
             {
@@ -29,6 +34,6 @@ export default function IconButton({
          </>
          :
          <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} />}
-   </div>
+   </Button>
 
 }

@@ -77,12 +77,16 @@ pointer-events:none;
 margin-top:5%;
 `
 const PopupTab = styled.div`
-background-color:${props => props.color || "var(--border-hard)"};
+background-color:${props => props.color || "var(--border-light)"};
 display:flex;
 padding:1em 1.5em 1em 2em;
 border-radius:0 1.2em 1.2em 0em;
 pointer-events:auto;
+transition:all .1s ease-in-out;
 cursor:pointer;
+&:hover {
+   background-color:${props => props.hovercolor || "var(--border-hard)"};
+}
 `
 export function OpacityBackgroundFade({
    onClick = () => { },
@@ -106,7 +110,6 @@ export function PopUpWithTab({
    animate,
    transition,
    exit,
-   size,
    onExit = () => { },
    onCatDex = () => { },
    exitTab,
@@ -130,7 +133,7 @@ export function PopUpWithTab({
                {exitTab && <PopupTab onClick={onExit}>
                   <Image src="/icons/exit.svg" width={47} height={44} alt="exit icon" />
                </PopupTab>}
-               {catDexTab && <PopupTab onClick={onCatDex} color={"var(--accent)"}>
+               {catDexTab && <PopupTab onClick={onCatDex} color={"var(--accent)"} hovercolor={"var(--light-accent)"}>
                   <Image src="/icons/cat.svg" width={47} height={44} alt="catdex icon" />
                </PopupTab>}
             </PopUpTabsCol>

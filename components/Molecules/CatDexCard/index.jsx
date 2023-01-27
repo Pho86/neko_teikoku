@@ -14,6 +14,7 @@ border-radius:1em;
 box-shadow: 0px 4px 4px 0px #D9D9D9;
 width:95%;
 color:white;
+align-items:center;
 `
 const CatDexCardDiv = styled(PopUpWithTab)`
 position:absolute;
@@ -95,7 +96,7 @@ export default function CatDexCard({
                            <CatDexCardText>
                               <div>
                                  <Typography
-                                    text={"Cat Breed"}
+                                    text={"cat breed"}
                                     size={"1.3em"}
                                     padding={"0 0 0 .5em"}
                                     color={"var(--secondary-accent)"}
@@ -109,7 +110,7 @@ export default function CatDexCard({
                               </div>
                               <div>
                                  <Typography
-                                    text={"Native Country"}
+                                    text={"native country"}
                                     size={"1.3em"}
                                     padding={"0 0 0 .5em"}
                                     color={"var(--secondary-accent)"}
@@ -123,7 +124,7 @@ export default function CatDexCard({
                               </div>
                               <div>
                                  <Typography
-                                    text={"Description"}
+                                    text={"description"}
                                     size={"1.3em"}
                                     padding={"0 0 0 .5em"}
                                     color={"var(--secondary-accent)"}

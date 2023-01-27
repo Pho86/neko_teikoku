@@ -47,7 +47,7 @@ export default function ItemsSlider({
                   transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                >
                   <CloseButtonCont>
-                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-hard)" alt="exit button"/>
+                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-light)" alt="exit button" colorhover="var(--border-hard)"/>
                   </CloseButtonCont>
                   <IconButton
                      image="/icons/leftarrowlight.svg"
