@@ -4,10 +4,10 @@ import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
 import { useState } from "react";
 import ItemData from "@/data/items.json"
-import Image from "next/image";
+import Button from "@/components/Atoms/Button";
 import IconButton from "@/components/Atoms/IconButton";
 import { Slider } from "@/components/Atoms/Slider";
-import ArrowButton from "@/components/Atoms/ArrowButton";
+
 const Grid = styled.div`
 display:grid;
 grid-template-columns:repeat(6, 1fr);
@@ -22,15 +22,10 @@ align-items: center;
 justify-content: center;
 flex-direction:column;
 `
-const CloseButton = styled.button`
+const CloseButtonCont = styled.div`
 position:fixed;
-padding:1em 2em;
-border-radius:1em;
-border:none;
-top:-25%;
-right:0;
-margin-right:3%;
-cursor:pointer;
+top:calc(-25% - 3em);
+right:3%;
 `
 export default function ItemsSlider({
    active,
@@ -51,11 +46,13 @@ export default function ItemsSlider({
                   exit={{ y: "30vh" }}
                   transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                >
-                  <CloseButton onClick={onExit}>Close</CloseButton>
+                  <CloseButtonCont>
+                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-hard)" alt="exit button"/>
+                  </CloseButtonCont>
                   <IconButton
-                     image="/icons/leftarrow.svg"
+                     image="/icons/leftarrowlight.svg"
                      hover
-                     secondImage="/icons/leftarrowlight.svg"
+                     secondImage="/icons/leftarrow.svg"
                      alt="Go backwards" width={75} height={75} onClick={() => {
                         if (currentPage > 1) {
                            setCurrentPage(currentPage - 1);
@@ -68,14 +65,15 @@ export default function ItemsSlider({
                      {ItemData && ItemData.slice(pageMin, pageLimit).map((item, i) => {
                         return <GridItem key={i}>
                            <ItemCard image={item.image} alt="MEOW MEOW" />
-                           <Typography text={item.name} weight={"bold"} size={"1.2em"} />
+                           <Typography text={"x1"} weight={"400"} size={".9em"} />
+                           <Typography text={item.name} weight={"500"} size={"1.2em"} />
                         </GridItem>
                      })}
                   </Grid>
                   <IconButton
-                     image="/icons/rightarrow.svg"
+                     image="/icons/rightarrowlight.svg"
                      hover
-                     secondImage="/icons/rightarrowlight.svg"
+                     secondImage="/icons/rightarrow.svg"
                      alt="Go forward" width={75} height={75}
                      onClick={() => {
                         if (currentPage < 2) {

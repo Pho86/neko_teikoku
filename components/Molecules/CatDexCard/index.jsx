@@ -3,15 +3,15 @@ import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from 'framer-motion';
 import { EmptySpace } from "@/components/Atoms/EmptySpacer";
 import Image from "next/image";
-import { OpacityBackgroundFade, PopUp, PopUpWithTab } from "@/components/Atoms/Popup";
+import { OpacityBackgroundFade, PopUpWithTab } from "@/components/Atoms/Popup";
 
 const CatDexCardTitle = styled.div`
 background-color:#B4B0E3;
 display:flex;
 justify-content:space-between;
 padding:1em 2em;
-border-radius:2em;
-box-shadow: 0px 4px 2px 0px #D9D9D9;
+border-radius:1em;
+box-shadow: 0px 4px 4px 0px #D9D9D9;
 width:95%;
 color:white;
 `
@@ -42,7 +42,7 @@ gap:1em;
 const CatDexCardContentText = styled.div`
 background-color:white;
 padding:1em 1.5em;
-border-radius:1.5em;
+border-radius:1em;
 text-align:center;
 border-bottom: 4px solid var(--accent);
 `
@@ -82,7 +82,7 @@ export default function CatDexCard({
                               <Typography
                                  text={catData.breedName}
                                  weight={"bold"}
-                                 size={"1.2em"}
+                                 size={"1.5em"}
                               />
                            </CatDexCardHead>
                            <EmptySpace axis={"horizontal"} size={30} />
@@ -96,42 +96,42 @@ export default function CatDexCard({
                               <div>
                                  <Typography
                                     text={"Cat Breed"}
-                                    size={"1.2em"}
+                                    size={"1.3em"}
                                     padding={"0 0 0 .5em"}
                                     color={"var(--secondary-accent)"}
                                  />
                                  <CatDexCardContentText>
                                     <Typography
                                        text={catData.breedName}
-                                       size={"1.2em"}
+                                       size={"1.3em"}
                                     />
                                  </CatDexCardContentText>
                               </div>
                               <div>
                                  <Typography
                                     text={"Native Country"}
-                                    size={"1.2em"}
+                                    size={"1.3em"}
                                     padding={"0 0 0 .5em"}
                                     color={"var(--secondary-accent)"}
                                  />
                                  <CatDexCardContentText>
                                     <Typography
                                        text={catData.origin}
-                                       size={"1.2em"}
+                                       size={"1.3em"}
                                     />
                                  </CatDexCardContentText>
                               </div>
                               <div>
                                  <Typography
                                     text={"Description"}
-                                    size={"1.2em"}
+                                    size={"1.3em"}
                                     padding={"0 0 0 .5em"}
                                     color={"var(--secondary-accent)"}
                                  />
                                  <CatDexCardContentDescription>
                                     <Typography
                                        text={catData.breedDescription}
-                                       size={"1em"}
+                                       size={"1.1em"}
                                     />
                                  </CatDexCardContentDescription>
                               </div>

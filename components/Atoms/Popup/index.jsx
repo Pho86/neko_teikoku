@@ -79,7 +79,7 @@ margin-top:5%;
 const PopupTab = styled.div`
 background-color:${props => props.color || "var(--border-hard)"};
 display:flex;
-padding:1em 1.5em 1em 2.5em;
+padding:1em 1.5em 1em 2em;
 border-radius:0 1.2em 1.2em 0em;
 pointer-events:auto;
 cursor:pointer;
@@ -118,13 +118,11 @@ export function PopUpWithTab({
          transition={transition}
          exit={exit}
       >
-
          <TopTab>
-            <Typography text={title} size={size} color={"var(--white)"} weight={"600"}
+            <Typography text={title} size={"1.2em"} color={"var(--white)"} weight={"500"}
             />
          </TopTab>
          <PopUpRow>
-
             <PopUpNT direction={direction}>
                {content}
             </PopUpNT>

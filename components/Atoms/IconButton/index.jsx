@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 const ImageBut = styled(Image)`
 cursor:pointer;
+transition: all 1s;
 &:hover{
    filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
 }

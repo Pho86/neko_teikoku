@@ -27,7 +27,6 @@ const BottomIcons = styled.div`
 display:flex;
 align-items:flex-end;
 bottom:0;
-// pointer-events:auto;
 gap:2em;
 `
 const ColIcon = styled.div`

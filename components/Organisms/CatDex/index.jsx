@@ -47,9 +47,9 @@ export default function CatDex({
                      exitTab
                      content={<>
                         <IconButton
-                           image="/icons/leftarrow.svg"
+                           image="/icons/leftarrowlight.svg"
                            hover
-                           secondImage="/icons/leftarrowlight.svg"
+                           secondImage="/icons/leftarrow.svg"
                            alt="Go back" width={75} height={75}
                            onClick={() => {
                               if (currentPage > 1) {
@@ -68,9 +68,9 @@ export default function CatDex({
                            })}
                         </PopUpGrid>
                         <IconButton
-                           image="/icons/rightarrow.svg"
+                           image="/icons/rightarrowlight.svg"
                            hover
-                           secondImage="/icons/rightarrowlight.svg"
+                           secondImage="/icons/rightarrow.svg"
                            alt="Go forward" width={75} height={75}
                            onClick={() => {
                               if (currentPage < 14) {
