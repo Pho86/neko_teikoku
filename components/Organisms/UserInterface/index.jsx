@@ -3,7 +3,7 @@ import IconButton from "@/components/Atoms/IconButton";
 import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import ItemsSlider from "@/components/Molecules/ItemsSlider";
+import ItemsSlider from "@/components/Organisms/ItemsSlider";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -56,8 +56,9 @@ export default function UserInterface({
    currentUser,
    onCatDexClick = () => { },
 }) {
-   const [CookShow, setCookShow] = useState(false);
+   const [cookShow, setCookShow] = useState(false);
    const [setItems, setItemsShow] = useState(false);
+   const [treats, setTreatsShow] = useState(false);
    return (
       <UserInterfaceDiv>
          <TopIcons>
@@ -108,11 +109,12 @@ export default function UserInterface({
 
             <ColIcon>
                <AnimatePresence>
-                  {CookShow &&
+                  {cookShow &&
                      <SliderIcons
                         initial={{ opacity: 0, y: 100, x: "-25%" }}
                         animate={{ opacity: 1, y: -125 }}
                         exit={{ opacity: 0, y: 125 }}
+                        transition={{duration:.25}}
                      >
                         <RowIcon gap={"2em"}>
                            <ColIcon>
@@ -135,7 +137,7 @@ export default function UserInterface({
                      </SliderIcons>
                   }
                </AnimatePresence>
-               <ColIcon onClick={() => { setCookShow(!CookShow) }}>
+               <ColIcon onClick={() => { setCookShow(!cookShow) }}>
                   <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
                   <Typography
                      text={"treats"}
