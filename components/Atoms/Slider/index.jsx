@@ -22,6 +22,7 @@ left:0;
 width:100vw;
 display:flex;
 flex-direction:column;
+z-index:20;
 `
 
 const SliderTabBut = styled.div`
@@ -59,8 +60,8 @@ export function SliderTab({
     transition,
     exit,
     tabcolor,
-    onTab = () => {},
-    onSecondTab = () => {},
+    onTab = () => { },
+    onSecondTab = () => { },
     onExit = () => { },
 }) {
     return (
@@ -74,10 +75,10 @@ export function SliderTab({
                         <Typography text={tab} size={"1.2em"} color={tabcolor ? "var(--white)" : "var(--border)"} weight={"500"}
                         />
                     </SliderTabBut>
-                    <SliderTabBut onClick={onSecondTab} tabcolor={!tabcolor}>
+                    {secondtab && <SliderTabBut onClick={onSecondTab} tabcolor={!tabcolor}>
                         <Typography text={secondtab} size={"1.2em"} color={!tabcolor ? "var(--white)" : "var(--border)"} weight={"500"}
                         />
-                    </SliderTabBut>
+                    </SliderTabBut>}
                 </TopDiv>
                 <ButtonDiv>
                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-light)" alt="exit button" colorhover="var(--border-hard)" />
