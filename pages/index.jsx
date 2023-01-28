@@ -38,17 +38,11 @@ export default function Home({ data }) {
   const [weather, setWeather] = useState();
   const [currentUser, setCurrentUser] = useState({})
 
-  let catUrl = '/api/catbreed'
-  // if (process.env.VERCEL_URL) {
-  //   catUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
-  // }
-
-  let apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_KEY;
-  let apiKey1 = process.env.NEXT_PUBLIC_WEATHER_KEY;
   let lang = "en";
   let units = "metric";
-  const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&appid=${apiKey}&lang=${lang}`
-  const weatherURL = `http://api.weatherapi.com/v1/current.json?key=${apiKey1}&q=${location}&aqi=yes`
+
+  let catUrl = '/api/catbreed'
+  let openWeatherURL = `/api/weather?lang=${lang}&units=${units}&location=${location}`;
 
   const router = useRouter();
 
@@ -81,10 +75,9 @@ export default function Home({ data }) {
     const amountOfCats = generateRandomNumber(1, 2);
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(data);
-      console.log(random)
       randomCats.push(random)
     }
-    console.log(randomCats)
+    // console.log(randomCats)
   }
   useEffect(() => {
     fetchData();

@@ -1,8 +1,26 @@
 [
    {
-
+      "name": "rice",
+      "image": "/items/cat_lamp.svg"
    },
    {
-      
+      "name": "water",
+      "image": "/items/cat_lamp.svg"
+   },
+   {
+      "name": "ing 3",
+      "image": "/items/cat_lamp.svg"
+   },
+   {
+      "name": "ing 4",
+      "image": "/items/cat_lamp.svg"
+   },
+   {
+      "name": "ing 5",
+      "image": "/items/cat_lamp.svg"
+   },
+   {
+      "name": "ing 6",
+      "image": "/items/cat_lamp.svg"
    }
 ]
