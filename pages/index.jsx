@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,9 @@ import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
 import styled from 'styled-components';
-
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/firebase/firebase.config';
+import { useRouter } from 'next/router';
 const GameArea = styled.div`
 position:absolute;
 width:100vw;
@@ -32,10 +33,10 @@ export default function Home({ data }) {
   const [cats, setCats] = useState([]);
   const [catDex, setCatDex] = useState(false);
   const [catCard, setCatCard] = useState(0);
-  const [randomCat, setRandomCat] = useState();
   const [randomCats, setRandomCats] = useState([])
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
+  const [currentUser, setCurrentUser] = useState({})
 
   let catUrl = 'http://localhost:3000/api/catbreed'
   if (process.env.VERCEL_URL) {
@@ -49,6 +50,7 @@ export default function Home({ data }) {
   const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&appid=${apiKey}&lang=${lang}`
   const weatherURL = `http://api.weatherapi.com/v1/current.json?key=${apiKey1}&q=${location}&aqi=yes`
 
+  const router = useRouter();
 
   const getData = async () => {
     const result = await axios.get(catUrl)
@@ -70,7 +72,6 @@ export default function Home({ data }) {
     // console.log(cats)
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(cats);
-      // cats.splice(i, 1)
       randomCats.push(random)
     }
   }
@@ -82,13 +83,21 @@ export default function Home({ data }) {
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(data);
       console.log(random)
-      // cats.splice(i, 1)
       randomCats.push(random)
     }
     console.log(randomCats)
   }
   useEffect(() => {
     fetchData();
+    onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setCurrentUser(currentUser);
+        console.log(currentUser)
+      } else {
+        alert("please log in")
+        router.push('/login')
+      }
+    })
     // setInterval(() => {
     // RefreshData();
     // }, 10000);
@@ -104,7 +113,7 @@ export default function Home({ data }) {
 
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
-        <UserInterface weatherData={weather} onCatDexClick={() => { setCatDex(!catDex) }} />
+        <UserInterface currentUser={currentUser} weatherData={weather} onCatDexClick={() => { setCatDex(!catDex) }} />
         <GameArea>
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
@@ -119,7 +128,7 @@ export default function Home({ data }) {
         {randomCats && randomCats.map((cat, i) => {
           return <Cat key={i} catData={cat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
-        <h2 className={styles.head} >meowing @ {weather && weather.name}</h2>
+        <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
       </main>
     </>
   )
