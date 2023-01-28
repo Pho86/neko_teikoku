@@ -11,6 +11,7 @@ padding: ${props => props.padding};
 width: ${props => props.width};
 -webkit-text-stroke: ${props => props.textstroke};
 paint-order: stroke fill;
+
 `
 
 export default function Typography({

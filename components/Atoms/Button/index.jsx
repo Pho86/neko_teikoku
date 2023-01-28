@@ -27,9 +27,10 @@ export default function Button({
     alt,
     onClick = () => { },
     textstroke,
+    type,
 }) {
     return (
-        <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius}>
+        <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type}>
             {text && <Typography text={text} color={textcolor} weight={weight} size={size} textstroke={textstroke} />}
             {image && <Image src={image} width={47} height={44} alt={alt} />}
         </ButtonDiv>

@@ -20,7 +20,7 @@ const CatDexCardDiv = styled(PopUpWithTab)`
 position:absolute;
 `
 const CatDexCardHead = styled.div`
--webkit-text-stroke: 5px var(--secondary-accent);
+-webkit-text-stroke: 1px var(--secondary-accent);
 paint-order: stroke fill;
 `
 const CatDexCardContent = styled.div`

@@ -13,3 +13,12 @@ export const SignUp = async (values) => {
         displayName: values.username
     });
 }
+
+export const SignIn = async (values) => {
+    const result = await signInWithEmailAndPassword(auth, values.email, values.password);
+    console.log(result)
+}
+
+export const SignOut = async () => {
+    await signOut(auth)
+}
