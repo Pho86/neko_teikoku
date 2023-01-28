@@ -6,6 +6,7 @@ import { SignUp, SignIn, SignOut } from "/server";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase.config";
+import { useRouter } from "next/router";
 const LoginForm = styled.form`
 display:flex;
 flex-direction:column;
@@ -13,7 +14,7 @@ width:30%;
 `
 
 export default function Login() {
-
+    const router = useRouter()
     const [loginInfo, setLoginInfo] = useState({
         email: "",
         username: "",
@@ -82,7 +83,11 @@ export default function Login() {
                     {currentUser ? currentUser.displayName : 'Not logged in'}
 
                     
-                    {currentUser ? <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border-hard)"} /> : <></>}
+                    {currentUser ? <>
+                    <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border-hard)"} /> 
+                    <Button type="button" text="GO HOME" onClick={()=>{router.push('/')}}  colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border-hard)"} /> 
+                    </>
+                    : <></>}
                 </div>
             </div>
         </>

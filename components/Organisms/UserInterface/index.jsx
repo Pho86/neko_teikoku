@@ -53,7 +53,7 @@ justify-content:space-around;
 `
 export default function UserInterface({
    weatherData,
-   userData,
+   currentUser,
    onCatDexClick = () => { },
 }) {
    const [CookShow, setCookShow] = useState(false);
@@ -64,7 +64,7 @@ export default function UserInterface({
             <RowIcon>
                <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
                <Typography
-                  text={"NAME"}
+                  text={currentUser.displayName}
                   weight={"600"}
                   size={"1.2em"}
                />
