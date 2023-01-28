@@ -96,8 +96,8 @@ export default function UserInterface({
                   size={"1.2em"}
                />
             </ColIcon>
-            <ColIcon>
-               <IconButton image={"/cats/caticon.svg"} alt="Items Button" onClick={() => { setItemsShow(true) }} />
+            <ColIcon onClick={() => { setItemsShow(true) }}>
+               <IconButton image={"/cats/caticon.svg"} alt="Items Button"  />
                <Typography
                   text={"items"}
                   weight={"600"}

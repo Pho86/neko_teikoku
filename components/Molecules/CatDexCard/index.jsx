@@ -69,7 +69,7 @@ export default function CatDexCard({
                   animate={{ x: "-0%" }}
                   exit={{ x: "100vw" }}
                   transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
-                  title={"Cat Dex"}
+                  title={"cat dex"}
                   onExit={onExit}
                   exitTab
                   catDexTab

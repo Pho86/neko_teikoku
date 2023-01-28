@@ -38,17 +38,11 @@ export default function Home({ data }) {
   const [weather, setWeather] = useState();
   const [currentUser, setCurrentUser] = useState({})
 
-  let catUrl = '/api/catbreed'
-  // if (process.env.VERCEL_URL) {
-  //   catUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
-  // }
-
-  let apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_KEY;
-  let apiKey1 = process.env.NEXT_PUBLIC_WEATHER_KEY;
   let lang = "en";
   let units = "metric";
-  const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&appid=${apiKey}&lang=${lang}`
-  const weatherURL = `http://api.weatherapi.com/v1/current.json?key=${apiKey1}&q=${location}&aqi=yes`
+
+  let catUrl = '/api/catbreed'
+  let openWeatherURL = `/api/weather?lang=${lang}&units=${units}&location=${location}`;
 
   const router = useRouter();
 
@@ -78,13 +72,15 @@ export default function Home({ data }) {
 
   async function fetchData() {
     const data = await getData();
-    const amountOfCats = generateRandomNumber(1, 2);
+    const amountOfCats = generateRandomNumber(0, 3);
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(data);
-      console.log(random)
+      const x = generateRandomNumber(5, 90);
+      const y = generateRandomNumber(15, 75);
+      random.x = `${x}vw`;
+      random.y = `${y}vh`;
       randomCats.push(random)
     }
-    console.log(randomCats)
   }
   useEffect(() => {
     fetchData();
@@ -107,7 +103,7 @@ export default function Home({ data }) {
 
     <>
       <Head>
-        <title>HomePage - Neko Teikoku</title>
+        <title>Your Home - Neko Teikoku</title>
       </Head>
 
       <main className={`${styles.main} background`}>
@@ -125,7 +121,7 @@ export default function Home({ data }) {
 
         </GameArea>
         {randomCats && randomCats.map((cat, i) => {
-          return <Cat key={i} catData={cat} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
+          return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
       </main>

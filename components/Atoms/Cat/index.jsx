@@ -17,10 +17,13 @@ user-select: none;
 -webkit-user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
+transition: all ease-in-out .15s;
 &:hover{
    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
+   transform:scale(1.2);
 }
 `
+
 const CatBox = styled(motion.div)`
 width:100vw;
 height:100vh;
@@ -41,7 +44,8 @@ export default function Cat({
    width = 100,
    height = 100,
    image,
-
+   right,
+   bottom,
 }) {
    const [x, setX] = useState(0);
    const [y, setY] = useState(0);
@@ -52,13 +56,12 @@ export default function Cat({
       const y = generateRandomNumber(-35, 25);
       setY(y)
       setX(x)
-      console.log(x, y)
    }, [])
 
 
    return (
       <CatBox>
-         <CatArea
+         {/* <CatArea
             initial={{ x: `${x}vw`, y: `${y}vh` }}
             animate={{ x: `${x}vw`, y: `${y}vh` }}
             transition={{ duration: .2 }}
@@ -66,9 +69,9 @@ export default function Cat({
                scale: 1.2,
                transition: { duration: .15 },
             }}
-         >
-            <CatImage src={image} width={width} height={height} onClick={onClick} alt={alt} />
-         </CatArea>
+         > */}
+            <CatImage bottom={bottom} right={right} src={image} width={width} height={height} onClick={onClick} alt={alt} />
+         {/* </CatArea> */}
       </CatBox>
    )
 }
