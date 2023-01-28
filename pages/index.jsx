@@ -38,10 +38,10 @@ export default function Home({ data }) {
   const [weather, setWeather] = useState();
   const [currentUser, setCurrentUser] = useState({})
 
-  let catUrl = 'http://localhost:3000/api/catbreed'
-  if (process.env.VERCEL_URL) {
-    catUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
-  }
+  let catUrl = '/api/catbreed'
+  // if (process.env.VERCEL_URL) {
+  //   catUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/catbreed`;
+  // }
 
   let apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_KEY;
   let apiKey1 = process.env.NEXT_PUBLIC_WEATHER_KEY;
@@ -69,7 +69,6 @@ export default function Home({ data }) {
   const RefreshData = async () => {
     const amountOfCats = generateRandomNumber(0, 2);
     setRandomCats([])
-    // console.log(cats)
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(cats);
       randomCats.push(random)
