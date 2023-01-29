@@ -27,7 +27,6 @@ export default function ItemsSlider({
    items,
    ingredients,
    onExit = () => { },
-   activeTab = true,
 }) {
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)

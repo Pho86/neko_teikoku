@@ -1,9 +1,10 @@
 [
    {
-      "name": "Bento",
+      "name": "bento",
       "image": "/treats/bento.svg"
    },
    {
-      
+      "name": "bento",
+      "image": "/treats/bento.svg"
    }
 ]

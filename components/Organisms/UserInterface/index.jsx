@@ -4,6 +4,7 @@ import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
+import TreatsSlider from "../TreatsSlider";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -43,13 +44,36 @@ display:flex;
 gap:${props => props.gap || ".5em"};
 cursor:pointer;
 `
+const ProfileRow = styled(RowIcon)`
+// background-color:var(--primary);
+// padding:.5em 1.5em;
+// gap:1.5em;
+// border-radius:1.5em;
+// transition: all .2s ease-in-out;
+// &:hover {
+   // box-shadow: 4px 4px 4px 0px #D9D9D9;
+// }
+`
+const WeatherRow = styled(RowIcon)`
+background-color:var(--primary);
+padding:0em 1.5em;
+gap:2em;
+border-radius:1.5em;
+transition: all .2s ease-in-out;
+&:hover {
+   box-shadow: 4px 4px 4px 0px #D9D9D9;
+}
+`
+
 const SliderIcons = styled(motion.div)`
 position:absolute;
 `
 const WeatherDiv = styled.div`
 display:flex;
 flex-direction:column;
-justify-content:space-around;
+justify-content:center;
+gap:.3em;
+text-align:center;
 `
 export default function UserInterface({
    weatherData,
@@ -57,20 +81,23 @@ export default function UserInterface({
    onCatDexClick = () => { },
 }) {
    const [cookShow, setCookShow] = useState(false);
+   const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    return (
       <UserInterfaceDiv>
          <TopIcons>
             <RowIcon>
-               <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
-               <Typography
-                  text={currentUser.displayName}
-                  weight={"600"}
-                  size={"1.2em"}
-               />
+               <ProfileRow>
+                  <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
+                  <Typography
+                     text={currentUser.displayName}
+                     weight={"600"}
+                     size={"1.2em"}
+                  />
+               </ProfileRow>
             </RowIcon>
-            {weatherData && <RowIcon>
+            {weatherData && <WeatherRow>
                <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
                <WeatherDiv>
                   <Typography
@@ -79,11 +106,13 @@ export default function UserInterface({
                      size={"1.2em"}
                   />
                   <Typography
-                     text={`${weatherData.main.temp}℃`}
-                     size={"1.2em"}
+                     text={`${weatherData.main.temp} ℃`}
+                     size={"1.8rem"}
+                     color={"var(--border-hard)"}
+                     weight={"500"}
                   />
                </WeatherDiv>
-            </RowIcon>
+            </WeatherRow>
             }
 
          </TopIcons>
@@ -97,7 +126,7 @@ export default function UserInterface({
                />
             </ColIcon>
             <ColIcon onClick={() => { setItemsShow(true) }}>
-               <IconButton image={"/cats/caticon.svg"} alt="Items Button"  />
+               <IconButton image={"/cats/caticon.svg"} alt="Items Button" />
                <Typography
                   text={"items"}
                   weight={"600"}
@@ -109,16 +138,16 @@ export default function UserInterface({
 
             <ColIcon>
                <AnimatePresence>
-                  {cookShow &&
+                  {expanded &&
                      <SliderIcons
                         initial={{ opacity: 0, y: 100, x: "-25%" }}
                         animate={{ opacity: 1, y: -125 }}
                         exit={{ opacity: 0, y: 125 }}
-                        transition={{duration:.25}}
+                        transition={{ duration: .25 }}
                      >
                         <RowIcon gap={"2em"}>
                            <ColIcon>
-                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" />
+                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} />
                               <Typography
                                  text={"place"}
                                  weight={"600"}
@@ -126,7 +155,7 @@ export default function UserInterface({
                               />
                            </ColIcon>
                            <ColIcon>
-                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" />
+                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} />
                               <Typography
                                  text={"cook"}
                                  weight={"600"}
@@ -137,7 +166,7 @@ export default function UserInterface({
                      </SliderIcons>
                   }
                </AnimatePresence>
-               <ColIcon onClick={() => { setCookShow(!cookShow) }}>
+               <ColIcon onClick={() => { setExpanded(!expanded) }}>
                   <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
                   <Typography
                      text={"treats"}
@@ -146,6 +175,9 @@ export default function UserInterface({
                   />
                </ColIcon>
             </ColIcon>
+            <TreatsSlider active={treats}
+               onExit={() => { setTreatsShow(false) }} />
+
 
          </BottomIcons>
       </UserInterfaceDiv>

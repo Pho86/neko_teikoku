@@ -4,27 +4,27 @@
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "Grass",
+      "name": "grass",
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "Water",
+      "name": "water",
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "Ice",
+      "name": "ice",
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "Mice",
+      "name": "mice",
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "Monkey",
+      "name": "monkey",
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "Test",
+      "name": "test",
       "image": "/items/cat_lamp.svg"
    },
    {
@@ -32,7 +32,7 @@
       "image": "/items/cat_lamp.svg"
    },
    {
-      "name": "NICE",
+      "name": "l",
       "image": "/items/cat_lamp.svg"
    }
 ]
