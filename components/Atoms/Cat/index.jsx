@@ -17,7 +17,7 @@ user-select: none;
 -webkit-user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
-transition: all ease-in-out .15s;
+transition: transform ease-in-out .2s;
 &:hover{
    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
    transform:scale(1.2);

@@ -43,7 +43,7 @@ a {
 }
 
 .background {
-  background-image: url("/placeback.png");
+  background-image: url("/backgrounds/placeholder.png");
   background-size: cover;
   background-position: center;
 }

@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase/firebase.config';
 import { useRouter } from 'next/router';
+
 const GameArea = styled.div`
 position:absolute;
 width:100vw;
@@ -20,6 +21,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 `
+
 const PopUps = styled.div`
 width:100%;
 height:100%;
@@ -33,42 +35,41 @@ export default function Home({ data }) {
   const [cats, setCats] = useState([]);
   const [catDex, setCatDex] = useState(false);
   const [catCard, setCatCard] = useState(0);
-  const [randomCats, setRandomCats] = useState([])
+  const [randomCats, setRandomCats] = useState([]);
+
+  const [currentUser, setCurrentUser] = useState({})
+  
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
-  const [currentUser, setCurrentUser] = useState({})
+  const [lang, setLang] = useState("en");
+  const [units, setUnits] = useState("metric");
 
-  let lang = "en";
-  let units = "metric";
-
-  let catUrl = '/api/catbreed'
+  let catUrl = '/api/catbreed';
   let openWeatherURL = `/api/weather?lang=${lang}&units=${units}&location=${location}`;
 
   const router = useRouter();
 
   const getData = async () => {
-    const result = await axios.get(catUrl)
-    const weatherResult = await axios.get(openWeatherURL)
+    const catResult = await fetchCats()
+    const weatherResult = await fetchWeather()
     try {
-      setCats(result.data)
-      setWeather(weatherResult.data);
-      console.log(weatherResult.data)
-      return result.data
+      setCats(catResult)
+      setWeather(weatherResult);
+      console.log(weatherResult)
+      return catResult
     }
     catch (error) {
       console.log(error)
     }
   }
-
-  const RefreshData = async () => {
-    const amountOfCats = generateRandomNumber(0, 2);
-    setRandomCats([])
-    for (let i = 0; i < amountOfCats; i++) {
-      let random = selectRandomFromArray(cats);
-      randomCats.push(random)
-    }
+  const fetchCats = async () => {
+    const catResults = await axios.get(catUrl);
+    return catResults.data
   }
-
+  const fetchWeather = async () => {
+    const weatherResult = await axios.get(openWeatherURL)
+    return weatherResult.data
+  }
 
   async function fetchData() {
     const data = await getData();
@@ -82,6 +83,7 @@ export default function Home({ data }) {
       randomCats.push(random)
     }
   }
+
   useEffect(() => {
     fetchData();
     onAuthStateChanged(auth, async (currentUser) => {
@@ -103,7 +105,7 @@ export default function Home({ data }) {
 
     <>
       <Head>
-        <title>Your Home - Neko Teikoku</title>
+        <title>{currentUser.displayName}&apos;s Home - Neko Teikoku</title>
       </Head>
 
       <main className={`${styles.main} background`}>
