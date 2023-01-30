@@ -36,23 +36,21 @@ export default function CatCard({
    onClick = () => { },
 }) {
    return (
-      <>
-         <CatCardDiv onClick={onClick}>
-            <CatTextDiv>
-               <Typography
-                  text={`no. ${catData.id}`}
-                  color={"var(--secondary-accent)"}
-                  weight={"500"}
-               />
-               <Typography
-                  text={catData.breedName}
-                  weight={"500"}
-                  size={"1.2em"}
-               />
-            </CatTextDiv>
-            <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} />
-            <CatCardHighlight/>
-         </CatCardDiv>
-      </>
+      <CatCardDiv onClick={onClick}>
+         <CatTextDiv>
+            <Typography
+               text={`no. ${catData.id}`}
+               color={"var(--secondary-accent)"}
+               weight={"500"}
+            />
+            <Typography
+               text={catData.breedName}
+               weight={"500"}
+               size={"1.2rem"}
+            />
+         </CatTextDiv>
+         <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} />
+         <CatCardHighlight />
+      </CatCardDiv>
    )
 }

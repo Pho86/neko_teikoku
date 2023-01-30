@@ -68,14 +68,14 @@ export default function Login() {
                     <Input type="email" name="email" placeholder="enter email" />
                     <Input type="text" name="username" placeholder="enter username" />
                     <Input type="password" name="password" placeholder="enter password" />
-                    <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border)"} />
+                    <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
                 </LoginForm>
                 {ErrorMessage && ErrorMessage}
 
                 <LoginForm onChange={handleChange} name="login">
                     <Input type="text" name="email" placeholder="enter email" />
                     <Input type="password" name="password" placeholder="enter password" />
-                    <Button type="button" text="Login" onClick={handleLoginSubmit} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border-hard)"} />
+                    <Button type="button" text="Login" onClick={handleLoginSubmit} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
                 </LoginForm>
                 {ErrorMessage && ErrorMessage}
                 <div>
@@ -84,8 +84,8 @@ export default function Login() {
 
                     
                     {currentUser ? <>
-                    <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border-hard)"} /> 
-                    <Button type="button" text="GO HOME" onClick={()=>{router.push('/')}}  colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"1px var(--border-hard)"} /> 
+                    <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} /> 
+                    <Button type="button" text="GO HOME" onClick={()=>{router.push('/')}}  colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"}  /> 
                     </>
                     : <></>}
                 </div>

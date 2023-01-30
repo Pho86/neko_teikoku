@@ -5,7 +5,7 @@ import Button from "../Button";
 
 export const Slider = styled(motion.div)`
 width:100vw;
-padding:3em;
+padding:2em 4em;
 background-color:var(--primary);
 border-top: 6px solid var(--border);
 z-index:51;
@@ -35,6 +35,10 @@ justify-content:center;
 align-items:center;
 pointer-events:auto;
 cursor:pointer;
+&:hover {
+    filter: brightness(95%);
+    
+}
 `
 const SliderTabsCont = styled.div`
 display:flex;
@@ -72,11 +76,11 @@ export function SliderTab({
             <SliderTabsCont>
                 <TopDiv>
                     <SliderTabBut onClick={onTab} tabcolor={tabcolor}>
-                        <Typography text={tab} size={"1.2em"} color={tabcolor ? "var(--white)" : "var(--border)"} weight={"500"}
+                        <Typography text={tab} size={"1.2rem"} color={tabcolor ? "var(--white)" : "var(--border)"} weight={"500"}
                         />
                     </SliderTabBut>
                     {secondtab && <SliderTabBut onClick={onSecondTab} tabcolor={!tabcolor}>
-                        <Typography text={secondtab} size={"1.2em"} color={!tabcolor ? "var(--white)" : "var(--border)"} weight={"500"}
+                        <Typography text={secondtab} size={"1.2rem"} color={!tabcolor ? "var(--white)" : "var(--border)"} weight={"500"}
                         />
                     </SliderTabBut>}
                 </TopDiv>

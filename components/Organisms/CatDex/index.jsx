@@ -30,64 +30,62 @@ export default function CatDex({
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
    return (
-      <>
-         <AnimatePresence>
-            {catDex === true &&
-               <>
-                  <OpacityBackgroundFade key={"CatDex Fade"} onClick={onExit} />
-                  <PopUpWithTab
-                     title={"cat dex"}
-                     onExit={onExit}
-                     size={"1.2em"}
-                     direction="row"
-                     initial={{ y: "-100vh" }}
-                     animate={{ y: "-5%" }}
-                     exit={{ y: "-100vh" }}
-                     transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
-                     exitTab
-                     content={<>
-                        <IconButton
-                           image="/icons/leftarrowlight.svg"
-                           hover
-                           secondImage="/icons/leftarrow.svg"
-                           alt="Go back" width={75} height={75}
-                           onClick={() => {
-                              if (currentPage > 1) {
-                                 setCurrentPage(currentPage - 1);
-                                 setPageMin(pageMin - 6);
-                                 setPageLimit(pageLimit - 6);
-                              }
-                           }} />
-                        <PopUpGrid>
-                           {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
-                              return (
-                                 <GridItem key={cat.id}>
-                                    <CatCard catData={cat} onClick={() => { selectCatCard(cat.id) }} />
-                                 </GridItem>
-                              )
-                           })}
-                        </PopUpGrid>
-                        <IconButton
-                           image="/icons/rightarrowlight.svg"
-                           hover
-                           secondImage="/icons/rightarrow.svg"
-                           alt="Go forward" width={75} height={75}
-                           onClick={() => {
-                              if (currentPage < 14) {
-                                 setCurrentPage(currentPage + 1);
-                                 setPageMin(pageMin + 6);
-                                 setPageLimit(pageLimit + 6);
-                              }
-                           }} />
-                     </>
-                     }
-                  >
+      <AnimatePresence>
+         {catDex === true &&
+            <>
+               <OpacityBackgroundFade key={"CatDex Fade"} onClick={onExit} />
+               <PopUpWithTab
+                  title={"cat dex"}
+                  onExit={onExit}
+                  size={"1.2em"}
+                  direction="row"
+                  initial={{ y: "-100vh" }}
+                  animate={{ y: "-5%" }}
+                  exit={{ y: "-100vh" }}
+                  transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
+                  exitTab
+                  content={<>
+                     <IconButton
+                        image="/icons/leftarrowlight.svg"
+                        hover
+                        secondImage="/icons/leftarrow.svg"
+                        alt="Go back" width={75} height={75}
+                        onClick={() => {
+                           if (currentPage > 1) {
+                              setCurrentPage(currentPage - 1);
+                              setPageMin(pageMin - 6);
+                              setPageLimit(pageLimit - 6);
+                           }
+                        }} />
+                     <PopUpGrid>
+                        {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
+                           return (
+                              <GridItem key={cat.id}>
+                                 <CatCard catData={cat} onClick={() => { selectCatCard(cat.id) }} />
+                              </GridItem>
+                           )
+                        })}
+                     </PopUpGrid>
+                     <IconButton
+                        image="/icons/rightarrowlight.svg"
+                        hover
+                        secondImage="/icons/rightarrow.svg"
+                        alt="Go forward" width={75} height={75}
+                        onClick={() => {
+                           if (currentPage < 14) {
+                              setCurrentPage(currentPage + 1);
+                              setPageMin(pageMin + 6);
+                              setPageLimit(pageLimit + 6);
+                           }
+                        }} />
+                  </>
+                  }
+               >
 
-                  </PopUpWithTab>
-               </>
-            }
-         </AnimatePresence>
+               </PopUpWithTab>
+            </>
+         }
+      </AnimatePresence>
 
-      </>
    )
 }

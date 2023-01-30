@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase/firebase.config';
 import { useRouter } from 'next/router';
+import { addCatData } from '@/server';
 
 const GameArea = styled.div`
 position:absolute;
@@ -38,7 +39,7 @@ export default function Home({ data }) {
   const [randomCats, setRandomCats] = useState([]);
 
   const [currentUser, setCurrentUser] = useState({})
-  
+
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
   const [lang, setLang] = useState("en");
@@ -62,10 +63,12 @@ export default function Home({ data }) {
       console.log(error)
     }
   }
+
   const fetchCats = async () => {
     const catResults = await axios.get(catUrl);
     return catResults.data
   }
+
   const fetchWeather = async () => {
     const weatherResult = await axios.get(openWeatherURL)
     return weatherResult.data
@@ -73,19 +76,19 @@ export default function Home({ data }) {
 
   async function fetchData() {
     const data = await getData();
-    const amountOfCats = generateRandomNumber(0, 3);
+    const amountOfCats = generateRandomNumber(0, 2);
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(data);
       const x = generateRandomNumber(5, 90);
       const y = generateRandomNumber(15, 75);
       random.x = `${x}vw`;
       random.y = `${y}vh`;
-      randomCats.push(random)
+      randomCats.push(random);
+      addCatData(random)
     }
   }
 
   useEffect(() => {
-    fetchData();
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setCurrentUser(currentUser);
@@ -94,6 +97,7 @@ export default function Home({ data }) {
         alert("please log in")
         router.push('/login')
       }
+      fetchData();
     })
     // setInterval(() => {
     // RefreshData();

@@ -115,14 +115,14 @@ export function PopUpWithTab({
    exitTab,
    catDexTab,
 }) {
-   return (<>
+   return (
       <PopUpCont initial={initial}
          animate={animate}
          transition={transition}
          exit={exit}
       >
          <TopTab>
-            <Typography text={title} size={"1.2em"} color={"var(--white)"} weight={"500"}
+            <Typography text={title} size={"1.2rem"} color={"var(--white)"} weight={"500"}
             />
          </TopTab>
          <PopUpRow>
@@ -139,6 +139,6 @@ export function PopUpWithTab({
             </PopUpTabsCol>
          </PopUpRow>
       </PopUpCont>
-   </>
+
    )
 }  
