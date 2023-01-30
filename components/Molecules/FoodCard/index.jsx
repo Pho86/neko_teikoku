@@ -57,13 +57,22 @@ const IngItem = styled.div`
     gap: 0.5em;
 `
 
-export default function FoodCard(){
+export default function FoodCard(
+    {
+        treatname,
+        aing,
+        bing,
+        treatimg,
+        aimg,
+        bimg
+    }
+){
     return(
         <FoodCardDiv>
             <FoodCardHead>
                 <FoodTextDiv>
                     <Typography
-                        text={`bento`}
+                        treat={treatname}
                         weight={"500"}
                         size={"1.5em"}
                         color={"var(--secondary-accent)"}
@@ -71,17 +80,17 @@ export default function FoodCard(){
                 </FoodTextDiv>
             </FoodCardHead>
 
-                <Image src={'/treats/bento.svg'} width={200} height={200} alt="bento" />
+                <Image src={treatimg} width={200} height={200} alt="bento" />
                 
                 <IngCont>
                     <IngItem>
-                        <Typography text={"x1"} weight={"400"} size={"1em"} />
-                        <Image src={'/treats/bento.svg'} width={45} height={45} alt="bento" />
+                        <Typography text={aing} weight={"400"} size={"1em"} />
+                        <Image src={aimg} width={45} height={45} alt="bento" />
                     </IngItem>
 
                     <IngItem>
-                        <Typography text={"x1"} weight={"400"} size={"1em"} />
-                        <Image src={'/treats/bento.svg'} width={45} height={45} alt="bento" />
+                        <Typography text={bing} weight={"400"} size={"1em"} />
+                        <Image src={bimg} width={45} height={45} alt="bento" />
                     </IngItem>
                 </IngCont>
 
