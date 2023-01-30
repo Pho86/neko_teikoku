@@ -12,11 +12,10 @@ const FoodCardDiv = styled.div`
     justify-content: space-between;
     border-radius:1.2em;
     width:290px;
-    min-height:420px;
     cursor:pointer;
     transition:all .1s ease-in-out;
     border: 3px solid var(--border-hard);
-    box-shadow: 0px 6px 0px var(--border-hard);
+    border-bottom: 8px solid var(--border-hard);
     &:hover {
         background-color:var(--primary);
      }
@@ -24,7 +23,7 @@ const FoodCardDiv = styled.div`
 
 const FoodCardHead = styled.div`
     position: relative;
-    width: 275px;
+    width: 115%;
     height: 65px;
     border-radius: 1.2em 1.2em 0px 0px;
     background-color: var(--accent);
@@ -64,15 +63,16 @@ export default function FoodCard(
         bing,
         treatimg,
         aimg,
-        bimg
+        bimg,
+        onClick=()=>{}
     }
 ){
     return(
-        <FoodCardDiv>
+        <FoodCardDiv onClick={onClick}>
             <FoodCardHead>
                 <FoodTextDiv>
                     <Typography
-                        treat={treatname}
+                        text={treatname}
                         weight={"500"}
                         size={"1.5em"}
                         color={"var(--secondary-accent)"}
