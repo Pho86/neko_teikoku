@@ -103,7 +103,7 @@ export default function UserInterface({
                   <Typography
                      text={weatherData.weather[0].main}
                      weight={"600"}
-                     size={"1.2em"}
+                     size={"1.2rem"}
                   />
                   <Typography
                      text={`${weatherData.main.temp} ℃`}
@@ -122,7 +122,7 @@ export default function UserInterface({
                <Typography
                   text={"cat dex"}
                   weight={"600"}
-                  size={"1.2em"}
+                  size={"1.2rem"}
                />
             </ColIcon>
             <ColIcon onClick={() => { setItemsShow(true) }}>
@@ -130,7 +130,7 @@ export default function UserInterface({
                <Typography
                   text={"items"}
                   weight={"600"}
-                  size={"1.2em"}
+                  size={"1.2rem"}
                />
             </ColIcon>
             <ItemsSlider active={setItems}
@@ -151,7 +151,7 @@ export default function UserInterface({
                               <Typography
                                  text={"place"}
                                  weight={"600"}
-                                 size={"1.2em"}
+                                 size={"1.2rem"}
                               />
                            </ColIcon>
                            <ColIcon>
@@ -159,7 +159,7 @@ export default function UserInterface({
                               <Typography
                                  text={"cook"}
                                  weight={"600"}
-                                 size={"1.2em"}
+                                 size={"1.2rem"}
                               />
                            </ColIcon>
                         </RowIcon>
@@ -171,7 +171,7 @@ export default function UserInterface({
                   <Typography
                      text={"treats"}
                      weight={"600"}
-                     size={"1.2em"}
+                     size={"1.2rem"}
                   />
                </ColIcon>
             </ColIcon>

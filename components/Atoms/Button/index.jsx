@@ -10,7 +10,6 @@ cursor:pointer;
 transition:all .1s ease-in-out;
 &:hover {
     background-color:${props => props.colorhover || "var(--border-hard)"};
-    // background-color:red;
 }
 `
 export default function Button({
@@ -26,7 +25,6 @@ export default function Button({
     image,
     alt,
     onClick = () => { },
-    textstroke,
     type,
 }) {
     return (
@@ -41,9 +39,9 @@ export default function Button({
 export function test() {
     return (
         <>
-            <Button text="YAH" colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"5px var(--border)"} onClick={() => { }} />
+            <Button text="YAH" colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} onClick={() => { }} />
 
-            <Button text="NAH" color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} textstroke={"5px var(--border-hard)"} onClick={() => { }} />
+            <Button text="NAH" color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} onClick={() => { }} />
         </>
 
     )

@@ -33,71 +33,69 @@ export default function ItemsSlider({
    const [currentPage, setCurrentPage] = useState(1);
    const [tab, setTab] = useState(true);
    return (
-      <>
-         <AnimatePresence>
-            {active &&
-               <SliderTab
-                  initial={{ y: "30vh" }}
-                  animate={{ y: 10 }}
-                  exit={{ y: "30vh" }}
-                  transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
-                  tab={"items"}
-                  secondtab={"ingredients"}
-                  onExit={onExit}
-                  tabcolor={tab}
-                  onTab={() => { setTab(true); setCurrentPage(1); }}
-                  onSecondTab={() => { setTab(false); setCurrentPage(1); }}
+      <AnimatePresence>
+         {active &&
+            <SliderTab
+               initial={{ y: "30vh" }}
+               animate={{ y: 10 }}
+               exit={{ y: "30vh" }}
+               transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
+               tab={"items"}
+               secondtab={"ingredients"}
+               onExit={onExit}
+               tabcolor={tab}
+               onTab={() => { setTab(true); setCurrentPage(1); }}
+               onSecondTab={() => { setTab(false); setCurrentPage(1); }}
 
-                  content={<>
+               content={<>
 
-                     <IconButton
-                        image="/icons/leftarrowlight.svg"
-                        hover
-                        secondImage="/icons/leftarrow.svg"
-                        alt="Go backwards" width={75} height={75} onClick={() => {
-                           if (currentPage > 1) {
-                              setCurrentPage(currentPage - 1);
-                              setPageMin(pageMin - 6);
-                              setPageLimit(pageLimit - 6);
-                           }
-                        }} />
+                  <IconButton
+                     image="/icons/leftarrowlight.svg"
+                     hover
+                     secondImage="/icons/leftarrow.svg"
+                     alt="Go backwards" width={75} height={75} onClick={() => {
+                        if (currentPage > 1) {
+                           setCurrentPage(currentPage - 1);
+                           setPageMin(pageMin - 6);
+                           setPageLimit(pageLimit - 6);
+                        }
+                     }} />
 
-                     <Grid>
-                        {tab ? ItemData.slice(pageMin, pageLimit).map((item, i) => {
+                  <Grid>
+                     {tab ? ItemData.slice(pageMin, pageLimit).map((item, i) => {
+                        return <GridItem key={i}>
+                           <ItemCard image={item.image} alt="MEOW MEOW" />
+                           <Typography text={"x1"} weight={"400"} size={".9rem"} />
+                           <Typography text={item.name} weight={"500"} size={"1.2rem"} />
+                        </GridItem>
+                     }) :
+                        Ingredients.slice(pageMin, pageLimit).map((item, i) => {
                            return <GridItem key={i}>
                               <ItemCard image={item.image} alt="MEOW MEOW" />
-                              <Typography text={"x1"} weight={"400"} size={".9em"} />
-                              <Typography text={item.name} weight={"500"} size={"1.2em"} />
+                              <Typography text={"x1"} weight={"400"} size={".9rem"} />
+                              <Typography text={item.name} weight={"500"} size={"1.2rem"} />
                            </GridItem>
-                        }) :
-                           Ingredients.slice(pageMin, pageLimit).map((item, i) => {
-                              return <GridItem key={i}>
-                                 <ItemCard image={item.image} alt="MEOW MEOW" />
-                                 <Typography text={"x1"} weight={"400"} size={".9em"} />
-                                 <Typography text={item.name} weight={"500"} size={"1.2em"} />
-                              </GridItem>
-                           })
+                        })
+                     }
+                  </Grid>
+                  <IconButton
+                     image="/icons/rightarrowlight.svg"
+                     hover
+                     secondImage="/icons/rightarrow.svg"
+                     alt="Go forward" width={75} height={75}
+                     onClick={() => {
+                        if (currentPage < 2) {
+                           setCurrentPage(currentPage + 1);
+                           setPageMin(pageMin + 6);
+                           setPageLimit(pageLimit + 6);
                         }
-                     </Grid>
-                     <IconButton
-                        image="/icons/rightarrowlight.svg"
-                        hover
-                        secondImage="/icons/rightarrow.svg"
-                        alt="Go forward" width={75} height={75}
-                        onClick={() => {
-                           if (currentPage < 2) {
-                              setCurrentPage(currentPage + 1);
-                              setPageMin(pageMin + 6);
-                              setPageLimit(pageLimit + 6);
-                           }
-                        }}
-                     />
-                  </>}
-               >
+                     }}
+                  />
+               </>}
+            >
 
-               </SliderTab>
-            }
-         </AnimatePresence>
-      </>
+            </SliderTab>
+         }
+      </AnimatePresence>
    )
 }

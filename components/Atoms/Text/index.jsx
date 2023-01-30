@@ -9,8 +9,8 @@ display: ${props => props.display};
 margin: ${props => props.margin};
 padding: ${props => props.padding};
 width: ${props => props.width};
--webkit-text-stroke: ${props => props.textstroke};
-paint-order: stroke fill;
+// -webkit-text-stroke: ${props => props.textstroke};
+// paint-order: stroke fill;
 
 `
 
@@ -24,7 +24,7 @@ export default function Typography({
    margin,
    padding,
    width,
-   textstroke
+   // textstroke
 }) {
    return (
       <Text
@@ -36,7 +36,7 @@ export default function Typography({
          margin={margin}
          padding={padding}
          width={width}
-         textstroke={textstroke}
+         // textstroke={textstroke}
       >
          {text}
       </Text>
