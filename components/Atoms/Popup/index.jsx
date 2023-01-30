@@ -13,6 +13,7 @@ top:50%;
 cursor:pointer;
 transform: ${props => props.transform || "translate(-50%, -50%)"};
 z-index:55;
+pointer-events:auto;
 `
 
 export const PopUp = styled(motion.div)`

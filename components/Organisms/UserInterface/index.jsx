@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
+import TreatsDex from "../TreatsDex"
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -85,101 +86,104 @@ export default function UserInterface({
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    return (
-      <UserInterfaceDiv>
-         <TopIcons>
-            <RowIcon>
-               <ProfileRow>
-                  <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
-                  <Typography
-                     text={currentUser.displayName}
-                     weight={"600"}
-                     size={"1.2em"}
-                  />
-               </ProfileRow>
-            </RowIcon>
-            {weatherData && <WeatherRow>
-               <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
-               <WeatherDiv>
-                  <Typography
-                     text={weatherData.weather[0].main}
-                     weight={"600"}
-                     size={"1.2rem"}
-                  />
-                  <Typography
-                     text={`${weatherData.main.temp} ℃`}
-                     size={"1.8rem"}
-                     color={"var(--border-hard)"}
-                     weight={"500"}
-                  />
-               </WeatherDiv>
-            </WeatherRow>
-            }
+      <>
+         <UserInterfaceDiv>
+            <TopIcons>
+               <RowIcon>
+                  <ProfileRow>
+                     <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
+                     <Typography
+                        text={currentUser.displayName}
+                        weight={"600"}
+                        size={"1.2em"}
+                     />
+                  </ProfileRow>
+               </RowIcon>
+               {weatherData && <WeatherRow>
+                  <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
+                  <WeatherDiv>
+                     <Typography
+                        text={weatherData.weather[0].main}
+                        weight={"600"}
+                        size={"1.2rem"}
+                     />
+                     <Typography
+                        text={`${weatherData.main.temp} ℃`}
+                        size={"1.8rem"}
+                        color={"var(--border-hard)"}
+                        weight={"500"}
+                     />
+                  </WeatherDiv>
+               </WeatherRow>
+               }
 
-         </TopIcons>
-         <BottomIcons>
-            <ColIcon onClick={onCatDexClick}>
-               <IconButton image={"/cats/caticon.svg"} alt="CatDex Button" />
-               <Typography
-                  text={"cat dex"}
-                  weight={"600"}
-                  size={"1.2rem"}
-               />
-            </ColIcon>
-            <ColIcon onClick={() => { setItemsShow(true) }}>
-               <IconButton image={"/cats/caticon.svg"} alt="Items Button" />
-               <Typography
-                  text={"items"}
-                  weight={"600"}
-                  size={"1.2rem"}
-               />
-            </ColIcon>
-            <ItemsSlider active={setItems}
-               onExit={() => { setItemsShow(false) }} />
-
-            <ColIcon>
-               <AnimatePresence>
-                  {expanded &&
-                     <SliderIcons
-                        initial={{ opacity: 0, y: 100, x: "-25%" }}
-                        animate={{ opacity: 1, y: -125 }}
-                        exit={{ opacity: 0, y: 125 }}
-                        transition={{ duration: .25 }}
-                     >
-                        <RowIcon gap={"2em"}>
-                           <ColIcon>
-                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} />
-                              <Typography
-                                 text={"place"}
-                                 weight={"600"}
-                                 size={"1.2rem"}
-                              />
-                           </ColIcon>
-                           <ColIcon>
-                              <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} />
-                              <Typography
-                                 text={"cook"}
-                                 weight={"600"}
-                                 size={"1.2rem"}
-                              />
-                           </ColIcon>
-                        </RowIcon>
-                     </SliderIcons>
-                  }
-               </AnimatePresence>
-               <ColIcon onClick={() => { setExpanded(!expanded) }}>
-                  <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
+            </TopIcons>
+            <BottomIcons>
+               <ColIcon onClick={onCatDexClick}>
+                  <IconButton image={"/cats/caticon.svg"} alt="CatDex Button" />
                   <Typography
-                     text={"treats"}
+                     text={"cat dex"}
                      weight={"600"}
                      size={"1.2rem"}
                   />
                </ColIcon>
-            </ColIcon>
-            <TreatsSlider active={treats}
-               onExit={() => { setTreatsShow(false) }} />
+               <ColIcon onClick={() => { setItemsShow(true) }}>
+                  <IconButton image={"/cats/caticon.svg"} alt="Items Button" />
+                  <Typography
+                     text={"items"}
+                     weight={"600"}
+                     size={"1.2rem"}
+                  />
+               </ColIcon>
+               <ItemsSlider active={setItems}
+                  onExit={() => { setItemsShow(false) }} />
 
+               <ColIcon>
+                  <AnimatePresence>
+                     {expanded &&
+                        <SliderIcons
+                           initial={{ opacity: 0, y: 100, x: "-25%" }}
+                           animate={{ opacity: 1, y: -125 }}
+                           exit={{ opacity: 0, y: 125 }}
+                           transition={{ duration: .25 }}
+                        >
+                           <RowIcon gap={"2em"}>
+                              <ColIcon>
+                                 <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} />
+                                 <Typography
+                                    text={"place"}
+                                    weight={"600"}
+                                    size={"1.2rem"}
+                                 />
+                              </ColIcon>
+                              <ColIcon>
+                                 <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} />
+                                 <Typography
+                                    text={"cook"}
+                                    weight={"600"}
+                                    size={"1.2rem"}
+                                 />
+                              </ColIcon>
+                           </RowIcon>
+                        </SliderIcons>
+                     }
+                  </AnimatePresence>
+                  <ColIcon onClick={() => { setExpanded(!expanded) }}>
+                     <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
+                     <Typography
+                        text={"treats"}
+                        weight={"600"}
+                        size={"1.2rem"}
+                     />
+                  </ColIcon>
+               </ColIcon>
+               <TreatsSlider active={treats}
+                  onExit={() => { setTreatsShow(false) }} />
 
-         </BottomIcons>
-      </UserInterfaceDiv>
+            </BottomIcons>
+         </UserInterfaceDiv>
+         <TreatsDex active={cookShow}
+            onExit={() => { setCookShow(false) }} />
+      </>
    )
 }

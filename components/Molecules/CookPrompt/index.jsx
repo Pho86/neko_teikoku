@@ -10,7 +10,7 @@ const PopupCont = styled.div`
     align-items: center;
     border-radius: 1.2em;
     border: 3px solid var(--border);
-    box-shadow: 0px 6px 0px var(--border);
+    border-bottom: 8px solid var(--border);
     width: 300px;
     min-height: 245px;
     justify-content: space-around;
