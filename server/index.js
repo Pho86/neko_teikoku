@@ -8,6 +8,7 @@ export const SignUp = async (values) => {
     const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
         username: values.username,
         email: values.email,
+        location: "Vancouver",
     });
     const userUpdate = await updateProfile(userCred.user, {
         displayName: values.username

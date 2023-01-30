@@ -37,6 +37,7 @@ pointer-events:auto;
 cursor:pointer;
 &:hover {
     filter: brightness(95%);
+    
 }
 `
 const SliderTabsCont = styled.div`

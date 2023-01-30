@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { generateRandomNumber } from "@/util";
 import { useEffect, useState } from "react";
 
+
 const CatImage = styled(Image)`
 position:absolute;
 cursor:pointer;
