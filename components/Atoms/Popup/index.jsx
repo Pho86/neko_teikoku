@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion"
 import Typography from "../Text";
 import Image from "next/image";
+import IconButton from "../IconButton";
 
 export const OpacityBackground = styled(motion.div)`
 background: rgba(0, 0, 0, 5);
@@ -113,8 +114,11 @@ export function PopUpWithTab({
    exit,
    onExit = () => { },
    onCatDex = () => { },
+   onNext = () => { },
+   onPrevious = () => { },
    exitTab,
    catDexTab,
+   arrows,
 }) {
    return (
       <PopUpCont initial={initial}
@@ -128,7 +132,19 @@ export function PopUpWithTab({
          </TopTab>
          <PopUpRow>
             <PopUpNT direction={direction}>
+               {arrows && <IconButton
+                  image="/icons/leftarrowlight.svg"
+                  hover
+                  secondImage="/icons/leftarrow.svg"
+                  alt="Go back" width={75} height={75}
+                  onClick={onPrevious} /> }
                {content}
+               {arrows && <IconButton
+                  image="/icons/rightarrowlight.svg"
+                  hover
+                  secondImage="/icons/rightarrow.svg"
+                  alt="Go forward" width={75} height={75}
+                  onClick={onNext} />}
             </PopUpNT>
             <PopUpTabsCol>
                {exitTab && <PopupTab onClick={onExit}>

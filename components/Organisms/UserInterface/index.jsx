@@ -47,19 +47,19 @@ cursor:pointer;
 `
 const ProfileRow = styled(RowIcon)`
 // background-color:var(--primary);
-// padding:.5em 1.5em;
-// gap:1.5em;
-// border-radius:1.5em;
-// transition: all .2s ease-in-out;
-// &:hover {
-   // box-shadow: 4px 4px 4px 0px #D9D9D9;
-// }
+padding:.5em 2em;
+gap:2em;
+border-radius:1em;
+transition: all .2s ease-in-out;
+&:hover {
+   box-shadow: 4px 4px 4px 0px #D9D9D9;
+}
 `
 const WeatherRow = styled(RowIcon)`
 background-color:var(--primary);
-padding:0em 1.5em;
+padding:.5em 1.5em;
 gap:2em;
-border-radius:1.5em;
+border-radius:1em;
 transition: all .2s ease-in-out;
 &:hover {
    box-shadow: 4px 4px 4px 0px #D9D9D9;

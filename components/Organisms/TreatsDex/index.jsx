@@ -21,7 +21,7 @@ gap:3em;
 export default function TreatsDex({
     onExit = () => { },
     active,
-    
+
 }) {
     const [page, setPage] = useState([0, 6, 1])
     const [pageLimit, setPageLimit] = useState(2)
@@ -42,38 +42,29 @@ export default function TreatsDex({
                         exit={{ y: "-100vh" }}
                         transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                         exitTab
+                        arrows
+                        onPrevious={() => {
+                            if (currentPage > 1) {
+                                setCurrentPage(currentPage - 1);
+                                setPageMin(pageMin - 6);
+                                setPageLimit(pageLimit - 6);
+                            }
+                        }}
+                        onNext={() => {
+                            if (currentPage < 1) {
+                                setCurrentPage(currentPage + 1);
+                                setPageMin(pageMin + 6);
+                                setPageLimit(pageLimit + 6);
+                            }
+                        }}
                         content={<>
-                            <IconButton
-                                image="/icons/leftarrowlight.svg"
-                                hover
-                                secondImage="/icons/leftarrow.svg"
-                                alt="Go back" width={75} height={75}
-                                onClick={() => {
-                                    if (currentPage > 1) {
-                                        setCurrentPage(currentPage - 1);
-                                        setPageMin(pageMin - 6);
-                                        setPageLimit(pageLimit - 6);
-                                    }
-                                }} />
                             <PopUpGrid>
-                                {Treats && Treats.slice(pageMin, pageLimit).map((treat, i) => {
+                                {Treats && Treats.slice(pageMin, pageLimit).map((treat, id) => {
                                     return (
-                                        <FoodCard key={treat.id} onClick={() => { }} treatname={treat.name} treatimg={treat.image} aing={"x1"} bing={"x1"} aimg={"/treats/bento.svg"} bimg={"/treats/bento.svg"} />
+                                        <FoodCard key={id} onClick={() => { }} treatname={treat.name} treatimg={treat.image} aing={"x1"} bing={"x1"} aimg={"/treats/bento.svg"} bimg={"/treats/bento.svg"} />
                                     )
                                 })}
                             </PopUpGrid>
-                            <IconButton
-                                image="/icons/rightarrowlight.svg"
-                                hover
-                                secondImage="/icons/rightarrow.svg"
-                                alt="Go forward" width={75} height={75}
-                                onClick={() => {
-                                    if (currentPage < 1) {
-                                        setCurrentPage(currentPage + 1);
-                                        setPageMin(pageMin + 6);
-                                        setPageLimit(pageLimit + 6);
-                                    }
-                                }} />
                         </>
                         }
                     >

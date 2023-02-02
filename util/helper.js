@@ -13,7 +13,7 @@ export function selectRandomFromArray(array) {
  * @desc generates a random number between the 2 parameters  
  * @param {*} min integer, lowest value
  * @param {*} max integer, highest value
- * @returns a random integer
+ * @returns a random integer based off the given parameters
  */
 export function generateRandomNumber(min, max) {
    return Math.floor(Math.random() * (max - min + 1) + min);

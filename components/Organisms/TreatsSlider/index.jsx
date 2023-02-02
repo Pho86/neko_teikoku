@@ -43,21 +43,23 @@ export default function TreatsSlider({
                     tab={"treats"}
                     onExit={onExit}
                     tabcolor={tab}
-
+                    onPrevious={() => {
+                        if (currentPage > 1) {
+                            setCurrentPage(currentPage - 1);
+                            setPageMin(pageMin - 6);
+                            setPageLimit(pageLimit - 6);
+                        }
+                    }}
+                    onNext={() => {
+                        () => {
+                            if (currentPage < 2) {
+                                setCurrentPage(currentPage + 1);
+                                setPageMin(pageMin + 6);
+                                setPageLimit(pageLimit + 6);
+                            }
+                        }
+                    }}
                     content={<>
-
-                        <IconButton
-                            image="/icons/leftarrowlight.svg"
-                            hover
-                            secondImage="/icons/leftarrow.svg"
-                            alt="Go backwards" width={75} height={75} onClick={() => {
-                                if (currentPage > 1) {
-                                    setCurrentPage(currentPage - 1);
-                                    setPageMin(pageMin - 6);
-                                    setPageLimit(pageLimit - 6);
-                                }
-                            }} />
-
                         <Grid>
                             {tab && TreatsData.slice(pageMin, pageLimit).map((item, i) => {
                                 return <GridItem key={i}>
@@ -65,25 +67,10 @@ export default function TreatsSlider({
                                     <Typography text={"x1"} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
                                 </GridItem>
-                            })
-                            }
+                            })}
                         </Grid>
-                        <IconButton
-                            image="/icons/rightarrowlight.svg"
-                            hover
-                            secondImage="/icons/rightarrow.svg"
-                            alt="Go forward" width={75} height={75}
-                            onClick={() => {
-                                if (currentPage < 2) {
-                                    setCurrentPage(currentPage + 1);
-                                    setPageMin(pageMin + 6);
-                                    setPageLimit(pageLimit + 6);
-                                }
-                            }}
-                        />
                     </>}
                 >
-
                 </SliderTab>
             }
         </AnimatePresence>

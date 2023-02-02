@@ -44,19 +44,22 @@ export default function CatDex({
                   exit={{ y: "-100vh" }}
                   transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                   exitTab
+                  arrows
+                  onNext={() => {
+                     if (currentPage < 14) {
+                        setCurrentPage(currentPage + 1);
+                        setPageMin(pageMin + 6);
+                        setPageLimit(pageLimit + 6);
+                     }
+                  }}
+                  onPrevious={() => {
+                     if (currentPage > 1) {
+                        setCurrentPage(currentPage - 1);
+                        setPageMin(pageMin - 6);
+                        setPageLimit(pageLimit - 6);
+                     }
+                  }}
                   content={<>
-                     <IconButton
-                        image="/icons/leftarrowlight.svg"
-                        hover
-                        secondImage="/icons/leftarrow.svg"
-                        alt="Go back" width={75} height={75}
-                        onClick={() => {
-                           if (currentPage > 1) {
-                              setCurrentPage(currentPage - 1);
-                              setPageMin(pageMin - 6);
-                              setPageLimit(pageLimit - 6);
-                           }
-                        }} />
                      <PopUpGrid>
                         {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
                            return (
@@ -66,18 +69,6 @@ export default function CatDex({
                            )
                         })}
                      </PopUpGrid>
-                     <IconButton
-                        image="/icons/rightarrowlight.svg"
-                        hover
-                        secondImage="/icons/rightarrow.svg"
-                        alt="Go forward" width={75} height={75}
-                        onClick={() => {
-                           if (currentPage < 14) {
-                              setCurrentPage(currentPage + 1);
-                              setPageMin(pageMin + 6);
-                              setPageLimit(pageLimit + 6);
-                           }
-                        }} />
                   </>
                   }
                >
