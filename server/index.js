@@ -64,3 +64,13 @@ export const addCatData = async (cat) => {
     }
 }
 
+export const fetchCatData = async () => {
+    let data = []
+    const q = query(collection(db, "cats"), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data() })
+    });
+    return data
+}
+

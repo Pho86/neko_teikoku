@@ -129,6 +129,7 @@ export default function Home({ data }) {
         {randomCats && randomCats.map((cat, i) => {
           return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
+        
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
       </main>
     </>
