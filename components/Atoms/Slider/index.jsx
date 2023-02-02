@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Typography from "../Text";
 import { motion } from "framer-motion";
 import Button from "../Button";
+import IconButton from "../IconButton";
 
 export const Slider = styled(motion.div)`
 width:100vw;
@@ -47,7 +48,7 @@ justify-content:space-between;
 const TopDiv = styled.div`
 pointer-events:auto;
 display:flex;
-transform:translateX(calc(10vw + 3em));
+transform:translateX(calc(12vw + 5em));
 gap:2em;
 align-items:end;
 `
@@ -67,6 +68,9 @@ export function SliderTab({
     onTab = () => { },
     onSecondTab = () => { },
     onExit = () => { },
+    onNext= ()=> {},
+    onPrevious= ()=> {},
+
 }) {
     return (
         <SliderTabCont initial={initial}
@@ -89,7 +93,19 @@ export function SliderTab({
                 </ButtonDiv>
             </SliderTabsCont>
             <Slider>
+            <IconButton
+                     image="/icons/leftarrowlight.svg"
+                     hover
+                     secondImage="/icons/leftarrow.svg"
+                     alt="Go backwards" width={75} height={75} onClick={onPrevious} />
                 {content}
+                <IconButton
+                     image="/icons/rightarrowlight.svg"
+                     hover
+                     secondImage="/icons/rightarrow.svg"
+                     alt="Go forward" width={75} height={75}
+                     onClick={onNext}
+                  />
             </Slider>
 
         </SliderTabCont>
