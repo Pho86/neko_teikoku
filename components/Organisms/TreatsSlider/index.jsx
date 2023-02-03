@@ -2,11 +2,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TreatsData from "@/data/treats.json"
 import IconButton from "@/components/Atoms/IconButton";
 import { SliderTab } from "@/components/Atoms/Slider";
-import Ingredients from "@/data/ingredients.json"
+import Ingredients from "@/data/ingredients.json";
+
 
 const Grid = styled.div`
 display:grid;
@@ -32,6 +33,12 @@ export default function TreatsSlider({
     const [pageMin, setPageMin] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [tab, setTab] = useState(true);
+    const [maxPage, setMaxPage] = useState(1);
+
+    useEffect(() => {
+        setMaxPage(Math.round((pageLimit / TreatsData.length)))
+    }, [pageLimit])
+
     return (
         <AnimatePresence>
             {active &&
@@ -52,7 +59,7 @@ export default function TreatsSlider({
                     }}
                     onNext={() => {
                         () => {
-                            if (currentPage < 2) {
+                            if (currentPage < maxPage) {
                                 setCurrentPage(currentPage + 1);
                                 setPageMin(pageMin + 6);
                                 setPageLimit(pageLimit + 6);

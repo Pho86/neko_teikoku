@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ItemData from "@/data/items.json"
 import IconButton from "@/components/Atoms/IconButton";
 import { SliderTab } from "@/components/Atoms/Slider";
@@ -32,6 +32,12 @@ export default function ItemsSlider({
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
    const [tab, setTab] = useState(true);
+   const [maxPage, setMaxPage] = useState(1);
+
+   useEffect(() => {
+      setMaxPage(Math.round((ItemData.length / pageLimit)));
+   }, [pageLimit])
+   
    return (
       <AnimatePresence>
          {active &&
@@ -54,7 +60,7 @@ export default function ItemsSlider({
                   }
                }}
                onNext={() => {
-                  if (currentPage < 2) {
+                  if (currentPage < maxPage) {
                      setCurrentPage(currentPage + 1);
                      setPageMin(pageMin + 6);
                      setPageLimit(pageLimit + 6);
