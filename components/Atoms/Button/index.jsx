@@ -26,11 +26,13 @@ export default function Button({
     alt,
     onClick = () => { },
     type,
+    imgwidth = 47,
+    imgheight = 44
 }) {
     return (
         <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type}>
             {text && <Typography text={text} color={textcolor} weight={weight} size={size} />}
-            {image && <Image src={image} width={47} height={44} alt={alt} />}
+            {image && <Image src={image} width={imgwidth} height={imgheight} alt={alt} />}
         </ButtonDiv>
     )
 }

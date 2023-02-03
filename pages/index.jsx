@@ -37,7 +37,7 @@ export default function Home({ data }) {
   const [catDex, setCatDex] = useState(false);
   const [catCard, setCatCard] = useState(0);
   const [randomCats, setRandomCats] = useState([]);
-
+  const [catData, setCatData] = useState([])
   const [currentUser, setCurrentUser] = useState({})
 
   const [location, setLocation] = useState("Vancouver");
@@ -70,13 +70,35 @@ export default function Home({ data }) {
   }
 
   const fetchWeather = async () => {
-    const weatherResult = await axios.get(openWeatherURL)
-    return weatherResult.data
+    try {
+      const weatherResult = await axios.get(openWeatherURL)
+      return weatherResult.data
+    } catch (error) {
+      setLocation("Vancouver");
+      alert("an error has occured, your location has been reset to vancouver")
+      const weatherResult = await axios.get(`/api/weather?lang=${lang}&units=${units}&location=Vancouver`)
+      return weatherResult.data
+    }
+  }
+
+  const setNewWeather = async () => {
+    const weatherResult = await fetchWeather();
+    setWeather(weatherResult);
+  }
+
+  const onWeatherChange = async (value) => {
+    console.log(value.target.value)
+    setLocation(value.target.value)
   }
 
   async function fetchData() {
     const data = await getData();
+    setCatData(data)
     const amountOfCats = generateRandomNumber(0, 2);
+    generateCats(data, amountOfCats)
+  }
+
+  const generateCats = async (data, amountOfCats) => {
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(data);
       const x = generateRandomNumber(5, 90);
@@ -99,9 +121,7 @@ export default function Home({ data }) {
       }
       fetchData();
     })
-    // setInterval(() => {
-    // RefreshData();
-    // }, 10000);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -114,7 +134,7 @@ export default function Home({ data }) {
 
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
-        <UserInterface currentUser={currentUser} weatherData={weather} onCatDexClick={() => { setCatDex(!catDex) }} />
+        <UserInterface currentUser={currentUser} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />
         <GameArea>
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
@@ -129,7 +149,7 @@ export default function Home({ data }) {
         {randomCats && randomCats.map((cat, i) => {
           return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
-        
+
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
       </main>
     </>

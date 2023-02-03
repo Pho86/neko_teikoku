@@ -68,8 +68,8 @@ export function SliderTab({
     onTab = () => { },
     onSecondTab = () => { },
     onExit = () => { },
-    onNext= ()=> {},
-    onPrevious= ()=> {},
+    onNext = () => { },
+    onPrevious = () => { },
 
 }) {
     return (
@@ -93,19 +93,19 @@ export function SliderTab({
                 </ButtonDiv>
             </SliderTabsCont>
             <Slider>
-            <IconButton
-                     image="/icons/leftarrowlight.svg"
-                     hover
-                     secondImage="/icons/leftarrow.svg"
-                     alt="Go backwards" width={75} height={75} onClick={onPrevious} />
+                <IconButton
+                    image="/icons/leftarrowlight.svg"
+                    hover
+                    secondImage="/icons/leftarrow.svg"
+                    alt="Go backwards" width={75} height={75} onClick={onPrevious} />
                 {content}
                 <IconButton
-                     image="/icons/rightarrowlight.svg"
-                     hover
-                     secondImage="/icons/rightarrow.svg"
-                     alt="Go forward" width={75} height={75}
-                     onClick={onNext}
-                  />
+                    image="/icons/rightarrowlight.svg"
+                    hover
+                    secondImage="/icons/rightarrow.svg"
+                    alt="Go forward" width={75} height={75}
+                    onClick={onNext}
+                />
             </Slider>
 
         </SliderTabCont>

@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
-import TreatsDex from "../TreatsDex"
+import TreatsDex from "../TreatsDex";
+import WeatherPopup from "@/components/Molecules/WeatherPopup";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -20,9 +21,10 @@ z-index:44;
 `
 const TopIcons = styled.div`
 display:flex;
-align-items:flex-end;
-pointer-events:auto;
+align-items:flex-start;
+// pointer-events:auto;
 justify-content:space-between;
+// pointer-events:none;
 
 `
 const BottomIcons = styled.div`
@@ -55,11 +57,19 @@ transition: all .2s ease-in-out;
    box-shadow: 4px 4px 4px 0px #D9D9D9;
 }
 `
+const WeatherCol = styled.div`
+display:flex;
+flex-direction:column;
+gap:1.5em;
+align-self:end;
+`
 const WeatherRow = styled(RowIcon)`
 background-color:var(--primary);
 padding:.5em 1.5em;
 gap:2em;
 border-radius:1em;
+align-self:end;
+display:flex;
 transition: all .2s ease-in-out;
 &:hover {
    box-shadow: 4px 4px 4px 0px #D9D9D9;
@@ -80,11 +90,15 @@ export default function UserInterface({
    weatherData,
    currentUser,
    onCatDexClick = () => { },
+   onWeatherSubmit = () => { },
+   onWeatherChange = () => { },
+   location,
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
+   const [weatherShow, setWeatherShow] = useState(false);
    return (
       <>
          <UserInterfaceDiv>
@@ -99,23 +113,28 @@ export default function UserInterface({
                      />
                   </ProfileRow>
                </RowIcon>
-               {weatherData && <WeatherRow>
-                  <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
-                  <WeatherDiv>
-                     <Typography
-                        text={weatherData.weather[0].main}
-                        weight={"600"}
-                        size={"1.2rem"}
-                     />
-                     <Typography
-                        text={`${weatherData.main.temp} ℃`}
-                        size={"1.8rem"}
-                        color={"var(--border-hard)"}
-                        weight={"500"}
-                     />
-                  </WeatherDiv>
-               </WeatherRow>
-               }
+               <WeatherCol>
+                  {weatherData && <>
+                     <WeatherRow onClick={() => { setWeatherShow(!weatherShow) }}>
+                        <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
+                        <WeatherDiv >
+                           <Typography
+                              text={weatherData.weather[0].main}
+                              weight={"600"}
+                              size={"1.2rem"}
+                           />
+                           <Typography
+                              text={`${weatherData.main.temp} °`}
+                              size={"1.8rem"}
+                              color={"var(--border-hard)"}
+                              weight={"500"}
+                           />
+                        </WeatherDiv>
+                     </WeatherRow>
+                     <WeatherPopup weatherData={weatherData} location={location} onWeatherChange={onWeatherChange} onWeatherSubmit={onWeatherSubmit} active={weatherShow} onExit={() => { setWeatherShow(false) }} />
+                  </>
+                  }
+               </WeatherCol>
 
             </TopIcons>
             <BottomIcons>
@@ -184,6 +203,7 @@ export default function UserInterface({
          </UserInterfaceDiv>
          <TreatsDex active={cookShow}
             onExit={() => { setCookShow(false) }} />
+
       </>
    )
 }
