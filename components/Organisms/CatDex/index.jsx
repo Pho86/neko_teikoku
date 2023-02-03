@@ -2,8 +2,7 @@ import CatCard from "@/components/Molecules/CatCard";
 import { PopUp, OpacityBackgroundFade, PopUpWithTab, Tab } from "@/components/Atoms/Popup";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import IconButton from "@/components/Atoms/IconButton";
 
 const PopUpGrid = styled.div`
@@ -29,6 +28,12 @@ export default function CatDex({
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
+   const [maxPage, setMaxPage] = useState(1);
+
+   useEffect(() => {
+      setMaxPage(Math.round((catData.length / pageLimit)));
+   }, [catData.length, pageLimit])
+
    return (
       <AnimatePresence>
          {catDex === true &&
@@ -45,18 +50,18 @@ export default function CatDex({
                   transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                   exitTab
                   arrows
-                  onNext={() => {
-                     if (currentPage < 14) {
-                        setCurrentPage(currentPage + 1);
-                        setPageMin(pageMin + 6);
-                        setPageLimit(pageLimit + 6);
-                     }
-                  }}
                   onPrevious={() => {
                      if (currentPage > 1) {
                         setCurrentPage(currentPage - 1);
                         setPageMin(pageMin - 6);
                         setPageLimit(pageLimit - 6);
+                     }
+                  }}
+                  onNext={() => {
+                     if (currentPage < maxPage) {
+                        setCurrentPage(currentPage + 1);
+                        setPageMin(pageMin + 6);
+                        setPageLimit(pageLimit + 6);
                      }
                   }}
                   content={<>
