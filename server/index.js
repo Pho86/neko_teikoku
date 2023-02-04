@@ -2,9 +2,9 @@ import { db, auth } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from '@firebase/auth';
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc } from '@firebase/firestore';
 
+
 export const SignUp = async (values) => {
     const userCred = await createUserWithEmailAndPassword(auth, values.email, values.password);
-
     const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
         username: values.username,
         email: values.email,
@@ -15,10 +15,11 @@ export const SignUp = async (values) => {
     });
 }
 
+
 export const SignIn = async (values) => {
     const result = await signInWithEmailAndPassword(auth, values.email, values.password);
-    console.log(result)
 }
+
 
 export const SignOut = async () => {
     await signOut(auth)
@@ -30,8 +31,6 @@ export const addCatData = async (cat) => {
     try {
         const q = query(collection(db, "cats"), where("breedName", "==", cat.breedName), where("uid", "==", auth.currentUser.uid));
         const querySnapshot = await getDocs(q);
-
-        console.log(querySnapshot)
         querySnapshot.forEach((document) => {
             data = document.id
         });
@@ -49,7 +48,6 @@ export const addCatData = async (cat) => {
                 catId: cat.id,
             }
             const docRef = await addDoc(collection(db, "cats"), catData);
-            console.log(docRef)
         }
     }
     catch (error) {
@@ -60,7 +58,6 @@ export const addCatData = async (cat) => {
             catId: cat.id,
         }
         const docRef = await addDoc(collection(db, "cats"), catData);
-        console.log(docRef)
     }
 }
 
@@ -74,3 +71,19 @@ export const fetchCatData = async () => {
     return data
 }
 
+
+export const fetchCurrentUserData = async () => {
+    const ref = doc(db, "users", auth.currentUser.uid)
+    const docSnap = await getDoc(ref);
+    if (docSnap.exists()) {
+        return docSnap.data();
+    }
+}
+
+
+export const updateWeatherData = async (weather) => {
+    const ref = doc(db, "users", auth.currentUser.uid)
+    await updateDoc(ref, {
+        location: weather
+    });
+}

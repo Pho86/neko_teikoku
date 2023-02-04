@@ -34,7 +34,6 @@ export default function WeatherInput({
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('x')
         onSubmit(location)
     }
 

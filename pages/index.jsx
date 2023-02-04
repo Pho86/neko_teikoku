@@ -1,17 +1,17 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
-import { selectRandomFromArray, generateRandomNumber } from '@/util';
 import styled from 'styled-components';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/firebase/firebase.config';
+import { selectRandomFromArray, generateRandomNumber } from '@/util';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { addCatData } from '@/server';
+import { auth } from '@/firebase/firebase.config';
+import { onAuthStateChanged } from 'firebase/auth';
+import { addCatData, fetchCurrentUserData, updateWeatherData } from '@/server';
 
 const GameArea = styled.div`
 position:absolute;
@@ -38,40 +38,23 @@ export default function Home({ data }) {
   const [catCard, setCatCard] = useState(0);
   const [randomCats, setRandomCats] = useState([]);
   const [catData, setCatData] = useState([])
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
+  const [currentUserData, setCurrentUserData] = useState({});
 
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
   const [lang, setLang] = useState("en");
   const [units, setUnits] = useState("metric");
 
-  let catUrl = '/api/catbreed';
-  let openWeatherURL = `/api/weather?lang=${lang}&units=${units}&location=${location}`;
+  const weatherUrl = useRef(`/api/weather?lang=${lang}&units=${units}&location=${location}`)
+  const catUrl = useRef('/api/catbreed');
 
   const router = useRouter();
 
-  const getData = async () => {
-    const catResult = await fetchCats()
-    const weatherResult = await fetchWeather()
-    try {
-      setCats(catResult)
-      setWeather(weatherResult);
-      console.log(weatherResult)
-      return catResult
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
-
-  const fetchCats = async () => {
-    const catResults = await axios.get(catUrl);
-    return catResults.data
-  }
-
   const fetchWeather = async () => {
     try {
-      const weatherResult = await axios.get(openWeatherURL)
+      const weatherResult = await axios.get(weatherUrl.current);
+      await updateWeatherData(weatherResult.data.name)
       return weatherResult.data
     } catch (error) {
       setLocation("Vancouver");
@@ -87,15 +70,13 @@ export default function Home({ data }) {
   }
 
   const onWeatherChange = async (value) => {
-    console.log(value.target.value)
     setLocation(value.target.value)
+    weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${value.target.value}`
   }
 
-  async function fetchData() {
-    const data = await getData();
-    setCatData(data)
-    const amountOfCats = generateRandomNumber(0, 2);
-    generateCats(data, amountOfCats)
+  const fetchCats = async () => {
+    const catResults = await axios.get(catUrl.current);
+    return catResults.data
   }
 
   const generateCats = async (data, amountOfCats) => {
@@ -110,16 +91,39 @@ export default function Home({ data }) {
     }
   }
 
+  const fetchData = async () => {
+    const data = await getData();
+    setCatData(data)
+    const amountOfCats = generateRandomNumber(0, 2);
+    await generateCats(data, amountOfCats)
+  }
+
+  const getData = async () => {
+    const catResult = await fetchCats()
+    const weatherResult = await fetchWeather()
+    try {
+      setCats(catResult)
+      setWeather(weatherResult);
+      return catResult
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        const currentUserData = await fetchCurrentUserData();
         setCurrentUser(currentUser);
-        console.log(currentUser)
+        setCurrentUserData(currentUserData);
+        setLocation(currentUserData.location);
+        weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
       } else {
         alert("please log in")
         router.push('/login')
       }
-      fetchData();
+      await fetchData();
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,6 +159,7 @@ export default function Home({ data }) {
     </>
   )
 }
+
 
 // export async function getServerSideProps(context) {
 //   let url = "http://localhost:3000/api/catbreed";
