@@ -36,11 +36,11 @@ export default function ItemsSlider({
    const [ownedItemsMax, setOwnedItemsMax] = useState(6);
    const [unownedItemsMin, setunOwnedItemsMin] = useState(0);
    const [unownedItemsMax, setunOwnedItemsMax] = useState(6);
-   
+
    useEffect(() => {
       console.log(currentItems)
-      setOwnedItemsMax(currentItems.length)
-      setMaxPage(Math.round((ItemData.length / 6)));
+      setOwnedItemsMax(currentItems.length + 1)
+      // setMaxPage(Math.round((ItemData.length / 6)));
    }, [pageLimit])
 
    return (
@@ -77,23 +77,23 @@ export default function ItemsSlider({
                         ?
                         <>
                            {
-                           currentItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
-                              return <GridItem key={i}>
-                                 <ItemCard image={item.image} alt={item.name} />
-                                 {/* <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} /> */}
-                                 <Typography text={item.name} weight={"500"} size={"1.2rem"} />
-                                 <Typography text={"OWNED"} weight={"500"} size={".6rem"} />
-                              </GridItem>
-                           })
+                              currentItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
+                                 return <GridItem key={i}>
+                                    <ItemCard image={item.image} alt={item.name} />
+                                    <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} />
+                                    <Typography text={item.name} weight={"500"} size={"1.2rem"} />
+                                    {/* <Typography text={"OWNED"} weight={"500"} size={".6rem"} /> */}
+                                 </GridItem>
+                              })
                            }
                            {
-                           // ItemData.slice(0, unownedItemsMax).map((item, i) => {
-                           //    return <GridItem key={i}>
-                           //       <ItemCard image={item.image} alt={item.name} />
-                           //       <Typography text={item.name} weight={"500"} size={"1.2rem"} />
-                           //       <Typography text={"UNOWNED"} weight={"500"} size={".6rem"} />
-                           //    </GridItem>
-                           // })
+                              ItemData.slice(ownedItemsMax, unownedItemsMax).map((item, i) => {
+                                 return <GridItem key={i}>
+                                    <ItemCard image={item.image} alt={item.name} />
+                                    <Typography text={item.name} weight={"500"} size={"1.2rem"} />
+                                    <Typography text={"UNOWNED"} weight={"500"} size={".6rem"} />
+                                 </GridItem>
+                              })
                            }
                         </>
                         :
