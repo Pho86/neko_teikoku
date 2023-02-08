@@ -19,6 +19,8 @@
     "next": "13.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "styled-components": "^5.3.6"
+    "stroked-text": "^1.0.0",
+    "styled-components": "^5.3.6",
+    "use-sound": "^4.0.1"
   }
 }

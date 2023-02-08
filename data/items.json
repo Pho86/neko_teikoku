@@ -1,38 +1,47 @@
 [
    {
       "name": "cat light",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 1
    },
    {
       "name": "grass",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 2
    },
    {
       "name": "water",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 3
    },
    {
       "name": "ice",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 4
    },
    {
       "name": "mice",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 5
    },
    {
       "name": "monkey",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 6
    },
    {
       "name": "test",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 7
    },
    {
       "name": "IDK",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 8
    },
    {
       "name": "l",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 9
    }
 ]

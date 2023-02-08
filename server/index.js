@@ -1,5 +1,5 @@
 import { db, auth } from "../firebase/firebase.config";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from '@firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, sendPasswordResetEmail } from '@firebase/auth';
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc } from '@firebase/firestore';
 
 
@@ -25,6 +25,9 @@ export const SignOut = async () => {
     await signOut(auth)
 }
 
+export const ForgotPassword = async (values) => {
+    await sendPasswordResetEmail(auth, values.email)
+}
 
 export const addCatData = async (cat) => {
     let data;
@@ -86,4 +89,45 @@ export const updateWeatherData = async (weather) => {
     await updateDoc(ref, {
         location: weather
     });
+}
+
+
+export const fetchUserItems = async () => {
+    let data = []
+    const q = query(collection(db, "items"), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data() })
+    });
+    return data;
+}
+
+
+export const addUserItem = async (item) => {
+    let data;
+    const q = query(collection(db, "items"), where("name", "==", item.name), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data = document.id
+    });
+    try {
+        const ref = doc(db, "items", data);
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            const update = updateDoc(ref, {
+                count: docSnap.data().count + 1
+            });
+        } else {
+        }
+    }
+    catch (error) {
+        const itemData = {
+            uid: auth.currentUser.uid,
+            name: item.name,
+            count: 1,
+            itemID: item.id,
+        }
+        const docRef = await addDoc(collection(db, "items"), itemData);
+
+    }
 }

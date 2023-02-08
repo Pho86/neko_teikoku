@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Input from "@/components/Atoms/Input"
 import Button from "@/components/Atoms/Button"
 import Head from "next/head"
-import { SignUp, SignIn, SignOut } from "/server";
+import { SignUp, SignIn, SignOut, ForgotPassword } from "/server";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase.config";
@@ -25,12 +25,16 @@ export default function Login() {
     const [ErrorMessage, setErrorMessage] = useState("")
 
     const handleChange = (event) => {
-        if (event.target.form.name === "register") {
-            setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
-        }
-        if (event.target.form.name === "login") {
-            setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
-        }
+        setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
+        // if (event.target.form.name === "register") {
+        //     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
+        // }
+        // if (event.target.form.name === "login") {
+        //     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
+        // }
+        // if (event.target.form.name === "forgot") {
+        //     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
+        // }
     };
     const handleRegisterSubmit = async () => {
         try {
@@ -52,6 +56,16 @@ export default function Login() {
     const handleSignOut = async () => {
         await SignOut(auth)
     }
+    const handleForgotPassword = async () => {
+        try {
+            await ForgotPassword(loginInfo)
+            setErrorMessage("an email has been sent")
+        }
+        catch(error) {
+            setErrorMessage("ERROR OCCURED")
+        }
+    }
+    
     useEffect(() => {
         onAuthStateChanged(auth, async (currentUser) => {
             setCurrentUser(currentUser);
@@ -89,6 +103,10 @@ export default function Login() {
                     </>
                     : <></>}
                 </div>
+                <LoginForm onChange={handleChange} name="forgot">
+                    <Input type="text" name="email" placeholder="enter email" />
+                    <Button type="button" text="Forgot Password" onClick={handleForgotPassword} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
+                </LoginForm>
             </div>
         </>
     )

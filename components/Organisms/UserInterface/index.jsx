@@ -2,11 +2,13 @@ import styled from "styled-components";
 import IconButton from "@/components/Atoms/IconButton";
 import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
 import WeatherPopup from "@/components/Molecules/WeatherPopup";
+import ItemData from "@/data/items.json";
+import { StrokedText } from 'stroked-text';
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -22,9 +24,7 @@ z-index:44;
 const TopIcons = styled.div`
 display:flex;
 align-items:flex-start;
-// pointer-events:auto;
 justify-content:space-between;
-// pointer-events:none;
 
 `
 const BottomIcons = styled.div`
@@ -93,12 +93,19 @@ export default function UserInterface({
    onWeatherSubmit = () => { },
    onWeatherChange = () => { },
    location,
+   currentItems,
+   filteredItems,
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
+   
+   useEffect(() => {
+      
+   }, [])
+
    return (
       <>
          <UserInterfaceDiv>
@@ -106,11 +113,11 @@ export default function UserInterface({
                <RowIcon>
                   <ProfileRow>
                      <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
-                     <Typography
-                        text={currentUser.displayName}
-                        weight={"600"}
-                        size={"1.2em"}
-                     />
+                     <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
+                        fontSize: '1.5rem',
+                     }}>
+                        {currentUser.displayName}
+                     </StrokedText>
                   </ProfileRow>
                </RowIcon>
                <WeatherCol>
@@ -154,8 +161,8 @@ export default function UserInterface({
                      size={"1.2rem"}
                   />
                </ColIcon>
-               <ItemsSlider active={setItems}
-                  onExit={() => { setItemsShow(false) }} />
+               {currentItems && <ItemsSlider filteredItems={filteredItems} currentItems={currentItems} active={setItems}
+                  onExit={() => { setItemsShow(false) }} />}
 
                <ColIcon>
                   <AnimatePresence>

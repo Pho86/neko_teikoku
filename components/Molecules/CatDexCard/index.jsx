@@ -17,11 +17,8 @@ color:white;
 align-items:center;
 `
 const CatDexCardDiv = styled(PopUpWithTab)`
-position:absolute;
 `
 const CatDexCardHead = styled.div`
-// -webkit-text-stroke: 1px var(--secondary-accent);
-// paint-order: stroke fill;
 `
 const CatDexCardContent = styled.div`
 display:grid;
