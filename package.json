@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@next/font": "13.1.2",
@@ -22,5 +23,8 @@
     "stroked-text": "^1.0.0",
     "styled-components": "^5.3.6",
     "use-sound": "^4.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.30.0"
   }
 }
