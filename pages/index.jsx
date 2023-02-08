@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem } from '@/server';
-import ItemData from "@/data/items.json"
+
 
 const GameArea = styled.div`
 position:absolute;
@@ -52,6 +52,8 @@ export default function Home({ data }) {
   const catUrl = useRef('/api/catbreed');
 
   const router = useRouter();
+
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const fetchWeather = async () => {
     try {
@@ -104,7 +106,6 @@ export default function Home({ data }) {
     setCatData(data)
     const amountOfCats = generateRandomNumber(0, 2);
     await generateCats(data, amountOfCats)
-
   }
 
   const getData = async () => {
@@ -114,13 +115,16 @@ export default function Home({ data }) {
     try {
       setCats(catResult)
       setWeather(weatherResult);
-      setCurrentItems(itemsResult)
+      setCurrentItems(itemsResult);
       return catResult
     }
     catch (error) {
       console.log(error)
     }
   }
+
+
+
   const [mousePos, setMousePos] = useState({});
 
   const handlePosition = async () => {
@@ -150,7 +154,6 @@ export default function Home({ data }) {
         router.push('/login')
       }
       await fetchData();
-
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,7 +169,7 @@ export default function Home({ data }) {
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
         <p>({mousePos.x}, {mousePos.y})</p>
-        <UserInterface currentUser={currentUser} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />
+        {currentItems && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />}
         <GameArea id="game" onClick={handlePosition}>
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />

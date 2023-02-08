@@ -33,13 +33,14 @@ export default function ItemsSlider({
    const [tab, setTab] = useState(true);
    const [maxPage, setMaxPage] = useState(1);
    const [ownedItemsMin, setOwnedItemsMin] = useState(0);
-   const [ownedItemsMax, setOwnedItemsMax] = useState(0);
+   const [ownedItemsMax, setOwnedItemsMax] = useState(6);
    const [unownedItemsMin, setunOwnedItemsMin] = useState(0);
    const [unownedItemsMax, setunOwnedItemsMax] = useState(6);
-
+   
    useEffect(() => {
+      console.log(currentItems)
+      setOwnedItemsMax(currentItems.length)
       setMaxPage(Math.round((ItemData.length / 6)));
-      console.log(filteredItems)
    }, [pageLimit])
 
    return (
@@ -76,7 +77,7 @@ export default function ItemsSlider({
                         ?
                         <>
                            {
-                           filteredItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
+                           currentItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
                               return <GridItem key={i}>
                                  <ItemCard image={item.image} alt={item.name} />
                                  {/* <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} /> */}

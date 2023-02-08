@@ -7,7 +7,8 @@ import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
 import WeatherPopup from "@/components/Molecules/WeatherPopup";
-import ItemData from "@/data/items.json"
+import ItemData from "@/data/items.json";
+import { StrokedText } from 'stroked-text';
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -93,36 +94,16 @@ export default function UserInterface({
    onWeatherChange = () => { },
    location,
    currentItems,
+   filteredItems,
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
-   const [filteredItems, setFilteredItems]= useState([]);
-   const [unfilteredItems, setUnFilteredItems]= useState([]);
-
-   const filterItems = async () => {
-      let items = []
-      const filteredItems = await currentItems.forEach(async (Item, index) => {
-         for (let i = 0; i < ItemData.length; i++) {
-            if (Item.name === ItemData[i].name) {
-               console.log(Item)
-               Item.image = ItemData[i].image
-               items.push(Item)
-            }
-         }
-      })
-      return items
-   }
-   const fetchItems = async () => {
-      const filteredItems = await filterItems()
-      setFilteredItems(filteredItems)
-      console.log(filteredItems)
-      return filteredItems
-   }
+   
    useEffect(() => {
-      fetchItems()
+      
    }, [])
 
    return (
@@ -132,11 +113,11 @@ export default function UserInterface({
                <RowIcon>
                   <ProfileRow>
                      <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
-                     <Typography
-                        text={currentUser.displayName}
-                        weight={"600"}
-                        size={"1.2em"}
-                     />
+                     <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
+                        fontSize: '1.5rem',
+                     }}>
+                        {currentUser.displayName}
+                     </StrokedText>
                   </ProfileRow>
                </RowIcon>
                <WeatherCol>
