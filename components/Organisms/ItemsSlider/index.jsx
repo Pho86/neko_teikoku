@@ -4,7 +4,6 @@ import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
 import { useState, useEffect } from "react";
 import ItemData from "@/data/items.json"
-import IconButton from "@/components/Atoms/IconButton";
 import { SliderTab } from "@/components/Atoms/Slider";
 import Ingredients from "@/data/ingredients.json"
 
@@ -24,20 +23,25 @@ flex-direction:column;
 `
 export default function ItemsSlider({
    active,
-   items,
-   ingredients,
    onExit = () => { },
+   currentItems,
+   filteredItems
 }) {
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
    const [tab, setTab] = useState(true);
    const [maxPage, setMaxPage] = useState(1);
+   const [ownedItemsMin, setOwnedItemsMin] = useState(0);
+   const [ownedItemsMax, setOwnedItemsMax] = useState(0);
+   const [unownedItemsMin, setunOwnedItemsMin] = useState(0);
+   const [unownedItemsMax, setunOwnedItemsMax] = useState(6);
 
    useEffect(() => {
-      setMaxPage(Math.round((ItemData.length / pageLimit)));
+      setMaxPage(Math.round((ItemData.length / 6)));
+      console.log(filteredItems)
    }, [pageLimit])
-   
+
    return (
       <AnimatePresence>
          {active &&
@@ -69,13 +73,29 @@ export default function ItemsSlider({
                content={<>
                   <Grid>
                      {tab
-                        ? ItemData.slice(pageMin, pageLimit).map((item, i) => {
-                           return <GridItem key={i}>
-                              <ItemCard image={item.image} alt={item.name} />
-                              <Typography text={"x1"} weight={"400"} size={".9rem"} />
-                              <Typography text={item.name} weight={"500"} size={"1.2rem"} />
-                           </GridItem>
-                        }) :
+                        ?
+                        <>
+                           {
+                           filteredItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
+                              return <GridItem key={i}>
+                                 <ItemCard image={item.image} alt={item.name} />
+                                 {/* <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} /> */}
+                                 <Typography text={item.name} weight={"500"} size={"1.2rem"} />
+                                 <Typography text={"OWNED"} weight={"500"} size={".6rem"} />
+                              </GridItem>
+                           })
+                           }
+                           {
+                           // ItemData.slice(0, unownedItemsMax).map((item, i) => {
+                           //    return <GridItem key={i}>
+                           //       <ItemCard image={item.image} alt={item.name} />
+                           //       <Typography text={item.name} weight={"500"} size={"1.2rem"} />
+                           //       <Typography text={"UNOWNED"} weight={"500"} size={".6rem"} />
+                           //    </GridItem>
+                           // })
+                           }
+                        </>
+                        :
                         Ingredients.slice(pageMin, pageLimit).map((item, i) => {
                            return <GridItem key={i}>
                               <ItemCard image={item.image} alt={item.name} />

@@ -11,7 +11,8 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem } from '@/server';
+import ItemData from "@/data/items.json"
 
 const GameArea = styled.div`
 position:absolute;
@@ -40,6 +41,7 @@ export default function Home({ data }) {
   const [catData, setCatData] = useState([])
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserData, setCurrentUserData] = useState({});
+  const [currentItems, setCurrentItems] = useState([]);
 
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
@@ -74,6 +76,11 @@ export default function Home({ data }) {
     weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${value.target.value}`
   }
 
+  const fetchItems = async () => {
+    const itemsResult = await fetchUserItems();
+    return itemsResult
+  }
+
   const fetchCats = async () => {
     const catResults = await axios.get(catUrl.current);
     return catResults.data
@@ -87,28 +94,47 @@ export default function Home({ data }) {
       random.x = `${x}vw`;
       random.y = `${y}vh`;
       randomCats.push(random);
-      addCatData(random)
+      // addCatData(random)
     }
   }
 
   const fetchData = async () => {
     const data = await getData();
+    console.log(data)
     setCatData(data)
     const amountOfCats = generateRandomNumber(0, 2);
     await generateCats(data, amountOfCats)
+
   }
 
   const getData = async () => {
     const catResult = await fetchCats()
     const weatherResult = await fetchWeather()
+    const itemsResult = await fetchItems()
     try {
       setCats(catResult)
       setWeather(weatherResult);
+      setCurrentItems(itemsResult)
       return catResult
     }
     catch (error) {
       console.log(error)
     }
+  }
+  const [mousePos, setMousePos] = useState({});
+
+  const handlePosition = async () => {
+    const handleMouseMove = (event) => {
+      setMousePos({ x: (-(event.clientX - event.target.clientWidth) / event.target.clientWidth) * 100, y: (-(event.clientY - event.target.clientHeight) / event.target.clientHeight) * 100 });
+    };
+    window.addEventListener('click', handleMouseMove);
+
+    return () => {
+      window.removeEventListener(
+        'click',
+        handleMouseMove
+      );
+    };
   }
 
   useEffect(() => {
@@ -124,6 +150,7 @@ export default function Home({ data }) {
         router.push('/login')
       }
       await fetchData();
+
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,13 +160,14 @@ export default function Home({ data }) {
 
     <>
       <Head>
-        <title>{currentUser.displayName}&apos;s Home - Neko Teikoku</title>
+        <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
 
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
-        <UserInterface currentUser={currentUser} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />
-        <GameArea>
+        <p>({mousePos.x}, {mousePos.y})</p>
+        <UserInterface currentUser={currentUser} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />
+        <GameArea id="game" onClick={handlePosition}>
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
             {cats && cats.map((cat, i) => {
@@ -148,8 +176,8 @@ export default function Home({ data }) {
               )
             })}
           </PopUps>
-
         </GameArea>
+
         {randomCats && randomCats.map((cat, i) => {
           return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}

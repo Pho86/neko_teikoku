@@ -24,14 +24,13 @@ export default function CatDex({
    selectCatCard = (id) => { return id; },
 
 }) {
-   const [page, setPage] = useState([0, 6, 1])
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
    const [maxPage, setMaxPage] = useState(1);
 
    useEffect(() => {
-      setMaxPage(Math.round((catData.length / pageLimit)));
+      setMaxPage(Math.round((catData.length / 6)));
    }, [catData.length, pageLimit])
 
    return (

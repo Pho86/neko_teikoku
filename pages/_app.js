@@ -9,7 +9,6 @@ const fredoka = Fredoka({ subsets: ['latin'] })
 export default function App({ Component, pageProps }) {
   return <>
     <Head>
-      {/* <title>Neko Teikoku</title> */}
       <meta name="description" content="Neko Teikoku is a cozy cat web application to help you feel at ease. Meow meow." />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/cats/caticon.svg" />

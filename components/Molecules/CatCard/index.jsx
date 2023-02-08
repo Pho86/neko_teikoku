@@ -12,7 +12,7 @@ min-width:285px;
 cursor:pointer;
 transition:all .1s ease-in-out;
 border: 3px solid var(--border-hard);
-box-shadow: 0px 6px 0px var(--border-hard);
+border-bottom: 9px solid var(--border-hard);
 &:hover {
    background-color:var(--primary);
 }

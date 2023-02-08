@@ -5,8 +5,6 @@ Apis we are using are:
 * [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
 * [OpenWeatherMapApi](https://openweathermap.org/api)
 
-* [WeatherAPI](https://www.weatherapi.com/)
-
 ## Technology used in the web application
 * Next JS,
 * React,

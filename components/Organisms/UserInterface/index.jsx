@@ -2,11 +2,12 @@ import styled from "styled-components";
 import IconButton from "@/components/Atoms/IconButton";
 import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
 import WeatherPopup from "@/components/Molecules/WeatherPopup";
+import ItemData from "@/data/items.json"
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -22,9 +23,7 @@ z-index:44;
 const TopIcons = styled.div`
 display:flex;
 align-items:flex-start;
-// pointer-events:auto;
 justify-content:space-between;
-// pointer-events:none;
 
 `
 const BottomIcons = styled.div`
@@ -93,12 +92,39 @@ export default function UserInterface({
    onWeatherSubmit = () => { },
    onWeatherChange = () => { },
    location,
+   currentItems,
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
+   const [filteredItems, setFilteredItems]= useState([]);
+   const [unfilteredItems, setUnFilteredItems]= useState([]);
+
+   const filterItems = async () => {
+      let items = []
+      const filteredItems = await currentItems.forEach(async (Item, index) => {
+         for (let i = 0; i < ItemData.length; i++) {
+            if (Item.name === ItemData[i].name) {
+               console.log(Item)
+               Item.image = ItemData[i].image
+               items.push(Item)
+            }
+         }
+      })
+      return items
+   }
+   const fetchItems = async () => {
+      const filteredItems = await filterItems()
+      setFilteredItems(filteredItems)
+      console.log(filteredItems)
+      return filteredItems
+   }
+   useEffect(() => {
+      fetchItems()
+   }, [])
+
    return (
       <>
          <UserInterfaceDiv>
@@ -154,8 +180,8 @@ export default function UserInterface({
                      size={"1.2rem"}
                   />
                </ColIcon>
-               <ItemsSlider active={setItems}
-                  onExit={() => { setItemsShow(false) }} />
+               {currentItems && <ItemsSlider filteredItems={filteredItems} currentItems={currentItems} active={setItems}
+                  onExit={() => { setItemsShow(false) }} />}
 
                <ColIcon>
                   <AnimatePresence>
