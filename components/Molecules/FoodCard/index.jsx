@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Image from "next/image";
 import TreatsData from "@/data/treats.json"
+import { StrokedText } from "stroked-text";
 
 const FoodCardDiv = styled.div`
     background-color:var(--white);
@@ -64,35 +65,34 @@ export default function FoodCard(
         treatimg,
         aimg,
         bimg,
-        onClick=()=>{}
+        onClick = () => { }
     }
-){
-    return(
+) {
+    return (
         <FoodCardDiv onClick={onClick}>
             <FoodCardHead>
                 <FoodTextDiv>
-                    <Typography
-                        text={treatname}
-                        weight={"500"}
-                        size={"1.5em"}
-                        color={"var(--secondary-accent)"}
-                    />
+                    <StrokedText fill='var(--white)' stroke='var(--secondary-accent)' strokeWidth={4} style={{
+                        fontSize: '1.5rem',
+                    }}>
+                        {treatname}
+                    </StrokedText>
                 </FoodTextDiv>
             </FoodCardHead>
 
-                <Image src={treatimg} width={200} height={200} alt="bento" />
-                
-                <IngCont>
-                    <IngItem>
-                        <Typography text={aing} weight={"400"} size={"1em"} />
-                        <Image src={aimg} width={45} height={45} alt="bento" />
-                    </IngItem>
+            <Image src={treatimg} width={200} height={200} alt={`${treatname} image`} />
 
-                    <IngItem>
-                        <Typography text={bing} weight={"400"} size={"1em"} />
-                        <Image src={bimg} width={45} height={45} alt="bento" />
-                    </IngItem>
-                </IngCont>
+            <IngCont>
+                <IngItem>
+                    <Typography text={aing} weight={"400"} size={"1em"} />
+                    <Image src={aimg} width={45} height={45} alt={`${aing} image`} />
+                </IngItem>
+
+                <IngItem>
+                    <Typography text={bing} weight={"400"} size={"1em"} />
+                    <Image src={bimg} width={45} height={45} alt={`${bing} image`} />
+                </IngItem>
+            </IngCont>
 
         </FoodCardDiv>
     )

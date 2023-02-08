@@ -125,21 +125,21 @@ export default function Home({ data }) {
 
 
 
-  const [mousePos, setMousePos] = useState({});
+  // const [mousePos, setMousePos] = useState({});
 
-  const handlePosition = async () => {
-    const handleMouseMove = (event) => {
-      setMousePos({ x: (-(event.clientX - event.target.clientWidth) / event.target.clientWidth) * 100, y: (-(event.clientY - event.target.clientHeight) / event.target.clientHeight) * 100 });
-    };
-    window.addEventListener('click', handleMouseMove);
+  // const handlePosition = async () => {
+  //   const handleMouseMove = (event) => {
+  //     setMousePos({ x: (-(event.clientX - event.target.clientWidth) / event.target.clientWidth) * 100, y: (-(event.clientY - event.target.clientHeight) / event.target.clientHeight) * 100 });
+  //   };
+  //   window.addEventListener('click', handleMouseMove);
 
-    return () => {
-      window.removeEventListener(
-        'click',
-        handleMouseMove
-      );
-    };
-  }
+  //   return () => {
+  //     window.removeEventListener(
+  //       'click',
+  //       handleMouseMove
+  //     );
+  //   };
+  // }
 
   useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
@@ -168,9 +168,9 @@ export default function Home({ data }) {
 
       <main className={`${styles.main} background`}>
         <h1>Neko Teikoku</h1>
-        <p>({mousePos.x}, {mousePos.y})</p>
+        {/* <p>({mousePos.x}, {mousePos.y})</p> */}
         {currentItems && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />}
-        <GameArea id="game" onClick={handlePosition}>
+        <GameArea id="game">
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
             {cats && cats.map((cat, i) => {
