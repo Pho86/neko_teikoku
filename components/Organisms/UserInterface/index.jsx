@@ -7,7 +7,6 @@ import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
 import WeatherPopup from "@/components/Molecules/WeatherPopup";
-import ItemData from "@/data/items.json";
 import { StrokedText } from 'stroked-text';
 
 const UserInterfaceDiv = styled.div`
@@ -21,18 +20,20 @@ flex-direction:column;
 justify-content:space-between;
 z-index:44;
 `
+
 const TopIcons = styled.div`
 display:flex;
 align-items:flex-start;
 justify-content:space-between;
-
 `
+
 const BottomIcons = styled.div`
 display:flex;
 align-items:flex-end;
 bottom:0;
 gap:2em;
 `
+
 const ColIcon = styled.div`
 display:flex;
 flex-direction:column;
@@ -41,14 +42,15 @@ text-align:${props => props.textAlign || "center"};
 cursor:pointer;
 pointer-events:auto;
 `
+
 const RowIcon = styled.div`
 pointer-events:auto;
 display:flex;
 gap:${props => props.gap || ".5em"};
 cursor:pointer;
 `
+
 const ProfileRow = styled(RowIcon)`
-// background-color:var(--primary);
 padding:.5em 2em;
 gap:2em;
 border-radius:1em;
@@ -57,12 +59,14 @@ transition: all .2s ease-in-out;
    box-shadow: 4px 4px 4px 0px #D9D9D9;
 }
 `
+
 const WeatherCol = styled.div`
 display:flex;
 flex-direction:column;
 gap:1.5em;
 align-self:end;
 `
+
 const WeatherRow = styled(RowIcon)`
 background-color:var(--primary);
 padding:.5em 1.5em;
@@ -79,6 +83,7 @@ transition: all .2s ease-in-out;
 const SliderIcons = styled(motion.div)`
 position:absolute;
 `
+
 const WeatherDiv = styled.div`
 display:flex;
 flex-direction:column;
@@ -86,6 +91,7 @@ justify-content:center;
 gap:.3em;
 text-align:center;
 `
+
 export default function UserInterface({
    weatherData,
    currentUser,
@@ -101,9 +107,9 @@ export default function UserInterface({
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
-   
+
    useEffect(() => {
-      
+
    }, [])
 
    return (
@@ -131,7 +137,7 @@ export default function UserInterface({
                               size={"1.2rem"}
                            />
                            <Typography
-                              text={`${weatherData.main.temp} °`}
+                              text={`${weatherData.main.temp} °C`}
                               size={"1.8rem"}
                               color={"var(--border-hard)"}
                               weight={"500"}
@@ -161,8 +167,6 @@ export default function UserInterface({
                      size={"1.2rem"}
                   />
                </ColIcon>
-               {currentItems && <ItemsSlider filteredItems={filteredItems} currentItems={currentItems} active={setItems}
-                  onExit={() => { setItemsShow(false) }} />}
 
                <ColIcon>
                   <AnimatePresence>
@@ -203,10 +207,22 @@ export default function UserInterface({
                      />
                   </ColIcon>
                </ColIcon>
-               <TreatsSlider active={treats}
-                  onExit={() => { setTreatsShow(false) }} />
+
+               <ColIcon onClick={() => { }}>
+                  <IconButton image={"/cats/caticon.svg"} alt="Offerings Button" />
+                  <Typography
+                     text={"offerings"}
+                     weight={"600"}
+                     size={"1.2rem"}
+                  />
+               </ColIcon>
 
             </BottomIcons>
+            <TreatsSlider active={treats}
+               onExit={() => { setTreatsShow(false) }} />
+            {currentItems && <ItemsSlider filteredItems={filteredItems} currentItems={currentItems} active={setItems}
+               onExit={() => { setItemsShow(false) }} />}
+
          </UserInterfaceDiv>
          <TreatsDex active={cookShow}
             onExit={() => { setCookShow(false) }} />

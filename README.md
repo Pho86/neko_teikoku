@@ -1,5 +1,5 @@
 # About Neko Teikoku
-Neko Teikoku is a cozy cat web application meant to make you feel cozy.
+Neko Teikoku is a cozy cat web application meant to make you feel cozy. Meow
 
 Apis we are using are:
 * [CatBreedDB](https://rapidapi.com/encurate/api/catbreeddb/)
@@ -11,21 +11,20 @@ Apis we are using are:
 * Axios,
 * Styled-components,
 * Framer Motion,
+* Stroked Text
+* Use-sound,
 * Lottie React,
 * Firebase
 
 ## Getting Started
+1. Run the cmd in terminal `https://github.com/Pho86/neko_teikoku.git`.
 
-First, run the development server:
+2. Cd into the directory with `cd ./neko_teikoku`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+3. Install the required packages via `npm install` or `yarn dev` or any other package manager.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Get api keys from apis provided above and place them in `.env.local` or `.env` by following the `.env.example` file. 
 
-get api keys from apis provided above and put them in `.env.local` by following the `.env.example` file. 
+5. Run the development server with `npm run dev` or `yarn dev` or `pnpm dev`.
+
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. (May be opened in another url depending on whether you have a server running)
