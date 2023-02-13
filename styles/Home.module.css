@@ -4,9 +4,192 @@
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
+  min-width: 100vh;
 }
 
 .head {
   padding-bottom: .5em;
   font-weight: 600;
+}
+
+.outermain {
+  position: relative;
+}
+
+.background {
+  font-family: 'Fredoka', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../public/signinImage.png");
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+
+.signInBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FEF9ED;
+  width: 900px;
+  height: 550px;
+  border-radius: 20px;
+  border-color: #EF9771;
+  border-width: 6px;
+  border-style: solid;
+  z-index: 2;
+  position: relative;
+}
+
+.split {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.texts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.redtext {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #EB5E5E;
+}
+
+.meowcome {
+  font-weight: 500;
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  margin-top:50px;
+  
+}
+
+.input {
+  border-radius: 20px;
+  background: #FFFFFF;
+  border-color: #EF9771;
+  border-style: solid;
+  border-width: 4px;
+  padding: 20px;
+  width: 350px;
+  height: 50px;
+  box-shadow: none;
+  margin-bottom: 30px;
+}
+
+.button {
+  -webkit-text-stroke: 2px #EF9771;
+  border-radius: 20px;
+  background: #F8D7A8;
+  border-color: #EF9771;
+  border-width: 4px;
+  padding: 20px;
+  width: 350px;
+  height: 50px;
+  font-size: 25px;
+  font-weight: 900;
+  color: #FFFFFF;
+  border-style: solid;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.vl {
+  border-left: 3px solid #F8D7A8;
+  height: 400px;
+}
+
+.logoImages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.logoCat {
+  width: 140px;
+  height: 153px;
+  position: absolute;
+  top: 145px;
+  right: 60px;
+}
+
+.logo {
+  width: 290px;
+  height: 174px;
+  position: absolute;
+  bottom: 152px;
+}
+
+.btn {
+  display: flex;
+  position: absolute;
+  left: 70px;
+  top: -45px;
+  z-index: 0;
+}
+
+.loginbtn {
+  background-color:#EF9771;
+  width: 170px;
+  height: 45px;
+  border-style: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-right: 30px;
+}
+
+.signinbtn {
+  background-color:#F8D7A8;
+  width: 170px;
+  height: 45px;
+  border-style: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 24px;
+  margin-right: 30px;
+  color: #EF9771;
+}
+
+.vectorX {
+  background-color: #EB5E5E;
+  width: 80px;
+  height:60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  top: 30px;
+  right: -78px;
+  z-index: 1;
+}
+
+.imgX {
+  margin-left: 10px;
 }
