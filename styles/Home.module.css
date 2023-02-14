@@ -16,19 +16,14 @@
   position: relative;
 }
 
-.background {
-  font-family: 'Fredoka', sans-serif;
+.loginCont {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-image: url("../public/signinImage.png");
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: -1;
+  min-height: 100vh;
 }
 
+/* 
 .signInBox {
   display: flex;
   justify-content: center;
@@ -192,4 +187,4 @@
 
 .imgX {
   margin-left: 10px;
-}
+} */
