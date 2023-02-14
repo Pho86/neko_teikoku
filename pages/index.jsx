@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem } from '@/server';
-
+import Item from '@/components/Atoms/Item';
 
 const GameArea = styled.div`
 position:absolute;
@@ -42,6 +42,7 @@ export default function Home({ data }) {
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserData, setCurrentUserData] = useState({});
   const [currentItems, setCurrentItems] = useState([]);
+  const [activeItems, setActiveItems] = useState([]);
 
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
@@ -177,6 +178,9 @@ export default function Home({ data }) {
               return (
                 <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
               )
+            })}
+            {activeItems && activeItems.map((item, i) => {
+              return <Item key={i} image={"/items/cat_lamp.svg"} />
             })}
           </PopUps>
         </GameArea>

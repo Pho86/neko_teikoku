@@ -25,7 +25,8 @@ export default function ItemsSlider({
    active,
    onExit = () => { },
    currentItems,
-   filteredItems
+   filteredItems,
+   onActiveClick = () => { },
 }) {
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
@@ -78,7 +79,7 @@ export default function ItemsSlider({
                         <>
                            {
                               currentItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
-                                 return <GridItem key={i}>
+                                 return <GridItem key={i} onClick={onActiveClick}>
                                     <ItemCard image={item.image} alt={item.name} />
                                     <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
