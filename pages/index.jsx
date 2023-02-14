@@ -167,7 +167,7 @@ export default function Home({ data }) {
       </Head>
 
       <main className={`${styles.main} background`}>
-        <h1>Neko Teikoku</h1>
+        {/* <h1>Neko Teikoku</h1> */}
         {/* <p>({mousePos.x}, {mousePos.y})</p> */}
         {currentItems && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />}
         <GameArea id="game">
@@ -185,7 +185,7 @@ export default function Home({ data }) {
           return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
 
-        <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
+        {/* <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2> */}
       </main>
     </>
   )
