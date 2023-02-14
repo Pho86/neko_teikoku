@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Typography from "../Text";
 import Image from "next/image";
+import { StrokedText } from "stroked-text";
 const ButtonDiv = styled.button`
 padding:${props => props.padding || "1em 2em"};
 background-color:${props => props.color || "var(--button-light)"};
@@ -15,7 +16,7 @@ transition:all .1s ease-in-out;
 export default function Button({
     text,
     textcolor = "var(--white)",
-    size = "1rem",
+    size = "1.2rem",
     weight = 800,
     border,
     borderradius,
@@ -31,7 +32,11 @@ export default function Button({
 }) {
     return (
         <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type}>
-            {text && <Typography text={text} color={textcolor} weight={weight} size={size} />}
+            {text && <StrokedText fill='var(--white)' stroke={colorhover} strokeWidth={5} style={{
+                fontSize: '1.5rem', fontWeight:"600"
+            }}>
+                {text}
+            </StrokedText>}
             {image && <Image src={image} width={imgwidth} height={imgheight} alt={alt} />}
         </ButtonDiv>
     )

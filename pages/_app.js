@@ -13,11 +13,16 @@ export default function App({ Component, pageProps }) {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/cats/caticon.svg" />
     </Head>
-    
-    <main className={fredoka.className}>
-      <AnimatePresence mode="wait" initial={false}>
-        <Component {...pageProps} />
-      </AnimatePresence>
-    </main>
+    <style jsx global>{`
+        html, button, ::placeholder, input {
+          font-family: ${fredoka.style.fontFamily};
+        }
+      `}</style>
+
+    {/* <main className={fredoka.className}> */}
+    <AnimatePresence mode="wait" initial={false}>
+      <Component {...pageProps} />
+    </AnimatePresence>
+    {/* </main> */}
   </>
 }
