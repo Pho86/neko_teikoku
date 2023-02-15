@@ -33,7 +33,7 @@ export default function Button({
     return (
         <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type}>
             {text && <StrokedText fill={textcolor} stroke={colorhover} strokeWidth={5} style={{
-                fontSize: '1.5rem', fontWeight:{weight}
+                fontSize: size, fontWeight: weight
             }}>
                 {text}
             </StrokedText>}
