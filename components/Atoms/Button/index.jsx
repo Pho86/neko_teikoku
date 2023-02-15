@@ -16,8 +16,8 @@ transition:all .1s ease-in-out;
 export default function Button({
     text,
     textcolor = "var(--white)",
-    size = "1.2rem",
-    weight = 800,
+    size = "1.5rem",
+    weight = 600,
     border,
     borderradius,
     padding,
@@ -27,13 +27,13 @@ export default function Button({
     alt,
     onClick = () => { },
     type,
-    imgwidth = 47,
-    imgheight = 44
+    imgwidth = 37,
+    imgheight = 33
 }) {
     return (
         <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type}>
-            {text && <StrokedText fill='var(--white)' stroke={colorhover} strokeWidth={5} style={{
-                fontSize: '1.5rem', fontWeight:"600"
+            {text && <StrokedText fill={textcolor} stroke={colorhover} strokeWidth={5} style={{
+                fontSize: '1.5rem', fontWeight:{weight}
             }}>
                 {text}
             </StrokedText>}

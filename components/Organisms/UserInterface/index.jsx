@@ -55,6 +55,7 @@ const ProfileRow = styled(RowIcon)`
 padding:.5em 2em;
 gap:2em;
 border-radius:1em;
+align-self:flex-start;
 transition: all .2s ease-in-out;
 &:hover {
    box-shadow: 4px 4px 4px 0px #D9D9D9;
@@ -65,7 +66,7 @@ const WeatherCol = styled.div`
 display:flex;
 flex-direction:column;
 gap:1.5em;
-align-self:end;
+align-self:flex-start;
 `
 
 const WeatherRow = styled(RowIcon)`
@@ -73,9 +74,10 @@ background-color:var(--primary);
 padding:.5em 1.5em;
 gap:2em;
 border-radius:1em;
-align-self:end;
+align-self:flex-end;
 display:flex;
 transition: all .2s ease-in-out;
+// justify-self:auto;
 &:hover {
    box-shadow: 4px 4px 4px 0px #D9D9D9;
 }
@@ -102,7 +104,7 @@ const SettingsDiv = styled.div`
    display:flex;
    flex-direction:column;
    gap:1.5em;
-   align-self:end;
+   align-self:flex-start;
 `
 
 export default function UserInterface({
@@ -114,7 +116,7 @@ export default function UserInterface({
    location,
    currentItems,
    filteredItems,
-   onActiveClick = (item) => {return item},
+   onActiveClick = (item) => { return item },
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
@@ -132,29 +134,32 @@ export default function UserInterface({
          <UserInterfaceDiv>
             <TopIcons>
                <RowIcon>
-                  <ProfileRow
-                     onClick={()=>{setSettings(!settings)}}
-                  >
-                     <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
-                     <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
-                        fontSize: '1.5rem',
-                     }}>
-                        {currentUser.displayName}
-                     </StrokedText>
-                  </ProfileRow>
+                  <WeatherCol>
+                     <ProfileRow
+                        onClick={() => { setSettings(!settings) }}
+                     >
+                        <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
+                        <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
+                           fontSize: '1.5rem',
+                        }}>
+                           {currentUser.displayName}
+                        </StrokedText>
+                     </ProfileRow>
 
-                  {
-                     settings && <SettingsDiv>
-                        <SettingsPopup/>
-                     </SettingsDiv>
-                  }
+                     {
+
+                        settings && <SettingsDiv>
+                           <SettingsPopup onExit={() => { setSettings(false) }} />
+                        </SettingsDiv>
+                     }
+                  </WeatherCol>
 
                </RowIcon>
                <WeatherCol>
                   {weatherData && <>
                      <WeatherRow onClick={() => { setWeatherShow(!weatherShow) }}>
                         <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
-                        <WeatherDiv >
+                        <WeatherDiv>
                            <Typography
                               text={weatherData.weather[0].main}
                               weight={"600"}

@@ -112,7 +112,7 @@ export default function Login({
     const handleRegisterSubmit = async () => {
         try {
             await SignUp(loginInfo);
-            setErrorMessage("you have successfuly signed up ")
+            setErrorMessage("you have successfully signed up ")
         }
         catch (error) {
             setErrorMessage("ERROR OCCURED")
@@ -121,8 +121,8 @@ export default function Login({
     const handleLoginSubmit = async () => {
         try {
             await SignIn(loginInfo)
-            setErrorMessage("successfuly logged in!")
-            setTimeout(()=>{
+            setErrorMessage("successfully logged in!")
+            setTimeout(() => {
                 router.push('/')
             }, 2000);
         } catch (error) {
@@ -145,7 +145,6 @@ export default function Login({
     useEffect(() => {
         onAuthStateChanged(auth, async (currentUser) => {
             setCurrentUser(currentUser);
-            console.log(currentUser)
         })
     }, [])
     return (
@@ -157,23 +156,23 @@ export default function Login({
                 <div className={styles.loginCont}>
                     <TitleDiv>
                         <ImgCont>
-                        {/* make the logo bob up and down? */}
-                        <AnimatePresence>
-                            <Image
-                                src={'/icons/nekoTeikokuV2.svg'}
-                                width={500}
-                                height={100}
-                                alt={"Neko Teikoku Logo Horizontal"}
-                            />
-                        </AnimatePresence>
+                            {/* make the logo bob up and down? */}
+                            <AnimatePresence>
+                                <Image
+                                    src={'/icons/nekoTeikokuV2.svg'}
+                                    width={500}
+                                    height={100}
+                                    alt={"Neko Teikoku Logo Horizontal"}
+                                />
+                            </AnimatePresence>
                         </ImgCont>
-                        <StartDiv 
-                            onClick={()=>{setStart(true)}}
+                        <StartDiv
+                            onClick={() => { setStart(true) }}
                         >
-                            <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{fontSize: '4rem', fontWeight:"800"}}>
+                            <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
                                 start
                             </StrokedText>
-                            
+
                         </StartDiv>
                     </TitleDiv>
 
@@ -182,102 +181,101 @@ export default function Login({
                         <Input type="text" name="username" placeholder="enter username" />
                         <Input type="password" name="password" placeholder="enter password" />
                         <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
-                    </LoginForm>
-                    {ErrorMessage && ErrorMessage} */}
+                    </LoginForm> */}
 
-                    {   start &&
-                        <PopUpWithTab
-                            title={"login"}
-                            secondTab={"register"}
-                            onExit={()=>setStart(false)}
-                            size={"1.2em"}
-                            direction="row"
-                            initial={{ y: "-100vh" }}
-                            animate={{ y: "-5%" }}
-                            exit={{ y: "-100vh" }}
-                            transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
-                            exitTab
-                            onFirstTabClick={() => { }}
-                            onSecondTabClick={() => { }}
-                            content={
-                                <>
-                                    <PopCont>
-                                        <ImgCont>
-                                            <Image
-                                                src={'/icons/nekoTeikoku.svg'}
-                                                width={300}
-                                                height={300}
-                                                alt={"Neko Teikoku Logo"}
-                                            />
-                                        </ImgCont>
-
-                                        <hr />
-
-                                        <FormCont>
-                                            <SpaceDiv>
-                                                <Typography
-                                                    text={"Meowcome back!"}
-                                                    weight={"600"}
-                                                    size={"2rem"}
-                                                    color={"var(--black)"}
+                    <AnimatePresence>
+                        {start &&
+                            <PopUpWithTab
+                                title={"login"}
+                                secondTab={"register"}
+                                onExit={() => setStart(false)}
+                                size={"1.2em"}
+                                direction="row"
+                                initial={{ y: "-100vh" }}
+                                animate={{ y: "-5%" }}
+                                exit={{ y: "-100vh" }}
+                                transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
+                                exitTab
+                                onFirstTabClick={() => { }}
+                                onSecondTabClick={() => { }}
+                                content={
+                                    <>
+                                        <PopCont>
+                                            <ImgCont>
+                                                <Image
+                                                    src={'/icons/nekoTeikoku.svg'}
+                                                    width={300}
+                                                    height={300}
+                                                    alt={"Neko Teikoku Logo"}
                                                 />
-                                                <Typography
-                                                    text={"meowmeowmewomeowmeow!"}
-                                                    weight={"500"}
-                                                    size={"1rem"}
-                                                    color={"var(--black)"}
-                                                />
-                                            </SpaceDiv>
-                                            
-                                            <LoginForm onChange={handleChange} name="login">
-                                                <InputDiv>
-                                                <Typography 
-                                                    text={ErrorMessage && ErrorMessage}
-                                                    color={"var(--border-hard)"}
-                                                    align={"center"}
-                                                    weight={"500"}
-                                                />
-                                                
-                                                    <InputLogin type="text" name="email" placeholder="enter email" />
-                                                    <InputLogin type="password" name="password" placeholder="enter password" />
-                                                </InputDiv>
-                                            </LoginForm>
-                                            <SpaceDiv>
-                                                <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
-                                                    color={"var(--button-light)"} colorhover={"var(--button-medium)"}
-                                                    border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                    textstroke={"1px var(--button-medium)"} padding={"0.5em 10em"} />
+                                            </ImgCont>
 
-                                                <Typography
-                                                    text={"Need an account? Register!"}
-                                                    weight={"500"}
-                                                    size={"1rem"}
-                                                    color={"var(--border-hard)"}
-                                                    textHover={"var(--secondary-accent)"}
-                                                    padding={"1em"}
-                                                    align={"center"}
-                                                />
-                                            </SpaceDiv>
-                                            
-                                        </FormCont>
-                                    </PopCont>
-                                </>}
-                        >
-                        </PopUpWithTab>
-                    }
+                                            <hr />
 
-                    
+                                            <FormCont>
+                                                <SpaceDiv>
+                                                    <Typography
+                                                        text={"Meowcome back!"}
+                                                        weight={"600"}
+                                                        size={"2rem"}
+                                                        color={"var(--black)"}
+                                                    />
+                                                    <Typography
+                                                        text={"meowmeowmewomeowmeow!"}
+                                                        weight={"500"}
+                                                        size={"1rem"}
+                                                        color={"var(--black)"}
+                                                    />
+                                                </SpaceDiv>
+                                                <LoginForm onChange={handleChange} name="login">
+                                                    <InputDiv>
+                                                        <Typography
+                                                            text={ErrorMessage && ErrorMessage}
+                                                            color={"var(--border-hard)"}
+                                                            align={"center"}
+                                                            weight={"500"}
+                                                        />
+                                                        <InputLogin type="text" name="email" placeholder="enter email" />
+                                                        <InputLogin type="password" name="password" placeholder="enter password" />
+                                                    </InputDiv>
+                                                </LoginForm>
+                                                <SpaceDiv>
+                                                    <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
+                                                        color={"var(--button-light)"} colorhover={"var(--button-medium)"}
+                                                        border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
+                                                        textstroke={"1px var(--button-medium)"} padding={"0.5em 10em"} />
+
+                                                    <Typography
+                                                        text={"Need an account? Register!"}
+                                                        weight={"500"}
+                                                        size={"1rem"}
+                                                        color={"var(--border-hard)"}
+                                                        textHover={"var(--secondary-accent)"}
+                                                        padding={"1em"}
+                                                        align={"center"}
+                                                    />
+                                                </SpaceDiv>
+
+                                            </FormCont>
+                                        </PopCont>
+                                    </>}
+                            >
+                            </PopUpWithTab>
+                        }
+                    </AnimatePresence>
+
+
                     {/* <div>
 
                         {currentUser ? currentUser.displayName : 'Not logged in'}
 
-
+                        
                         {currentUser ? <>
                             <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
                             <Button type="button" text="GO HOME" onClick={() => { router.push('/') }} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
-                        </>
+                            </>
                             : <></>}
-                    </div> */}
+                        </div> */}
                     {/* <LoginForm onChange={handleChange} name="forgot">
                         <Input type="text" name="email" placeholder="enter email" />
                         <Button type="button" text="Forgot Password" onClick={handleForgotPassword} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />

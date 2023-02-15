@@ -92,7 +92,7 @@ export default function ItemsSlider({
                         ?
                         <>
                            {
-                              currentItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
+                              currentItems.slice(0, 6).map((item, i) => {
                                  return <GridItem key={i} onClick={()=>{onActiveClick(item);}}>
                                     <ItemCard image={item.image} alt={item.name} />
                                     <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} />
@@ -102,7 +102,8 @@ export default function ItemsSlider({
                               })
                            }
                            {
-                              ItemData.slice(ownedItemsMax -2, unownedItemsMax +1).map((item, i) => {
+                              // fix later
+                              ItemData.slice(1, unownedItemsMax -1).map((item, i) => {
                                  return <GridItem key={i}>
                                     <ItemCard image={item.image} alt={item.name} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
