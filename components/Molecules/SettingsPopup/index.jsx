@@ -132,7 +132,7 @@ export default function SettingsPopup(
                     <Typography
                         text={auth.currentUser.email}
                         weight={"400"}
-                        size={"1.2rem"}
+                        size={"1rem"}
                         color={"var(--button-medium)"}
                         align={"center"}
                     />
