@@ -41,15 +41,3 @@ export default function Button({
         </ButtonDiv>
     )
 }
-
-/* Yes Button */
-export function test() {
-    return (
-        <>
-            <Button text="YAH" colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} onClick={() => { }} />
-
-            <Button text="NAH" color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} onClick={() => { }} />
-        </>
-
-    )
-}

@@ -9,6 +9,11 @@ display: ${props => props.display};
 margin: ${props => props.margin};
 padding: ${props => props.padding};
 width: ${props => props.width};
+cursor: ${props => props.textHover ? "pointer" : "auto"};
+transition: ${props => props.textHover ? "all .15s ease-in-out" : "none"};
+   &:hover {
+      color:${props => props.textHover};
+   }
 `
 
 export default function Typography({
@@ -21,6 +26,7 @@ export default function Typography({
    margin,
    padding,
    width,
+   textHover
 }) {
    return (
       <Text
@@ -32,6 +38,7 @@ export default function Typography({
          margin={margin}
          padding={padding}
          width={width}
+         textHover={textHover}
       >
          {text}
       </Text>

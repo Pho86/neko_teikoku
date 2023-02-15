@@ -101,6 +101,7 @@ export default function UserInterface({
    location,
    currentItems,
    filteredItems,
+   onActiveClick = (item) => {return item},
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
@@ -220,7 +221,7 @@ export default function UserInterface({
             </BottomIcons>
             <TreatsSlider active={treats}
                onExit={() => { setTreatsShow(false) }} />
-            {currentItems && <ItemsSlider filteredItems={filteredItems} currentItems={currentItems} active={setItems}
+            {currentItems && <ItemsSlider onActiveClick={onActiveClick} filteredItems={filteredItems} currentItems={currentItems} active={setItems}
                onExit={() => { setItemsShow(false) }} />}
 
          </UserInterfaceDiv>

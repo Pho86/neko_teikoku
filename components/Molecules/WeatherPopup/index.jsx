@@ -12,7 +12,7 @@ const WeatherDiv = styled.div`
     border-radius: 1.2em;
     border: 3px solid var(--border);
     border-bottom: 8px solid var(--border);
-    padding:1em 2em .5em 2em;
+    padding:1em 0em .5em 0em;
     justify-content: space-around;
     gap:4em;
     pointer-events:auto;
@@ -24,24 +24,25 @@ const WeatherCol = styled.div`
     gap:.5em;
     width:100%:
 `
-
+    
 const WeatherHighlight = styled.div`
-width:120%;
-height:10px;
-align-self:center;
-border-radius: 0px 0px 1.2em 1.2em;
-background-color: var(--light-accent);
+    width:90%;
+    height:10px;
+    align-self:center;
+    border-radius: 0px 0px 1.2em 1.2em;
+    background-color: var(--light-accent);
 `
 const ButtonDiv = styled.div`
-pointer-events:auto;
+    pointer-events:auto;
 `
 const WeatherContainer = styled(motion.div)`
-display:flex;
-gap:2em;
+    display:flex;
+    gap:2em;
 `
 const WeatherRow = styled.div`
-display:flex;
-gap:2em;
+    display:flex;
+    gap:2em;
+    padding:${props => props.padding || "0"};
 `
 
 export default function WeatherPopup({
@@ -67,7 +68,7 @@ export default function WeatherPopup({
                         <WeatherCol>
                             <WeatherDiv>
                                 <WeatherCol>
-                                    <WeatherRow>
+                                    <WeatherRow padding={"0em 2em"}>
                                         <WeatherCol>
                                             <Typography text={weatherData.name} weight={"600"}
                                                 size={"1.7rem"} />

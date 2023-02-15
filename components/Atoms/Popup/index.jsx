@@ -51,12 +51,12 @@ export const TopTab = styled(motion.div)`
 width:150px;
 height:40px;
 border-radius: 1.2em 1.2em 0 0;
-background-color:var(--border);
+background-color:${props => props.tabcolor || "var(--button-light)"};
 display:flex;
 justify-content:center;
 align-items:center;
-transform:translate(-250%, 0);
 pointer-events:auto;
+cursor:pointer;
 `
 export const PopUpCont = styled(motion.div)`
 position:fixed;
@@ -90,6 +90,11 @@ cursor:pointer;
    background-color:${props => props.hovercolor || "var(--border-hard)"};
 }
 `
+const TopTabs = styled.div`
+display:flex;
+width:80%;
+gap:2em;
+`
 export function OpacityBackgroundFade({
    onClick = () => { },
    transform
@@ -119,6 +124,10 @@ export function PopUpWithTab({
    exitTab,
    catDexTab,
    arrows,
+   secondTab,
+   tabcolor,
+   onSecondTabClick = () => { },
+   onFirstTabClick = () => { },
 }) {
    return (
       <PopUpCont initial={initial}
@@ -126,10 +135,18 @@ export function PopUpWithTab({
          transition={transition}
          exit={exit}
       >
-         <TopTab>
-            <Typography text={title} size={"1.2rem"} color={"var(--white)"} weight={"500"}
-            />
-         </TopTab>
+         <TopTabs>
+            <TopTab tabcolor={tabcolor ? "var(--button-light)" : "var(--border)"} onClick={onFirstTabClick}>
+               <Typography text={title} size={"1.2rem"} color={tabcolor ? "var(--border)" : "var(--white)"} weight={"500"}
+               />
+            </TopTab>
+            {secondTab &&
+               <TopTab tabcolor={!tabcolor ? "var(--button-light)" : "var(--border)"} onClick={onSecondTabClick}>
+                  <Typography text={secondTab} size={"1.2rem"} color={!tabcolor ? "var(--border)" : "var(--white)"} weight={"500"}
+                  />
+               </TopTab>
+            }
+         </TopTabs>
          <PopUpRow>
             <PopUpNT direction={direction}>
                {arrows && <IconButton
@@ -137,7 +154,7 @@ export function PopUpWithTab({
                   hover
                   secondImage="/icons/leftarrow.svg"
                   alt="Go back" width={75} height={75}
-                  onClick={onPrevious} /> }
+                  onClick={onPrevious} />}
                {content}
                {arrows && <IconButton
                   image="/icons/rightarrowlight.svg"
@@ -155,7 +172,7 @@ export function PopUpWithTab({
                </PopupTab>}
             </PopUpTabsCol>
          </PopUpRow>
-      </PopUpCont>
+      </PopUpCont >
 
    )
 }  

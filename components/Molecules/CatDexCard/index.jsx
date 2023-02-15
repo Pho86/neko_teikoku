@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { EmptySpace } from "@/components/Atoms/EmptySpacer";
 import Image from "next/image";
 import { OpacityBackgroundFade, PopUpWithTab } from "@/components/Atoms/Popup";
-
+import { StrokedText } from "stroked-text";
 const CatDexCardTitle = styled.div`
 background-color:#B4B0E3;
 display:flex;
@@ -77,11 +77,13 @@ export default function CatDexCard({
                            text={`no. ${catData.id}`}
                         />
                         <CatDexCardHead>
-                           <Typography
-                              text={catData.breedName}
-                              weight={"700"}
-                              size={"1.5rem"}
-                           />
+                           <StrokedText
+                              fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={5} style={{
+                                 fontSize: '1.5rem', fontWeight: "600"
+                              }}
+                           >
+                              {catData.breedName}
+                           </StrokedText>
                         </CatDexCardHead>
                         <EmptySpace axis={"horizontal"} size={30} />
                      </CatDexCardTitle>
@@ -107,7 +109,7 @@ export default function CatDexCard({
                            </div>
                            <div>
                               <Typography
-                                 text={"native country"}
+                                 text={"native region"}
                                  size={"1.3rem"}
                                  padding={"0 0 0 .5em"}
                                  color={"var(--secondary-accent)"}
@@ -142,6 +144,6 @@ export default function CatDexCard({
             </CatDexCardDiv>
          </>
          }
-      </AnimatePresence>
+      </AnimatePresence >
    )
 }

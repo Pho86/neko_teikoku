@@ -25,7 +25,8 @@ export default function ItemsSlider({
    active,
    onExit = () => { },
    currentItems,
-   filteredItems
+   filteredItems,
+   onActiveClick = (item) => {return item },
 }) {
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
@@ -33,13 +34,27 @@ export default function ItemsSlider({
    const [tab, setTab] = useState(true);
    const [maxPage, setMaxPage] = useState(1);
    const [ownedItemsMin, setOwnedItemsMin] = useState(0);
-   const [ownedItemsMax, setOwnedItemsMax] = useState(6);
+   const [ownedItemsMax, setOwnedItemsMax] = useState(currentItems.length);
    const [unownedItemsMin, setunOwnedItemsMin] = useState(0);
    const [unownedItemsMax, setunOwnedItemsMax] = useState(6);
 
+   const [filterItems, setFilteredItems] = useState([]);
+
+   const filter = async () => {
+      ItemData.filter((item, index)=> {
+         for(let i = 0; i < currentItems.length; i++) {
+            if(item.id === currentItems[i].itemID) {
+               ItemData.splice(i, 1)
+            }
+         }
+      })
+      console.log(ItemData)
+   } 
    useEffect(() => {
+      filter()
       console.log(currentItems)
-      setOwnedItemsMax(currentItems.length + 1)
+      setOwnedItemsMax(currentItems.length + 1);
+      // setunOwnedItemsMax(4)
       // setMaxPage(Math.round((ItemData.length / 6)));
    }, [pageLimit])
 
@@ -78,7 +93,7 @@ export default function ItemsSlider({
                         <>
                            {
                               currentItems.slice(ownedItemsMin, ownedItemsMax).map((item, i) => {
-                                 return <GridItem key={i}>
+                                 return <GridItem key={i} onClick={()=>{onActiveClick(item);}}>
                                     <ItemCard image={item.image} alt={item.name} />
                                     <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
@@ -87,7 +102,7 @@ export default function ItemsSlider({
                               })
                            }
                            {
-                              ItemData.slice(ownedItemsMax, unownedItemsMax).map((item, i) => {
+                              ItemData.slice(ownedItemsMax -2, unownedItemsMax +1).map((item, i) => {
                                  return <GridItem key={i}>
                                     <ItemCard image={item.image} alt={item.name} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
