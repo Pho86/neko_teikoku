@@ -112,7 +112,7 @@ export default function Login({
     const handleRegisterSubmit = async () => {
         try {
             await SignUp(loginInfo);
-            setErrorMessage("you have successfuly signed up ")
+            setErrorMessage("you have successfully signed up ")
         }
         catch (error) {
             setErrorMessage("ERROR OCCURED")
@@ -121,10 +121,10 @@ export default function Login({
     const handleLoginSubmit = async () => {
         try {
             await SignIn(loginInfo)
-            setErrorMessage("you have successfuly logged in ")
+            setErrorMessage("successfully logged in!")
             setTimeout(() => {
                 router.push('/')
-            }, 1000);
+            }, 2000);
         } catch (error) {
             setErrorMessage("ERROR OCCURED")
         }
@@ -181,10 +181,9 @@ export default function Login({
                         <Input type="text" name="username" placeholder="enter username" />
                         <Input type="password" name="password" placeholder="enter password" />
                         <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
-                    </LoginForm>
-                    {ErrorMessage && ErrorMessage} */}
-                    <AnimatePresence>
+                    </LoginForm> */}
 
+                    <AnimatePresence>
                         {start &&
                             <PopUpWithTab
                                 title={"login"}
@@ -230,6 +229,12 @@ export default function Login({
                                                 </SpaceDiv>
                                                 <LoginForm onChange={handleChange} name="login">
                                                     <InputDiv>
+                                                        <Typography
+                                                            text={ErrorMessage && ErrorMessage}
+                                                            color={"var(--border-hard)"}
+                                                            align={"center"}
+                                                            weight={"500"}
+                                                        />
                                                         <InputLogin type="text" name="email" placeholder="enter email" />
                                                         <InputLogin type="password" name="password" placeholder="enter password" />
                                                     </InputDiv>
@@ -259,7 +264,7 @@ export default function Login({
                         }
                     </AnimatePresence>
 
-                    {ErrorMessage && ErrorMessage}
+
                     {/* <div>
 
                         {currentUser ? currentUser.displayName : 'Not logged in'}
