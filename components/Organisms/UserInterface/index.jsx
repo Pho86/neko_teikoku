@@ -8,6 +8,7 @@ import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
 import WeatherPopup from "@/components/Molecules/WeatherPopup";
 import { StrokedText } from 'stroked-text';
+import SettingsPopup from "@/components/Molecules/SettingsPopup";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -91,6 +92,18 @@ justify-content:center;
 gap:.3em;
 text-align:center;
 `
+const SettingsDiv = styled.div`
+   // display:flex;
+   // flex-direction:column;
+   // // justify-content:center;
+   // // gap:.3em;
+   // position: absolute;
+
+   display:flex;
+   flex-direction:column;
+   gap:1.5em;
+   align-self:end;
+`
 
 export default function UserInterface({
    weatherData,
@@ -108,6 +121,7 @@ export default function UserInterface({
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
+   const [settings, setSettings] = useState(false);
 
    useEffect(() => {
 
@@ -118,7 +132,9 @@ export default function UserInterface({
          <UserInterfaceDiv>
             <TopIcons>
                <RowIcon>
-                  <ProfileRow>
+                  <ProfileRow
+                     onClick={()=>{setSettings(!settings)}}
+                  >
                      <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
                      <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
                         fontSize: '1.5rem',
@@ -126,6 +142,13 @@ export default function UserInterface({
                         {currentUser.displayName}
                      </StrokedText>
                   </ProfileRow>
+
+                  {
+                     settings && <SettingsDiv>
+                        <SettingsPopup/>
+                     </SettingsDiv>
+                  }
+
                </RowIcon>
                <WeatherCol>
                   {weatherData && <>
