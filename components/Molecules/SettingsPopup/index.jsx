@@ -19,6 +19,7 @@ const PopupCont = styled.div`
     width: 320px;
     min-height: 245px;
     justify-content: space-around;
+    cursor:auto;
 `
 
 const PopupText = styled.div`
@@ -82,6 +83,7 @@ const DisplayEmail = styled.div`
 const ButtonDiv = styled.div`
     pointer-events:auto;
     margin: 2% 1% 1% 2%;
+    cursor:auto;
 `
 
 const PopupDiv = styled.div`
@@ -127,7 +129,7 @@ export default function SettingsPopup(
 
                 <DisplayEmail>
                     <Typography
-                        text={"JMeowster123@gmail.com"}
+                        text={auth.currentUser.email}
                         weight={"400"}
                         size={"1.2rem"}
                         color={"var(--button-medium)"}
