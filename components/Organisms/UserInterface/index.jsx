@@ -9,6 +9,7 @@ import TreatsDex from "../TreatsDex";
 import WeatherPopup from "@/components/Molecules/WeatherPopup";
 import { StrokedText } from 'stroked-text';
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
+import Image from "next/image";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -47,18 +48,26 @@ pointer-events:auto;
 const RowIcon = styled.div`
 pointer-events:auto;
 display:flex;
+
 gap:${props => props.gap || ".5em"};
 cursor:pointer;
 `
 
 const ProfileRow = styled(RowIcon)`
+background-color: rgba(254, 249, 237, 0.8);
 padding:.5em 2em;
 gap:2em;
-border-radius:1em;
+border-radius:1.5em;
+border: 3px solid var(--border-hard);
+border-bottom: 8px solid var(--border-hard);
 align-self:flex-start;
 transition: all .2s ease-in-out;
+display: flex;
+align-items: center;
 &:hover {
-   box-shadow: 4px 4px 4px 0px #D9D9D9;
+   // box-shadow: 4px 4px 4px 0px #D9D9D9;
+   // border-bottom: 3px solid var(--border-hard);
+   background-color: var(--primary);
 }
 `
 
@@ -73,7 +82,7 @@ const WeatherRow = styled(RowIcon)`
 background-color:var(--primary);
 padding:.5em 1.5em;
 gap:2em;
-border-radius:1em;
+border-radius:1.5em;
 align-self:flex-end;
 display:flex;
 transition: all .2s ease-in-out;
@@ -105,6 +114,18 @@ const SettingsDiv = styled.div`
    flex-direction:column;
    gap:1.5em;
    align-self:flex-start;
+`
+const TextCont = styled.div`
+   display:flex;
+   flex-direction: column;
+   gap: 0.5em;
+   display: flex;
+   align-items: flex-start;
+`
+const SettingIcon = styled.div`
+   display: flex;
+   align-items: center;
+   gap: 0.5em
 `
 
 export default function UserInterface({
@@ -141,11 +162,26 @@ export default function UserInterface({
                         onClick={() => { setSettings(!settings) }}
                      >
                         <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
-                        <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
-                           fontSize: '1.5rem',
-                        }}>
-                           {currentUser.displayName}
-                        </StrokedText>
+                        <TextCont>
+                           <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
+                              fontSize: '1.5rem',
+                           }}>
+                              {currentUser.displayName}
+                           </StrokedText>
+                           <SettingIcon>
+                              <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={5} style={{
+                                 fontSize: '1.2rem',
+                              }}>
+                                 settings
+                              </StrokedText>
+                              <Image
+                                 src={'/icons/settingsIcon.svg'}
+                                 width={25}
+                                 height={25}
+                                 alt={"settings gear logo"}
+                              />
+                           </SettingIcon>
+                        </TextCont>
                      </ProfileRow>
 
                      {
