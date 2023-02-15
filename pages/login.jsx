@@ -121,10 +121,10 @@ export default function Login({
     const handleLoginSubmit = async () => {
         try {
             await SignIn(loginInfo)
-            setErrorMessage("you have successfuly logged in ")
+            setErrorMessage("successfuly logged in!")
             setTimeout(()=>{
                 router.push('/')
-            }, 1000);
+            }, 2000);
         } catch (error) {
             setErrorMessage("ERROR OCCURED")
         }
@@ -228,8 +228,16 @@ export default function Login({
                                                     color={"var(--black)"}
                                                 />
                                             </SpaceDiv>
+                                            
                                             <LoginForm onChange={handleChange} name="login">
                                                 <InputDiv>
+                                                <Typography 
+                                                    text={ErrorMessage && ErrorMessage}
+                                                    color={"var(--border-hard)"}
+                                                    align={"center"}
+                                                    weight={"500"}
+                                                />
+                                                
                                                     <InputLogin type="text" name="email" placeholder="enter email" />
                                                     <InputLogin type="password" name="password" placeholder="enter password" />
                                                 </InputDiv>
@@ -258,7 +266,7 @@ export default function Login({
                         </PopUpWithTab>
                     }
 
-                    {ErrorMessage && ErrorMessage}
+                    
                     {/* <div>
 
                         {currentUser ? currentUser.displayName : 'Not logged in'}
