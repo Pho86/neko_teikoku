@@ -140,14 +140,12 @@ export default function Home({ data }) {
   }
 
   const addTreat = async (treat) => {
-    // if (treat.count >= 1) {
-    // }
-    console.log(treat)
     setTreats([treat])
     treat.count -= 1
-    const amountOfCats = generateRandomNumber(1, 3);
-    console.log(amountOfCats)
-    await generateCats(catData, amountOfCats)
+    setTimeout(async () => {
+      const amountOfCats = generateRandomNumber(1, 3);
+      await generateCats(catData, amountOfCats)
+    }, 1500)
   }
 
 
@@ -191,7 +189,7 @@ export default function Home({ data }) {
           {activeItems && activeItems.map((item, i) => {
             return <Item key={i} alt={item.name} image={item.image} />
           })}
-          
+
           {treats && treats.map((treat, i) => {
             return <Treats key={i} alt={treat.name} image={treat.image} />
           })}
