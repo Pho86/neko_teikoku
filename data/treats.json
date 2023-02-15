@@ -1,10 +1,12 @@
 [
    {
       "name": "bento",
-      "image": "/treats/bento.svg"
+      "image": "/treats/bento.svg",
+      "id": 1
    },
    {
       "name": "bento",
-      "image": "/treats/bento.svg"
+      "image": "/treats/bento.svg",
+      "id": 2
    }
 ]

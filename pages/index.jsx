@@ -11,9 +11,11 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat } from '@/server';
 import ItemData from "@/data/items.json"
+import TreatsData from "@/data/treats.json"
 import Item from '@/components/Atoms/Item';
+import Treats from '@/components/Atoms/Treats';
 
 const GameArea = styled.div`
 position:absolute;
@@ -44,6 +46,7 @@ export default function Home({ data }) {
   const [currentUserData, setCurrentUserData] = useState({});
   const [currentItems, setCurrentItems] = useState([]);
   const [activeItems, setActiveItems] = useState([]);
+  const [treats, setTreats] = useState([])
 
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
@@ -91,14 +94,17 @@ export default function Home({ data }) {
   }
 
   const generateCats = async (data, amountOfCats) => {
+    let randomMeows = randomCats;
     for (let i = 0; i < amountOfCats; i++) {
       let random = selectRandomFromArray(data);
       const x = generateRandomNumber(5, 90);
       const y = generateRandomNumber(15, 75);
       random.x = `${x}vw`;
       random.y = `${y}vh`;
-      randomCats.push(random);
-      // addCatData(random)
+      randomMeows.push(random)
+    }
+    for (let x = 0; x < randomMeows.length; x++) {
+      setRandomCats([...randomCats, randomMeows[x]])
     }
   }
 
@@ -106,8 +112,8 @@ export default function Home({ data }) {
     const data = await getData();
     console.log(data)
     setCatData(data)
-    const amountOfCats = generateRandomNumber(0, 2);
-    await generateCats(data, amountOfCats)
+    // const amountOfCats = generateRandomNumber(0, 2);
+    // await generateCats(data, amountOfCats)
   }
 
   const getData = async () => {
@@ -133,6 +139,17 @@ export default function Home({ data }) {
     }
   }
 
+  const addTreat = async (treat) => {
+    // if (treat.count >= 1) {
+    // }
+    console.log(treat)
+    setTreats([treat])
+    treat.count -= 1
+    const amountOfCats = generateRandomNumber(1, 3);
+    console.log(amountOfCats)
+    await generateCats(catData, amountOfCats)
+  }
+
 
   useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
@@ -144,6 +161,7 @@ export default function Home({ data }) {
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
         await fetchData();
         await addUserItem(ItemData[0]);
+        await addUserTreat(TreatsData[0])
       } else {
         await router.push('/login')
         alert("please log in")
@@ -162,19 +180,22 @@ export default function Home({ data }) {
 
       <main className={`${styles.main} background`}>
         {/* <h1>Neko Teikoku</h1> */}
-        {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onCatDexClick={() => { setCatDex(!catDex) }} />}
+        {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         <GameArea id="game">
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
             {cats && cats.map((cat, i) => {
-              return (
-                <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
-              )
-            })}
-            {activeItems && activeItems.map((item, i) => {
-              return <Item key={i} alt={item.name} image={item.image} />
+              return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
             })}
           </PopUps>
+          {activeItems && activeItems.map((item, i) => {
+            return <Item key={i} alt={item.name} image={item.image} />
+          })}
+          
+          {treats && treats.map((treat, i) => {
+            return <Treats key={i} alt={treat.name} image={treat.image} />
+          })}
+
         </GameArea>
 
         {randomCats && randomCats.map((cat, i) => {
