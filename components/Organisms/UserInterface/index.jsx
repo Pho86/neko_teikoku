@@ -117,6 +117,8 @@ export default function UserInterface({
    currentItems,
    filteredItems,
    onActiveClick = (item) => { return item },
+   onTreatClick = (treat) => { return treat },
+
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
@@ -248,7 +250,7 @@ export default function UserInterface({
 
             </BottomIcons>
             <TreatsSlider active={treats}
-               onExit={() => { setTreatsShow(false) }} />
+               onExit={() => { setTreatsShow(false) }} onTreatClick={onTreatClick} />
             {currentItems && <ItemsSlider onActiveClick={onActiveClick} filteredItems={filteredItems} currentItems={currentItems} active={setItems}
                onExit={() => { setItemsShow(false) }} />}
 

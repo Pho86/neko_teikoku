@@ -28,6 +28,7 @@ export default function TreatsSlider({
     active,
     treats,
     onExit = () => { },
+    onTreatClick = (treat) => { return treat }
 }) {
     const [pageLimit, setPageLimit] = useState(6)
     const [pageMin, setPageMin] = useState(0)
@@ -69,7 +70,7 @@ export default function TreatsSlider({
                     content={<>
                         <Grid>
                             {tab && TreatsData.slice(pageMin, pageLimit).map((item, i) => {
-                                return <GridItem key={i}>
+                                return <GridItem key={i} onClick={()=>onTreatClick(item)}>
                                     <ItemCard image={item.image} alt="MEOW MEOW" />
                                     <Typography text={"x1"} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />

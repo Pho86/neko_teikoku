@@ -133,3 +133,42 @@ export const addUserItem = async (item) => {
         const docRef = await addDoc(collection(db, "items"), itemData);
     }
 }
+export const addUserTreat = async (item) => {
+    let data;
+    const q = query(collection(db, "treats"), where("name", "==", item.name), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data = document.id
+    });
+    try {
+        const ref = doc(db, "treats", data);
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            const update = updateDoc(ref, {
+                // count: docSnap.data().count + 1
+                count: docSnap.data().count
+            });
+        } else {
+        }
+    }
+    catch (error) {
+        const treatData = {
+            uid: auth.currentUser.uid,
+            name: item.name,
+            count: 1,
+            itemID: item.id,
+            image: item.image
+        }
+        const docRef = await addDoc(collection(db, "treats"), treatData);
+    }
+}
+
+export const fetchUserTreats = async () => {
+    let data = []
+    const q = query(collection(db, "treats"), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data() })
+    });
+    return data;
+}
