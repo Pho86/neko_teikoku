@@ -50,3 +50,17 @@ a {
   /* background-position: center; */
   /* background-repeat: no-repeat; */
 }
+.loginBackground {
+  background: url("/backgrounds/loginBg.png") no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+hr{
+  height: 420px;
+  width: 3px;
+  background-color: var(--border);
+  margin: 1em;
+  border-radius: 2px;
+  border: 0;
+}
