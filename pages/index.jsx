@@ -13,6 +13,7 @@ import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem } from '@/server';
 import Item from '@/components/Atoms/Item';
+import ItemData from "@/data/items.json"
 
 const GameArea = styled.div`
 position:absolute;
@@ -97,7 +98,7 @@ export default function Home({ data }) {
       random.x = `${x}vw`;
       random.y = `${y}vh`;
       randomCats.push(random);
-      // addCatData(random)
+      addCatData(random)
     }
   }
 
@@ -130,6 +131,7 @@ export default function Home({ data }) {
       item.count -= 1
     }
   }
+  
 
 
   useEffect(() => {
@@ -145,6 +147,7 @@ export default function Home({ data }) {
         router.push('/login')
       }
       await fetchData();
+      await addUserItem(ItemData[0])
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

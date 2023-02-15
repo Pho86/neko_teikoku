@@ -12,11 +12,11 @@ outline:none;
 ::placeholder,
 ::-webkit-input-placeholder {
   color: var(--border-hard);
-  font-weight: 700;
+  font-weight: 500;
 }
 :-ms-input-placeholder {
     color: var(--border-hard);
-    font-weight: 700;
+    font-weight: 500;
 }
 `
 const WeatherForm = styled.form`

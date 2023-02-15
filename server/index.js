@@ -115,7 +115,9 @@ export const addUserItem = async (item) => {
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
             const update = updateDoc(ref, {
-                count: docSnap.data().count + 1
+                // don't want to update increase count above 1 yet
+                // count: docSnap.data().count + 1
+                count: docSnap.data().count
             });
         } else {
         }
@@ -126,8 +128,8 @@ export const addUserItem = async (item) => {
             name: item.name,
             count: 1,
             itemID: item.id,
+            image: item.image
         }
         const docRef = await addDoc(collection(db, "items"), itemData);
-
     }
 }
