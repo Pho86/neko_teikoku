@@ -11,6 +11,7 @@ pointer-events:none;
 const ItemImgArea = styled(motion.div)`
 pointer-events:auto;
 position:relative;
+cursor:pointer;
 `
 const ItemImage = styled(Image)`
 pointer-events:none;
@@ -25,14 +26,14 @@ export default function Item({
         <>
             <ItemArea>
                 <ItemImgArea
-                        drag
-                        dragMomentum={false}
+                    drag
+                    dragMomentum={false}
                     transition={{ duration: .2 }}
                     whileHover={{
-                        scale: 1.2,
+                        scale: 1.15,
                         transition: { duration: .15 },
                     }}>
-                    <ItemImage src={image} height={150} width={150} alt={alt}/>
+                    <ItemImage src={image} height={150} width={150} alt={alt} />
                 </ItemImgArea>
             </ItemArea>
         </>

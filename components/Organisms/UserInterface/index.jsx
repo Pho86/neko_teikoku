@@ -66,7 +66,7 @@ const WeatherCol = styled.div`
 display:flex;
 flex-direction:column;
 gap:1.5em;
-align-self:end;
+align-self:flex-start;
 `
 
 const WeatherRow = styled(RowIcon)`
