@@ -99,7 +99,8 @@ export default function SettingsPopup(
 
     const handleSignOut = async () => {
         await SignOut(auth)
-    }
+    } 
+ 
 
     return(
         <>
