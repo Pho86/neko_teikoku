@@ -23,6 +23,7 @@ const LoginForm = styled.form`
 `
 const InputLogin = styled.input`
     padding:1em;
+    font-size:1rem;
     background-color:var(--white);
     border-radius:1em;
     border: 3px solid var(--border);
@@ -38,6 +39,11 @@ const InputLogin = styled.input`
         color: var(--border);
         font-weight: 500;
     }
+    ${props => props.type === 'password' && `
+    font: small-caption;
+    font-size:1rem;
+    `}
+    
 `
 const PopCont = styled.div`
     display:flex;
@@ -65,9 +71,9 @@ gap: 1em;
 `
 
 export default function Login({
-    onExit = () => {}
+    onExit = () => { }
 }) {
-    
+
     const router = useRouter()
     const [loginInfo, setLoginInfo] = useState({
         email: "",
@@ -80,16 +86,8 @@ export default function Login({
 
     const handleChange = (event) => {
         setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
-        // if (event.target.form.name === "register") {
-        //     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
-        // }
-        // if (event.target.form.name === "login") {
-        //     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
-        // }
-        // if (event.target.form.name === "forgot") {
-        //     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
-        // }
     };
+
     const handleRegisterSubmit = async () => {
         try {
             await SignUp(loginInfo);
@@ -115,11 +113,11 @@ export default function Login({
             await ForgotPassword(loginInfo)
             setErrorMessage("an email has been sent")
         }
-        catch(error) {
+        catch (error) {
             setErrorMessage("ERROR OCCURED")
         }
     }
-    
+
     useEffect(() => {
         onAuthStateChanged(auth, async (currentUser) => {
             setCurrentUser(currentUser);
@@ -141,9 +139,10 @@ export default function Login({
                         <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
                     </LoginForm>
                     {ErrorMessage && ErrorMessage} */}
-                    
-                    <PopUpWithTab 
+
+                    <PopUpWithTab
                         title={"login"}
+                        secondTab={"register"}
                         onExit={onExit}
                         size={"1.2em"}
                         direction="row"
@@ -152,71 +151,73 @@ export default function Login({
                         exit={{ y: "-100vh" }}
                         transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                         exitTab
+                        onFirstTabClick={() => { }}
+                        onSecondTabClick={() => { }}
                         content={
                             <>
                                 <PopCont>
-                                <ImgCont>
-                                    <Image
-                                        src={'/icons/nekoTeikoku.svg'}
-                                        width={300}
-                                        height={300}
-                                        alt={"Neko Teikoku Logo"}
-                                    />
-                                </ImgCont>
+                                    <ImgCont>
+                                        <Image
+                                            src={'/icons/nekoTeikoku.svg'}
+                                            width={300}
+                                            height={300}
+                                            alt={"Neko Teikoku Logo"}
+                                        />
+                                    </ImgCont>
 
-                                <hr/>
+                                    <hr />
 
-                                <FormCont>
-                                    
-                                    <Typography
-                                        text={"Meowcome back!"}
-                                        weight={"600"}
-                                        size={"2rem"}
-                                        color={"var(--black)"}
-                                    />
-                                    <Typography
-                                        text={"meowmeowmewomeowmeow!"}
-                                        weight={"500"}
-                                        size={"1rem"}
-                                        color={"var(--black)"}
-                                    />
-                                    <LoginForm onChange={handleChange} name="login">
-                                        <InputDiv>
-                                            <InputLogin type="text" name="email" placeholder="enter email" />
-                                            <InputLogin type="password" name="password" placeholder="enter password" />
-                                        </InputDiv>
-
-                                        <Button type="button" text="LOGIN" onClick={handleLoginSubmit} 
-                                            color={"var(--button-light)"} colorhover={"var(--button-medium)"} 
-                                            border={"4px solid var(--button-medium)"} borderradius={"1.5em"} 
-                                            textstroke={"1px var(--button-medium)"} padding={"0.5em 10em"} />
+                                    <FormCont>
 
                                         <Typography
-                                            text={"Need an account? Register!"}
+                                            text={"Meowcome back!"}
+                                            weight={"600"}
+                                            size={"2rem"}
+                                            color={"var(--black)"}
+                                        />
+                                        <Typography
+                                            text={"meowmeowmewomeowmeow!"}
                                             weight={"500"}
                                             size={"1rem"}
-                                            color={"var(--border-hard)"}
-                                            onHover={"var(--secondary-accent)"}
-                                            padding={"1em"}
-                                            align={"center"}
+                                            color={"var(--black)"}
                                         />
-                                    </LoginForm>
-                                </FormCont>
-                            </PopCont>
-                        </>}
-                    > 
+                                        <LoginForm onChange={handleChange} name="login">
+                                            <InputDiv>
+                                                <InputLogin type="text" name="email" placeholder="enter email" />
+                                                <InputLogin type="password" name="password" placeholder="enter password" />
+                                            </InputDiv>
+
+                                            <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
+                                                color={"var(--button-light)"} colorhover={"var(--button-medium)"}
+                                                border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
+                                                textstroke={"1px var(--button-medium)"} padding={"0.5em 10em"} />
+
+                                            <Typography
+                                                text={"Need an account? Register!"}
+                                                weight={"500"}
+                                                size={"1rem"}
+                                                color={"var(--border-hard)"}
+                                                textHover={"var(--secondary-accent)"}
+                                                padding={"1em"}
+                                                align={"center"}
+                                            />
+                                        </LoginForm>
+                                    </FormCont>
+                                </PopCont>
+                            </>}
+                    >
                     </PopUpWithTab>
                     {ErrorMessage && ErrorMessage}
                     <div>
 
                         {currentUser ? currentUser.displayName : 'Not logged in'}
 
-                        
+
                         {currentUser ? <>
-                        <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} /> 
-                        <Button type="button" text="GO HOME" onClick={()=>{router.push('/')}}  colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"}  /> 
+                            <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
+                            <Button type="button" text="GO HOME" onClick={() => { router.push('/') }} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
                         </>
-                        : <></>}
+                            : <></>}
                     </div>
                     {/* <LoginForm onChange={handleChange} name="forgot">
                         <Input type="text" name="email" placeholder="enter email" />

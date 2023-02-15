@@ -101,7 +101,7 @@ export default function UserInterface({
    location,
    currentItems,
    filteredItems,
-   onActiveClick = () => {},
+   onActiveClick = (item) => {return item},
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);

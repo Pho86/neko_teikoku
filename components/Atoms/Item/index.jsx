@@ -17,7 +17,8 @@ pointer-events:none;
 
 `
 export default function Item({
-    image
+    image,
+    alt
 }) {
 
     return (
@@ -31,7 +32,7 @@ export default function Item({
                         scale: 1.2,
                         transition: { duration: .15 },
                     }}>
-                    <ItemImage src={image} height={150} width={150} />
+                    <ItemImage src={image} height={150} width={150} alt={alt}/>
                 </ItemImgArea>
             </ItemArea>
         </>
