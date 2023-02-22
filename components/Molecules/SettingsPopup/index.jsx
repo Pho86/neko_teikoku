@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase.config";
 import { useRouter } from "next/router";
-
+import { motion, AnimatePresence } from "framer-motion";
 const PopupCont = styled.div`
     background-color: var(--primary);
     display: flex;
@@ -16,7 +16,7 @@ const PopupCont = styled.div`
     border-radius: 1.2em;
     border: 3px solid var(--border);
     border-bottom: 8px solid var(--border);
-    width: 320px;
+    // width: 320px;
     min-height: 245px;
     justify-content: space-around;
     cursor:auto;
@@ -53,7 +53,7 @@ const BotCont = styled.div`
 const AudCont = styled.div`
 display:flex;
 flex-direction: column;
-align-items: flex-star;
+align-items: flex-start;
 `
 
 const AudBar = styled.div`
@@ -71,7 +71,9 @@ const DisplayEmail = styled.div`
     padding: 1.5em;
 
     background-color: rgba(248, 215, 168, 0.4);;
+    margin: 0em 1em;
     margin-top: 0.5em;
+
     border-radius: 1.5em;
     border: 0;
 
@@ -83,7 +85,7 @@ const DisplayEmail = styled.div`
 const ButtonDiv = styled.div`
     pointer-events:auto;
     margin: 2% 1% 1% 2%;
-    cursor:auto;
+    cursor: auto;
 `
 
 const PopupDiv = styled.div`
@@ -105,7 +107,7 @@ export default function SettingsPopup(
  
 
     return(
-        <>
+        <AnimatePresence>
         <PopupDiv>
             <PopupCont 
                 exit={exit}
@@ -153,6 +155,6 @@ export default function SettingsPopup(
                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-light)" alt="exit button" colorhover="var(--border-hard)" />
             </ButtonDiv>
         </PopupDiv>
-        </>
+        </AnimatePresence>
     )
 }

@@ -4,11 +4,13 @@ import Image from 'next/image';
 
 const CatCardDiv = styled.div`
 background-color:var(--white);
-padding:1em 1.5em 1.4em 1.5em;
+padding:1em 1.5em .3em 1.5em;
+gap:1em;
 display:flex;
-justify-content:space-between;
+flex-direction:column;
+justify-content:space-around;
 border-radius:1.2em;
-min-width:285px;
+min-width:18em;
 cursor:pointer;
 transition:all .1s ease-in-out;
 border: 3px solid var(--border-hard);
@@ -23,12 +25,15 @@ flex-direction:column;
 gap:.5em;
 text-align:left;
 `
+const CatCardContent =styled.div`
+display:flex;
+justify-content:space-between;
+`
 const CatCardHighlight = styled.div`
-position: absolute;
-width: 265px;
+width: 110%;
 height: 10px;
-transform:translate(-17.5px, 60px);
-border-radius: 0px 0px 1.2em 1.2em;
+align-self:center;
+border-radius: 0px 0px 1em 1em;
 background-color: var(--light-accent);
 `
 export default function CatCard({
@@ -37,19 +42,22 @@ export default function CatCard({
 }) {
    return (
       <CatCardDiv onClick={onClick}>
+         <CatCardContent>
+
          <CatTextDiv>
             <Typography
-               text={`no. ${catData.id}`}
+               text={`no. ${catData.id.toString().padStart(2, '0')}`}
                color={"var(--secondary-accent)"}
                weight={"500"}
-            />
+               />
             <Typography
                text={catData.breedName}
                weight={"500"}
                size={"1.2rem"}
-            />
+               />
          </CatTextDiv>
          <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} />
+               </CatCardContent>
          <CatCardHighlight />
       </CatCardDiv>
    )
