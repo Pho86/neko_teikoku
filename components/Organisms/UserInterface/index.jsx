@@ -103,13 +103,7 @@ justify-content:center;
 gap:.3em;
 text-align:center;
 `
-const SettingsDiv = styled.div`
-   // display:flex;
-   // flex-direction:column;
-   // // justify-content:center;
-   // // gap:.3em;
-   // position: absolute;
-
+const SettingsDiv = styled(motion.div)`
    display:flex;
    flex-direction:column;
    gap:1.5em;
@@ -125,7 +119,7 @@ const TextCont = styled.div`
 const SettingIcon = styled.div`
    display: flex;
    align-items: center;
-   gap: 0.5em
+   gap: .5em;
 `
 
 export default function UserInterface({
@@ -183,13 +177,17 @@ export default function UserInterface({
                            </SettingIcon>
                         </TextCont>
                      </ProfileRow>
-
-                     {
-
-                        settings && <SettingsDiv>
-                           <SettingsPopup onExit={() => { setSettings(false) }} />
-                        </SettingsDiv>
-                     }
+                     <AnimatePresence>
+                        {
+                           settings && <SettingsDiv
+                              initial={{ x: "-120%" }}
+                              animate={{  x: -0 }}
+                              exit={{ x: "-120%" }}
+                              transition={{ duration: .5 }}>
+                              <SettingsPopup onExit={() => { setSettings(false) }} />
+                           </SettingsDiv>
+                        }
+                     </AnimatePresence>
                   </WeatherCol>
 
                </RowIcon>

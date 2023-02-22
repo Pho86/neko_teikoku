@@ -26,10 +26,10 @@ const WeatherCol = styled.div`
 `
     
 const WeatherHighlight = styled.div`
-    width:90%;
+    width:95%;
     height:10px;
     align-self:center;
-    border-radius: 0px 0px 1.2em 1.2em;
+    border-radius: 0px 0px 1em 1em;
     background-color: var(--light-accent);
 `
 const ButtonDiv = styled.div`
@@ -57,9 +57,9 @@ export default function WeatherPopup({
             {active &&
                 <>
                     <WeatherContainer 
-                    initial={{x:500}}
+                    initial={{x:"120%"}}
                     animate={{x:0}}
-                    exit={{x:500}}
+                    exit={{x:"120%"}}
                     transition={{ delay: .01, duration: .5, ease: "easeInOut" }}
                     >
                         <ButtonDiv>

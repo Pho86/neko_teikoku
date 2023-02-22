@@ -104,6 +104,7 @@ export default function Login({
     const [currentUser, setCurrentUser] = useState({})
 
     const [ErrorMessage, setErrorMessage] = useState("")
+    const [tabs, setTabs] = useState(true)
 
     const handleChange = (event) => {
         setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
@@ -176,12 +177,7 @@ export default function Login({
                         </StartDiv>
                     </TitleDiv>
 
-                    {/* <LoginForm onChange={handleChange} name="register"> 
-                        <Input type="email" name="email" placeholder="enter email" />
-                        <Input type="text" name="username" placeholder="enter username" />
-                        <Input type="password" name="password" placeholder="enter password" />
-                        <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
-                    </LoginForm> */}
+
 
                     <AnimatePresence>
                         {start &&
@@ -189,6 +185,7 @@ export default function Login({
                                 title={"login"}
                                 secondTab={"register"}
                                 onExit={() => setStart(false)}
+                                tabcolor={!tabs}
                                 size={"1.2em"}
                                 direction="row"
                                 initial={{ y: "-100vh" }}
@@ -196,8 +193,9 @@ export default function Login({
                                 exit={{ y: "-100vh" }}
                                 transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                                 exitTab
-                                onFirstTabClick={() => { }}
-                                onSecondTabClick={() => { }}
+                                onFirstTabClick={() => {setTabs(true) }}
+                                onSecondTabClick={() => {setTabs(false)}}
+                                tabs={tabs}
                                 content={
                                     <>
                                         <PopCont>
@@ -212,7 +210,7 @@ export default function Login({
 
                                             <hr />
 
-                                            <FormCont>
+                                            {tabs ? <FormCont>
                                                 <SpaceDiv>
                                                     <Typography
                                                         text={"Meowcome back!"}
@@ -256,9 +254,16 @@ export default function Login({
                                                     />
                                                 </SpaceDiv>
 
-                                            </FormCont>
+                                            </FormCont> : <LoginForm onChange={handleChange} name="register">
+                                                <Input type="email" name="email" placeholder="enter email" />
+                                                <Input type="text" name="username" placeholder="enter username" />
+                                                <Input type="password" name="password" placeholder="enter password" />
+                                                <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
+                                            </LoginForm>
+                                            }
                                         </PopCont>
-                                    </>}
+                                    </>
+                                }
                             >
                             </PopUpWithTab>
                         }
