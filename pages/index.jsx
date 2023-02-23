@@ -16,6 +16,7 @@ import ItemData from "@/data/items.json"
 import TreatsData from "@/data/treats.json"
 import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
+import useSound from 'use-sound';
 
 const GameArea = styled.div`
 position:absolute;
@@ -37,24 +38,35 @@ align-items:center;
 
 export default function Home({ data }) {
 
+
+  // game data
   const [cats, setCats] = useState([]);
   const [catDex, setCatDex] = useState(false);
   const [catCard, setCatCard] = useState(0);
   const [randomCats, setRandomCats] = useState([]);
-  const [catData, setCatData] = useState([])
+  const [catData, setCatData] = useState([]);
+
+  // user data
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserData, setCurrentUserData] = useState({});
   const [currentItems, setCurrentItems] = useState([]);
   const [activeItems, setActiveItems] = useState([]);
   const [treats, setTreats] = useState([])
 
+  // user weather data
   const [location, setLocation] = useState("Vancouver");
   const [weather, setWeather] = useState();
   const [lang, setLang] = useState("en");
   const [units, setUnits] = useState("metric");
 
+  // api urls
   const weatherUrl = useRef(`/api/weather?lang=${lang}&units=${units}&location=${location}`)
   const catUrl = useRef('/api/catbreed');
+
+  // sound data
+  const [Volume, setVolume] = useState(1);
+  const [bgm1, { stop, isPlaying }] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt:true });
+  const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume });
 
   const router = useRouter();
 
@@ -148,8 +160,12 @@ export default function Home({ data }) {
     }, 1500)
   }
 
-
+  const Playit = () => {
+    var audio = new Audio("/music/bgm1.mp3");
+    audio.play();
+}
   useEffect(() => {
+    Playit()
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser != null) {
         const currentUserData = await fetchCurrentUserData();
@@ -176,7 +192,7 @@ export default function Home({ data }) {
         <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
 
-      <main className={`${styles.main} background`}>
+      <main className={`${styles.main} background`} onMouseEnter={()=>{}}>
         {/* <h1>Neko Teikoku</h1> */}
         {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         <GameArea id="game">
