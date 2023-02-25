@@ -46,15 +46,15 @@ export default function TreatsDex({
                         onPrevious={() => {
                             if (currentPage > 1) {
                                 setCurrentPage(currentPage - 1);
-                                setPageMin(pageMin - 6);
-                                setPageLimit(pageLimit - 6);
+                                setPageMin(pageMin - 2);
+                                setPageLimit(pageLimit - 2);
                             }
                         }}
                         onNext={() => {
-                            if (currentPage < 1) {
+                            if (currentPage < 2) {
                                 setCurrentPage(currentPage + 1);
-                                setPageMin(pageMin + 6);
-                                setPageLimit(pageLimit + 6);
+                                setPageMin(pageMin + 2);
+                                setPageLimit(pageLimit + 2);
                             }
                         }}
                         content={<>
