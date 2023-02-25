@@ -13,5 +13,10 @@
       "name": "cake",
       "image": "/treats/cake.svg",
       "id": 3
+   },
+   {
+      "name": "fish",
+      "image": "/treats/fish.svg",
+      "id": 4
    }
 ]

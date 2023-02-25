@@ -251,6 +251,7 @@ export default function Login({
                                                         textHover={"var(--secondary-accent)"}
                                                         padding={"1em"}
                                                         align={"center"}
+                                                        onClick={()=>{setTabs(false)}}
                                                     />
                                                 </SpaceDiv>
 

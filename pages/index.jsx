@@ -7,7 +7,7 @@ import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -17,6 +17,8 @@ import TreatsData from "@/data/treats.json"
 import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
 import useSound from 'use-sound';
+import { createContext } from 'react';
+import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 
 const GameArea = styled.div`
 position:absolute;
@@ -35,9 +37,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 `
+export const userItemsContext = createContext()
 
-export default function Home({ data }) {
-
+export default function Home() {
 
   // game data
   const [cats, setCats] = useState([]);
@@ -65,7 +67,7 @@ export default function Home({ data }) {
 
   // sound data
   const [Volume, setVolume] = useState(1);
-  const [bgm1, { stop, isPlaying }] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt:true });
+  const [bgm1, { stop, isPlaying }] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
   const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume });
 
   const router = useRouter();
@@ -108,15 +110,21 @@ export default function Home({ data }) {
   const generateCats = async (data, amountOfCats) => {
     let randomMeows = randomCats;
     for (let i = 0; i < amountOfCats; i++) {
-      let random = selectRandomFromArray(data);
-      const x = generateRandomNumber(5, 90);
-      const y = generateRandomNumber(15, 75);
-      random.x = `${x}vw`;
-      random.y = `${y}vh`;
-      randomMeows.push(random)
+      let randomCat = selectRandomFromArray(data);
+      const x = generateRandomNumber(0, 100);
+      let y;
+      randomCat.x = x;
+      if(x < 15 || x < 85) y = generateRandomNumber(0, 100);
+      else if (x > 15 || x < 85) {
+         let helper = generateRandomNumber(1, 2) 
+         if(helper === 1) y = generateRandomNumber(90, 100) 
+         if(helper === 2) y = generateRandomNumber(0, 15) 
+      }
+      randomCat.y = y;
+      randomMeows.push(randomCat)
     }
-    for (let x = 0; x < randomMeows.length; x++) {
-      setRandomCats([...randomCats, randomMeows[x]])
+    for (let i = 0; i < randomMeows.length; i++) {
+      setRandomCats([...randomCats, randomMeows[i]])
     }
   }
 
@@ -124,8 +132,6 @@ export default function Home({ data }) {
     const data = await getData();
     console.log(data)
     setCatData(data)
-    // const amountOfCats = generateRandomNumber(0, 2);
-    // await generateCats(data, amountOfCats)
   }
 
   const getData = async () => {
@@ -163,9 +169,10 @@ export default function Home({ data }) {
   const Playit = () => {
     var audio = new Audio("/music/bgm1.mp3");
     audio.play();
-}
+  }
+  
   useEffect(() => {
-    Playit()
+    // Playit()
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser != null) {
         const currentUserData = await fetchCurrentUserData();
@@ -175,7 +182,7 @@ export default function Home({ data }) {
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
         await fetchData();
         await addUserItem(ItemData[0]);
-        await addUserTreat(TreatsData[0])
+        await addUserTreat(TreatsData[0]);
       } else {
         await router.push('/login')
         alert("please log in")
@@ -192,9 +199,12 @@ export default function Home({ data }) {
         <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
 
-      <main className={`${styles.main} background`} onMouseEnter={()=>{}}>
+      <main className={`${styles.main} background`} onMouseEnter={() => { }}>
         {/* <h1>Neko Teikoku</h1> */}
-        {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
+        <EmptySpace />
+        <userItemsContext.Provider value={weather}>
+          {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
+        </userItemsContext.Provider>
         <GameArea id="game">
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
@@ -216,23 +226,8 @@ export default function Home({ data }) {
           return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
         })}
 
-        {/* <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2> */}
+        <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
       </main>
     </>
   )
 }
-
-
-// export async function getServerSideProps(context) {
-//   let url = "http://localhost:3000/api/catbreed";
-//   // if (process.env.VERCEL_URL) {
-//   //   url = `https://${process.env.VERCEL_URL}/api/catbreed`;
-//   // }
-//   const { data } = await axios({
-//     method: 'get',
-//     url: url,
-//   })
-//   return {
-//     props: { data }, // will be passed to the page component as props
-//   }
-// }

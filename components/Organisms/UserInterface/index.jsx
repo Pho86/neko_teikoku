@@ -2,7 +2,7 @@ import styled from "styled-components";
 import IconButton from "@/components/Atoms/IconButton";
 import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
@@ -10,6 +10,7 @@ import WeatherPopup from "@/components/Molecules/WeatherPopup";
 import { StrokedText } from 'stroked-text';
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
+import { weatherContext } from "@/pages";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -141,9 +142,8 @@ export default function UserInterface({
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
-
    useEffect(() => {
-
+      
    }, [])
 
    return (
