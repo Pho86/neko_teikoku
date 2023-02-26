@@ -142,9 +142,27 @@ export default function UserInterface({
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
-   useEffect(() => {
-      
-   }, [])
+   const [icon, setIcon] = useState('/weather-icons/clear-sky.png');
+
+    useEffect(() => {
+      if(weatherData) {
+        if(weatherData.weather[0].main == "Clouds"){
+            setIcon('/weather-icons/broken-clouds.png');
+          } else if(weatherData.weather[0].main == "Clear") {
+            setIcon('/weather-icons/clear-sky.png');
+          } else if(weatherData.weather[0].main == "Atmosphere") {
+            setIcon('/weather-icons/mist.png');
+          } else if(weatherData.weather[0].main == "Rain") {
+            setIcon('/weather-icons/rain.png');
+          } else if(weatherData.weather[0].main == "Drizzle") {
+            setIcon('/weather-icons/shower-rain.png');
+          } else if(weatherData.weather[0].main == "Snow") {
+            setIcon('/weather-icons/snow.png');
+          } else if(weatherData.weather[0].main == "Thunderstorm") {
+            setIcon('/weather-icons/thunderstorm.png');
+          }
+         }
+    });
 
    return (
       <>
@@ -194,7 +212,7 @@ export default function UserInterface({
                <WeatherCol>
                   {weatherData && <>
                      <WeatherRow onClick={() => { setWeatherShow(!weatherShow) }}>
-                        <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
+                        <IconButton image={icon} alt="Weather Icon" />
                         <WeatherDiv>
                            <Typography
                               text={weatherData.weather[0].main}
