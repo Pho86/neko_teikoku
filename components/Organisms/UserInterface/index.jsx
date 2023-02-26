@@ -2,7 +2,7 @@ import styled from "styled-components";
 import IconButton from "@/components/Atoms/IconButton";
 import Typography from "@/components/Atoms/Text";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
 import TreatsDex from "../TreatsDex";
@@ -10,6 +10,7 @@ import WeatherPopup from "@/components/Molecules/WeatherPopup";
 import { StrokedText } from 'stroked-text';
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
+import { weatherContext } from "@/pages";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -103,13 +104,7 @@ justify-content:center;
 gap:.3em;
 text-align:center;
 `
-const SettingsDiv = styled.div`
-   // display:flex;
-   // flex-direction:column;
-   // // justify-content:center;
-   // // gap:.3em;
-   // position: absolute;
-
+const SettingsDiv = styled(motion.div)`
    display:flex;
    flex-direction:column;
    gap:1.5em;
@@ -125,7 +120,7 @@ const TextCont = styled.div`
 const SettingIcon = styled.div`
    display: flex;
    align-items: center;
-   gap: 0.5em
+   gap: .5em;
 `
 
 export default function UserInterface({
@@ -147,9 +142,8 @@ export default function UserInterface({
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
-
    useEffect(() => {
-
+      
    }, [])
 
    return (
@@ -183,13 +177,17 @@ export default function UserInterface({
                            </SettingIcon>
                         </TextCont>
                      </ProfileRow>
-
-                     {
-
-                        settings && <SettingsDiv>
-                           <SettingsPopup onExit={() => { setSettings(false) }} />
-                        </SettingsDiv>
-                     }
+                     <AnimatePresence>
+                        {
+                           settings && <SettingsDiv
+                              initial={{ x: "-120%" }}
+                              animate={{  x: -0 }}
+                              exit={{ x: "-120%" }}
+                              transition={{ duration: .5 }}>
+                              <SettingsPopup onExit={() => { setSettings(false) }} />
+                           </SettingsDiv>
+                        }
+                     </AnimatePresence>
                   </WeatherCol>
 
                </RowIcon>

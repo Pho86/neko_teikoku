@@ -36,6 +36,17 @@ body {
   overflow-x: hidden;
 }
 
+@media screen and (max-width:768px) {
+  html, body {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:1800px) {
+  html, body {
+    font-size: 18px;
+  }
+}
 
 a {
   color: inherit;

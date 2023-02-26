@@ -74,7 +74,8 @@ export default function CatDexCard({
                   <>
                      <CatDexCardTitle>
                         <Typography
-                           text={`no. ${catData.id}`}
+                           text={`no. ${catData.id.toString().padStart(2, '0')}`}
+                           weight={500}
                         />
                         <CatDexCardHead>
                            <StrokedText

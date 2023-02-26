@@ -5,8 +5,18 @@
       "id": 1
    },
    {
-      "name": "bento",
-      "image": "/treats/bento.svg",
+      "name": "onigiri",
+      "image": "/treats/onigiri.svg",
       "id": 2
+   },
+   {
+      "name": "cake",
+      "image": "/treats/cake.svg",
+      "id": 3
+   },
+   {
+      "name": "fish",
+      "image": "/treats/fish.svg",
+      "id": 4
    }
 ]

@@ -26,7 +26,8 @@ export default function Typography({
    margin,
    padding,
    width,
-   textHover
+   textHover,
+   onClick = () => {}
 }) {
    return (
       <Text
@@ -39,6 +40,7 @@ export default function Typography({
          padding={padding}
          width={width}
          textHover={textHover}
+         onClick={onClick}
       >
          {text}
       </Text>

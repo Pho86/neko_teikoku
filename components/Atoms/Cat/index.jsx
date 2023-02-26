@@ -18,7 +18,7 @@ user-select: none;
 -webkit-user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
-transition: transform ease-in-out .2s;
+transition: all ease-in-out ${props => props.transitionduration || "0"}s;
 &:hover{
    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
    transform:scale(1.2);
@@ -50,13 +50,20 @@ export default function Cat({
 }) {
    const [x, setX] = useState(0);
    const [y, setY] = useState(0);
-
-
+   const [duration, setDuration] = useState(0);
    useEffect(() => {
-      const x = generateRandomNumber(-45, 40);
-      const y = generateRandomNumber(-35, 25);
-      setY(y)
-      setX(x)
+      console.log(catData)
+      setY(bottom)
+      setX(right)
+      setTimeout(() => {
+         const duration = (Math.random() * (5 - 1 + 1) + 1)
+         setDuration(duration)
+         let y;
+         const x = generateRandomNumber(5, 90);
+         y = generateRandomNumber(15, 75);
+         setY(y)
+         setX(x)
+      }, 1000)
    }, [])
 
 
@@ -71,7 +78,7 @@ export default function Cat({
                transition: { duration: .15 },
             }}
          > */}
-            <CatImage bottom={bottom} right={right} src={image} width={width} height={height} onClick={onClick} alt={alt} />
+         <CatImage bottom={`${y}vh`} right={`${x}vw`} src={image} transitionduration={duration} width={width} height={height} onClick={onClick} alt={alt} />
          {/* </CatArea> */}
       </CatBox>
    )
