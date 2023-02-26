@@ -2,7 +2,10 @@ import { db, auth } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, sendPasswordResetEmail } from '@firebase/auth';
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc } from '@firebase/firestore';
 
-
+/**
+ * @desc signs a user up with your parameter values
+ * @param {*} values an object of values for email, password, and username
+ */
 export const SignUp = async (values) => {
     const userCred = await createUserWithEmailAndPassword(auth, values.email, values.password);
     const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
@@ -15,7 +18,10 @@ export const SignUp = async (values) => {
     });
 }
 
-
+/**
+ * @desc signs a user in
+ * @param {*} values an object of values for email, password
+ */
 export const SignIn = async (values) => {
     const result = await signInWithEmailAndPassword(auth, values.email, values.password);
 }

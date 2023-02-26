@@ -96,6 +96,7 @@ export default function Login({
 
     const [start, setStart] = useState(false);
     const [forgot, setForgot] = useState(false);
+    const [passwordtext, setPasswordText] = useState('password reset')
 
     const router = useRouter()
     const [loginInfo, setLoginInfo] = useState({
@@ -121,6 +122,7 @@ export default function Login({
             setErrorMessage("ERROR OCCURED")
         }
     }
+
     const handleLoginSubmit = async () => {
         try {
             await SignIn(loginInfo)
@@ -136,12 +138,13 @@ export default function Login({
         await SignOut(auth)
     }
     const handleForgotPassword = async () => {
+        setPasswordText("sending email...");
         try {
             await ForgotPassword(loginInfo)
-            setErrorMessage("an email has been sent")
+            setPasswordText("an email has been sent");
         }
         catch (error) {
-            setErrorMessage("ERROR OCCURED")
+            setPasswordText("ERROR OCCURED")
         }
     }
 
@@ -204,8 +207,8 @@ export default function Login({
                                 exit={{ y: "-100vh" }}
                                 transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                                 exitTab
-                                onFirstTabClick={() => {setTabs(true) }}
-                                onSecondTabClick={() => {setTabs(false)}}
+                                onFirstTabClick={() => { setTabs(true) }}
+                                onSecondTabClick={() => { setTabs(false) }}
                                 tabs={tabs}
                                 content={
                                     <>
@@ -246,28 +249,20 @@ export default function Login({
                                                         />
                                                         <InputLogin type="text" name="email" placeholder="enter email" />
                                                         <InputLogin type="password" name="password" placeholder="enter password" />
-                                                            <Typography
-                                                                    text={"Forgot Your Password?"}
-                                                                    weight={"500"}
-                                                                    size={"0.8rem"}
-                                                                    color={"var(--border-hard)"}
-                                                                    textHover={"var(--secondary-accent)"}
-                                                                    // padding={"1em"}
-                                                                    align={"left"}
-                                                                    onClick={() => { setForgot(true) }}
-                                                                />
-                                                                { forgot && <PopupPrompt
-                                                                        type={"input"} 
-                                                                        cooktext={"password reset"}
-                                                                        oneBtn={false} 
-                                                                        btnText1={"EXIT"} 
-                                                                        btnText2={"SUBMIT"}
-                                                                        onClick={handleForgotPassword}
-                                                                    />
-                                                                }
-                                                                
+                                                        <Typography
+                                                            text={"Forgot Your Password?"}
+                                                            weight={"500"}
+                                                            size={"0.8rem"}
+                                                            color={"var(--border-hard)"}
+                                                            textHover={"var(--secondary-accent)"}
+                                                            // padding={"1em"}
+                                                            align={"left"}
+                                                            onClick={() => { setForgot(true) }}
+                                                        />
+
                                                     </InputDiv>
                                                 </LoginForm>
+
                                                 <SpaceDiv>
 
                                                     <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
@@ -283,7 +278,7 @@ export default function Login({
                                                         textHover={"var(--secondary-accent)"}
                                                         padding={"1em"}
                                                         align={"center"}
-                                                        onClick={()=>{setTabs(false)}}
+                                                        onClick={() => { setTabs(false) }}
                                                     />
                                                 </SpaceDiv>
 
@@ -300,6 +295,21 @@ export default function Login({
                             >
                             </PopUpWithTab>
                         }
+
+                        {forgot && <PopupPrompt
+                            key="password prompt"
+                            type={"input"}
+                            cooktext={passwordtext}
+                            oneBtn={false}
+                            btnText1={"EXIT"}
+                            btnText2={"SUBMIT"}
+                            onClick={handleForgotPassword}
+                            btnClick={() => { setForgot(false) }}
+                            btnClick1={handleForgotPassword}
+                            onChange={handleChange}
+                        />
+                        }
+
                     </AnimatePresence>
 
 
