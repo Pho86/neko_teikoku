@@ -61,6 +61,16 @@ a {
   /* background-position: center; */
   /* background-repeat: no-repeat; */
 }
+
+.backgroundSnowy {
+  background: url("/backgrounds/default.png") no-repeat;
+  background-size: cover;
+  /* background-size: 100vw 150dvh; */
+  /* background-size:inherit ; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+}
+
 .loginBackground {
   background: url("/backgrounds/loginBg.png") no-repeat;
   background-size: cover;

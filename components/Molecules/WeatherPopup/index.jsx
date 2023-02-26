@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Typography from "@/components/Atoms/Text";
@@ -5,6 +6,7 @@ import Image from "next/image";
 import IconButton from "@/components/Atoms/IconButton";
 import Button from "@/components/Atoms/Button";
 import WeatherInput from "@/components/Atoms/WeatherInput";
+import { useEffect } from "react";
 const WeatherDiv = styled.div`
     background-color: var(--primary);
     display: flex;
@@ -50,8 +52,28 @@ export default function WeatherPopup({
     active,
     onExit = () => { },
     onWeatherSubmit = () => { },
-    onWeatherChange = () => { },
+    onWeatherChange = () => { }
 }) {
+    const [icon, setIcon] = useState('/weather-icons/clear-sky.png');
+
+    useEffect(() => {
+        if(weatherData.weather[0].main == "Clouds"){
+            setIcon('/weather-icons/broken-clouds.png');
+          } else if(weatherData.weather[0].main == "Clear") {
+            setIcon('/weather-icons/clear-sky.png');
+          } else if(weatherData.weather[0].main == "Atmosphere") {
+            setIcon('/weather-icons/mist.png');
+          } else if(weatherData.weather[0].main == "Rain") {
+            setIcon('/weather-icons/rain.png');
+          } else if(weatherData.weather[0].main == "Drizzle") {
+            setIcon('/weather-icons/shower-rain.png');
+          } else if(weatherData.weather[0].main == "Snow") {
+            setIcon('/weather-icons/snow.png');
+          } else if(weatherData.weather[0].main == "Thunderstorm") {
+            setIcon('/weather-icons/thunderstorm.png');
+          }
+    });
+
     return (
         <AnimatePresence>
             {active &&
@@ -78,7 +100,7 @@ export default function WeatherPopup({
                                                 weight={"600"} />
                                             <Typography text={weatherData.weather[0].description} />
                                         </WeatherCol>
-                                        <IconButton image={"/cats/caticon.svg"} alt="Weather Icon" />
+                                        <IconButton image={icon} alt="Weather Icon" />
                                     </WeatherRow>
                                     <WeatherHighlight />
                                 </WeatherCol>
