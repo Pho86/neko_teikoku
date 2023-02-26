@@ -56,6 +56,7 @@ const ButtonDiv = styled.div`
 pointer-events:auto;
 margin: 0 1% 1% 0;
 `
+
 export function SliderTab({
     tab,
     secondtab,
@@ -70,7 +71,6 @@ export function SliderTab({
     onExit = () => { },
     onNext = () => { },
     onPrevious = () => { },
-
 }) {
     return (
         <SliderTabCont initial={initial}

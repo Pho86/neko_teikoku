@@ -37,7 +37,7 @@ const ButtonDiv = styled.div`
 `
 const WeatherContainer = styled(motion.div)`
     display:flex;
-    gap:2em;
+    gap:.5em;
 `
 const WeatherRow = styled.div`
     display:flex;
