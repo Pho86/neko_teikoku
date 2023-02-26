@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 
 import { PopUpWithTab } from "@/components/Atoms/Popup";
 import { motion, AnimatePresence } from "framer-motion";
+import PopupPrompt from "@/components/Molecules/PopupPrompt";
 
 
 const LoginForm = styled.form`
@@ -94,6 +95,7 @@ export default function Login({
 }) {
 
     const [start, setStart] = useState(false);
+    const [forgot, setForgot] = useState(false);
 
     const router = useRouter()
     const [loginInfo, setLoginInfo] = useState({
@@ -183,6 +185,15 @@ export default function Login({
                         <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
                     </LoginForm> */}
 
+                    {/* {forgot &&
+                        <CookPrompt>
+                            <LoginForm onChange={handleChange} name="forgot">
+                            <Input type="text" name="email" placeholder="enter email" />
+                            <Button type="button" text="Forgot Password" onClick={handleForgotPassword} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
+                            </LoginForm>
+                        </CookPrompt>
+                    } */}
+
                     <AnimatePresence>
                         {start &&
                             <PopUpWithTab
@@ -237,9 +248,30 @@ export default function Login({
                                                         />
                                                         <InputLogin type="text" name="email" placeholder="enter email" />
                                                         <InputLogin type="password" name="password" placeholder="enter password" />
+                                                            <Typography
+                                                                    text={"Forgot Your Password?"}
+                                                                    weight={"500"}
+                                                                    size={"0.8rem"}
+                                                                    color={"var(--border-hard)"}
+                                                                    textHover={"var(--secondary-accent)"}
+                                                                    // padding={"1em"}
+                                                                    align={"left"}
+                                                                    onClick={() => { setForgot(true) }}
+                                                                />
+                                                                { forgot && <PopupPrompt
+                                                                        type={"input"} 
+                                                                        cooktext={"password reset"}
+                                                                        oneBtn={false} 
+                                                                        btnText1={"EXIT"} 
+                                                                        btnText2={"SUBMIT"}
+                                                                        onClick={handleForgotPassword}
+                                                                    />
+                                                                }
+                                                                
                                                     </InputDiv>
                                                 </LoginForm>
                                                 <SpaceDiv>
+
                                                     <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
                                                         color={"var(--button-light)"} colorhover={"var(--button-medium)"}
                                                         border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
