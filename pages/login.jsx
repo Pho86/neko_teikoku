@@ -77,6 +77,11 @@ const InputDiv = styled.div`
 const SpaceDiv = styled.div`
 padding:1em;
 `
+const BtnSpaceDiv = styled.div`
+padding-top:1em;
+padding-bottom:1em;
+
+`
 
 const TitleDiv = styled.div`
     display:flex;
@@ -117,6 +122,9 @@ export default function Login({
         try {
             await SignUp(loginInfo);
             setErrorMessage("you have successfully signed up ")
+            setTimeout(() => {
+                router.push('/')
+            }, 2000);
         }
         catch (error) {
             setErrorMessage("ERROR OCCURED")
@@ -225,21 +233,23 @@ export default function Login({
                                             <hr />
 
                                             {tabs ? <FormCont>
+                                                <LoginForm onChange={handleChange} name="login">
                                                 <SpaceDiv>
                                                     <Typography
                                                         text={"Meowcome back!"}
                                                         weight={"600"}
-                                                        size={"2rem"}
+                                                        size={"1.8rem"}
                                                         color={"var(--black)"}
+                                                        align={"center"}
                                                     />
                                                     <Typography
                                                         text={"meowmeowmewomeowmeow!"}
                                                         weight={"500"}
                                                         size={"1rem"}
                                                         color={"var(--black)"}
+                                                        align={"center"}
                                                     />
                                                 </SpaceDiv>
-                                                <LoginForm onChange={handleChange} name="login">
                                                     <InputDiv>
                                                         <Typography
                                                             text={ErrorMessage && ErrorMessage}
@@ -261,14 +271,12 @@ export default function Login({
                                                         />
 
                                                     </InputDiv>
-                                                </LoginForm>
-
-                                                <SpaceDiv>
+                                                <BtnSpaceDiv>
 
                                                     <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
                                                         color={"var(--button-light)"} colorhover={"var(--button-medium)"}
                                                         border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                        textstroke={"1px var(--button-medium)"} padding={"0.5em 10em"} />
+                                                        textstroke={"1px var(--button-medium)"} padding={"0.5em 11.5em"} />
 
                                                     <Typography
                                                         text={"Need an account? Register!"}
@@ -280,14 +288,57 @@ export default function Login({
                                                         align={"center"}
                                                         onClick={() => { setTabs(false) }}
                                                     />
-                                                </SpaceDiv>
+                                                </BtnSpaceDiv>
+                                                </LoginForm>
 
-                                            </FormCont> : <LoginForm onChange={handleChange} name="register">
-                                                <Input type="email" name="email" placeholder="enter email" />
-                                                <Input type="text" name="username" placeholder="enter username" />
-                                                <Input type="password" name="password" placeholder="enter password" />
-                                                <Button type="button" text="Register" onClick={handleRegisterSubmit} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
-                                            </LoginForm>
+
+                                            </FormCont> : <FormCont onChange={handleChange} name="register">
+                                                <LoginForm>
+                                                    <SpaceDiv>
+                                                        <Typography
+                                                            text={"Create a mew account!"}
+                                                            weight={"600"}
+                                                            size={"1.8rem"}
+                                                            color={"var(--black)"}
+                                                            align={"center"}
+                                                        />
+                                                        <Typography
+                                                            text={"meowmeowmewomeowmeow!"}
+                                                            weight={"500"}
+                                                            size={"1rem"}
+                                                            color={"var(--black)"}
+                                                            align={"center"}
+                                                        />
+                                                    </SpaceDiv>
+                                                    <InputDiv>
+                                                        <Typography
+                                                            text={ErrorMessage && ErrorMessage}
+                                                            color={"var(--border-hard)"}
+                                                            align={"center"}
+                                                            weight={"500"}
+                                                        />
+                                                        <InputLogin type="email" name="email" placeholder="enter email" />
+                                                        <InputLogin type="text" name="username" placeholder="enter username" />
+                                                        <InputLogin type="password" name="password" placeholder="enter password" />
+                                                    </InputDiv>
+                                                    <BtnSpaceDiv>
+                                                        <Button type="button" text="REGISTER" onClick={handleRegisterSubmit} 
+                                                            color={"var(--button-light)"} colorhover={"var(--button-medium)"}
+                                                            border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
+                                                            textstroke={"1px var(--button-medium)"} padding={"0.5em 9.5em"}/>
+                                                        <Typography
+                                                                text={"Have an account? Login!"}
+                                                                weight={"500"}
+                                                                size={"1rem"}
+                                                                color={"var(--border-hard)"}
+                                                                textHover={"var(--secondary-accent)"}
+                                                                padding={"1em"}
+                                                                align={"center"}
+                                                                onClick={() => { setTabs(true) }}
+                                                                />
+                                                    </BtnSpaceDiv>
+                                                </LoginForm>
+                                            </FormCont>
                                             }
                                         </PopCont>
                                     </>
