@@ -276,7 +276,7 @@ export default function Login({
                                                     <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
                                                         color={"var(--button-light)"} colorhover={"var(--button-medium)"}
                                                         border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                        textstroke={"1px var(--button-medium)"} padding={"0.5em 11.5em"} />
+                                                        textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"}/>
 
                                                     <Typography
                                                         text={"Need an account? Register!"}
@@ -287,6 +287,7 @@ export default function Login({
                                                         padding={"1em"}
                                                         align={"center"}
                                                         onClick={() => { setTabs(false) }}
+                                                        
                                                     />
                                                 </BtnSpaceDiv>
                                                 </LoginForm>
@@ -325,7 +326,7 @@ export default function Login({
                                                         <Button type="button" text="REGISTER" onClick={handleRegisterSubmit} 
                                                             color={"var(--button-light)"} colorhover={"var(--button-medium)"}
                                                             border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                            textstroke={"1px var(--button-medium)"} padding={"0.5em 9.5em"}/>
+                                                            textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"}/>
                                                         <Typography
                                                                 text={"Have an account? Login!"}
                                                                 weight={"500"}

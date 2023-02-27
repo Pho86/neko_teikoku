@@ -18,7 +18,8 @@ user-select: none;
 -webkit-user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
-transition: all ease-in-out ${props => props.transitionduration || "0"}s;
+transition: all ease-in-out ${props => props.transitionduration || "0"}s, transform ease-in-out .2s, filter ease-in-out .2s;
+transition:;
 &:hover{
    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
    transform:scale(1.2);
@@ -35,6 +36,7 @@ align-items:center;
 pointer-events:none;
 left:0;
 top:0;
+
 `
 const CatArea = styled(motion.div)`
 `

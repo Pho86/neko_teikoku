@@ -146,6 +146,7 @@ export default function UserInterface({
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.png');
+   // const weather = useContext(weatherContext)
 
     useEffect(() => {
       if(weatherData) {
@@ -165,7 +166,7 @@ export default function UserInterface({
             setIcon('/weather-icons/thunderstorm.gif');
           }
          }
-    });
+    }, [weatherData]);
 
    return (
       <>
