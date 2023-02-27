@@ -22,9 +22,9 @@ outline:none;
 const WeatherForm = styled.form`
 display:flex;
 pointer-events:auto;
+gap: .5em;
 `
 const WeatherButton = styled(Button)`
-// position:absolute;
 `
 export default function WeatherInput({
     onSubmit,
@@ -35,6 +35,7 @@ export default function WeatherInput({
     const handleSubmit = (e) => {
         e.preventDefault()
         onSubmit(location)
+        setLocation('')
     }
 
     const handleWeatherChange = (value) => {
@@ -46,7 +47,7 @@ export default function WeatherInput({
             <WeatherForm onSubmit={handleSubmit}>
                 <Input onChange={handleWeatherChange} value={location} placeholder="change location..." name="location">
                 </Input>
-                <WeatherButton type="submit" text="GO!" colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
+                <WeatherButton type="submit" text="GO!" colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"0.3em 2em"} />
             </WeatherForm>
         </>
     )

@@ -5,6 +5,7 @@ import { StrokedText } from "stroked-text";
 const ButtonDiv = styled.button`
 padding:${props => props.padding || "1em 2em"};
 background-color:${props => props.color || "var(--button-light)"};
+width: ${props => props.width || "inherit"};
 border: ${props => props.border || "none"};
 border-radius: ${props => props.borderradius || "1.5em"};
 cursor:pointer;
@@ -38,10 +39,11 @@ export default function Button({
     onClick = () => { },
     type,
     imgwidth = 37,
-    imgheight = 33
+    imgheight = 33,
+    width
 }) {
     return (
-        <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type}>
+        <ButtonDiv color={color} border={border} onClick={onClick} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type} width={width}>
             {text && <StrokedText fill={textcolor} stroke={colorhover} strokeWidth={5} style={{
                 fontSize: size, fontWeight: weight
             }}>

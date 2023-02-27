@@ -19,6 +19,7 @@ import Treats from '@/components/Atoms/Treats';
 import useSound from 'use-sound';
 import { createContext } from 'react';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
+import Advisor from '@/components/Atoms/Advisor';
 
 const GameArea = styled.div`
 position:absolute;
@@ -28,6 +29,7 @@ padding:2.5em;
 display:flex;
 align-items:center;
 justify-content:center;
+pointer-events:auto;
 `
 
 const PopUps = styled.div`
@@ -36,8 +38,10 @@ height:100%;
 display:flex;
 justify-content:center;
 align-items:center;
+position:absolute;
+pointer-events:none;
 `
-export const userItemsContext = createContext()
+export const weatherData = createContext()
 
 export default function Home() {
 
@@ -60,6 +64,7 @@ export default function Home() {
   const [weather, setWeather] = useState();
   const [lang, setLang] = useState("en");
   const [units, setUnits] = useState("metric");
+  const [background, setBackground] = useState('day')
 
   // api urls
   const weatherUrl = useRef(`/api/weather?lang=${lang}&units=${units}&location=${location}`)
@@ -67,7 +72,7 @@ export default function Home() {
 
   // sound data
   const [Volume, setVolume] = useState(1);
-  const [bgm1, { stop, isPlaying }] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
+  const [bgm1] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
   const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume });
 
   const router = useRouter();
@@ -78,7 +83,23 @@ export default function Home() {
     try {
       const weatherResult = await axios.get(weatherUrl.current);
       await updateWeatherData(weatherResult.data.name)
-      return weatherResult.data
+      const weather = weatherResult.data
+      if (weather) {
+        console.log(weather)
+        if (weather.rain) {
+          setBackground('rain')
+        }
+        else if (weather.snow) {
+          setBackground('snow')
+        }
+        else if (weather.clouds.all > 50) {
+          setBackground('night')
+        }
+        else {
+          setBackground('day')
+        }
+      }
+      return weather
     } catch (error) {
       setLocation("Vancouver");
       alert("an error has occured, your location has been reset to vancouver")
@@ -114,11 +135,11 @@ export default function Home() {
       const x = generateRandomNumber(0, 100);
       let y;
       randomCat.x = x;
-      if(x < 15 || x < 85) y = generateRandomNumber(0, 100);
+      if (x < 15 || x < 85) y = generateRandomNumber(0, 100);
       else if (x > 15 || x < 85) {
-         let helper = generateRandomNumber(1, 2) 
-         if(helper === 1) y = generateRandomNumber(90, 100) 
-         if(helper === 2) y = generateRandomNumber(0, 15) 
+        let helper = generateRandomNumber(1, 2)
+        if (helper === 1) y = generateRandomNumber(90, 100)
+        if (helper === 2) y = generateRandomNumber(0, 15)
       }
       randomCat.y = y;
       randomMeows.push(randomCat)
@@ -167,14 +188,14 @@ export default function Home() {
   }
 
   const Playit = () => {
-    var audio = new Audio("/music/bgm1.mp3");
+    var audio = new Audio({ src: ["/music/bgm1.mp3"], volumne: .5 });
     audio.play();
   }
-  
+
   useEffect(() => {
-    // Playit()
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser != null) {
+        Playit()
         const currentUserData = await fetchCurrentUserData();
         setCurrentUser(currentUser);
         setCurrentUserData(currentUserData);
@@ -184,8 +205,8 @@ export default function Home() {
         await addUserItem(ItemData[0]);
         await addUserTreat(TreatsData[0]);
       } else {
-        await router.push('/login')
-        alert("please log in")
+        router.push('/login')
+        // alert("please log in")
       }
     })
 
@@ -199,21 +220,25 @@ export default function Home() {
         <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
 
-      <main className={`${styles.main} background`} onMouseEnter={() => { }}>
+      <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userItemsContext.Provider value={weather}>
+        <weatherData.Provider value={weather}>
           {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
-        </userItemsContext.Provider>
+        </weatherData.Provider>
         <GameArea id="game">
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
-            {cats && cats.map((cat, i) => {
-              return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
-            })}
           </PopUps>
+          {cats && cats.map((cat, i) => {
+            return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
+          })}
+          <Advisor />
           {activeItems && activeItems.map((item, i) => {
             return <Item key={i} alt={item.name} image={item.image} />
+          })}
+          {randomCats && randomCats.map((cat, i) => {
+            return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
           })}
 
           {treats && treats.map((treat, i) => {
@@ -222,9 +247,7 @@ export default function Home() {
 
         </GameArea>
 
-        {randomCats && randomCats.map((cat, i) => {
-          return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
-        })}
+
 
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
       </main>
