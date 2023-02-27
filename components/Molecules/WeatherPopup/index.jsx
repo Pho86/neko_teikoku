@@ -54,23 +54,23 @@ export default function WeatherPopup({
     onWeatherSubmit = () => { },
     onWeatherChange = () => { }
 }) {
-    const [icon, setIcon] = useState('/weather-icons/clear-sky.png');
+    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
 
     useEffect(() => {
         if(weatherData.weather[0].main == "Clouds"){
-            setIcon('/weather-icons/broken-clouds.png');
+            setIcon('/weather-icons/Scattered-clouds.gif');
           } else if(weatherData.weather[0].main == "Clear") {
-            setIcon('/weather-icons/clear-sky.png');
+            setIcon('/weather-icons/clear-sky.gif');
           } else if(weatherData.weather[0].main == "Atmosphere") {
-            setIcon('/weather-icons/mist.png');
+            setIcon('/weather-icons/mist.gif');
           } else if(weatherData.weather[0].main == "Rain") {
-            setIcon('/weather-icons/rain.png');
+            setIcon('/weather-icons/rain.gif');
           } else if(weatherData.weather[0].main == "Drizzle") {
-            setIcon('/weather-icons/shower-rain.png');
+            setIcon('/weather-icons/shower-rain.gif');
           } else if(weatherData.weather[0].main == "Snow") {
-            setIcon('/weather-icons/snow.png');
+            setIcon('/weather-icons/snow.gif');
           } else if(weatherData.weather[0].main == "Thunderstorm") {
-            setIcon('/weather-icons/thunderstorm.png');
+            setIcon('/weather-icons/thunderstorm.gif');
           }
     });
 
@@ -100,7 +100,7 @@ export default function WeatherPopup({
                                                 weight={"600"} />
                                             <Typography text={weatherData.weather[0].description} />
                                         </WeatherCol>
-                                        <IconButton image={icon} alt="Weather Icon" />
+                                        <IconButton image={icon} alt="Weather Icon" width={100} height={100}/>
                                     </WeatherRow>
                                     <WeatherHighlight />
                                 </WeatherCol>
