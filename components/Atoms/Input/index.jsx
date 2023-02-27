@@ -9,6 +9,12 @@ ${props => props.type === 'password' && `
     font-size:1rem;
     `}
 `
+/**
+ * @desc an input
+ * @param {*} value the inputs value inside of it, connect it to a usestate if using
+ * @param {*} onChange an onChange function, connect to another handler function
+ * @returns an input
+ */
 export default function Input({
     value,
     onChange,

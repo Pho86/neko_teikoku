@@ -13,6 +13,16 @@ transition:all .1s ease-in-out;
     background-color:${props => props.colorhover || "var(--border-hard)"};
 }
 `
+/**
+ * @desc a button component
+ * @param {*} text expects a string, this is the text of your button *optional*
+ * @param {*} image expects the url of an image, this is a replacement for text *optional*
+ * @param {*} alt if using an image, add alt text, expects a string *optional*
+ * @param {*} color expects a string of a color, use a css variable, color of the button
+ * @param {*} textcolor expects a string of a color, use a css variable, color of the button's text
+ * @param {*} type expects a button type ex. submit | button | undefined *optional*
+ * @returns a button component
+ */
 export default function Button({
     text,
     textcolor = "var(--white)",

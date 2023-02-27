@@ -16,6 +16,16 @@ transition: ${props => props.textHover ? "all .15s ease-in-out" : "none"};
    }
 `
 
+/**
+ * @desc reusuable text component
+ * @param {*} text expects a string for the text.
+ * @param {*} size expects a string for the text's size. *optional*
+ * @param {*} weight expects a string for the text's weight. *optional* 
+ * @param {*} color expects a string for the text's color. *optional* 
+ * @param {*} align expects a string for the text's alignment. *optional* 
+ * @param {*} onClick expects to be connected to a function. *optional* 
+ * @returns a paragraph component
+ */
 export default function Typography({
    text,
    size,
@@ -46,3 +56,5 @@ export default function Typography({
       </Text>
    )
 }
+
+// If need stroked text, import {strokedText} from 'stroked-text'

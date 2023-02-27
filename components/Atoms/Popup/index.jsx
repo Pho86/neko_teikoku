@@ -95,6 +95,7 @@ display:flex;
 width:80%;
 gap:2em;
 `
+
 export function OpacityBackgroundFade({
    onClick = () => { },
    transform
@@ -109,6 +110,12 @@ export function OpacityBackgroundFade({
       />
    )
 }
+/**
+ * 
+ * @param {*} content expects a react child component, this is the content inside the popup 
+ * @param {*} title expects a string, this is the title of the popup 
+ * @returns the popup
+ */
 export function PopUpWithTab({
    content,
    direction,
