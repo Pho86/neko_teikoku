@@ -59,15 +59,15 @@ background-color: rgba(254, 249, 237, 0.8);
 padding:.5em 2em;
 gap:2em;
 border-radius:1.5em;
-border: 3px solid var(--border-hard);
-border-bottom: 8px solid var(--border-hard);
+border-left: 5px solid var(--border-hard);
+// border-bottom: 8px solid var(--border-hard);
 align-self:flex-start;
 transition: all .2s ease-in-out;
 display: flex;
 align-items: center;
 &:hover {
-   // box-shadow: 4px 4px 4px 0px #D9D9D9;
-   // border-bottom: 3px solid var(--border-hard);
+   border: 3px solid var(--border-hard);
+
    background-color: var(--primary);
 }
 `
@@ -80,7 +80,8 @@ align-self:flex-start;
 `
 
 const WeatherRow = styled(RowIcon)`
-background-color:var(--primary);
+background-color: rgba(254, 249, 237, 0.8);
+border-right: 5px solid var(--border-hard);
 padding:.5em 1.5em;
 gap:2em;
 border-radius:1.5em;
@@ -89,7 +90,9 @@ display:flex;
 transition: all .2s ease-in-out;
 // justify-self:auto;
 &:hover {
-   box-shadow: 4px 4px 4px 0px #D9D9D9;
+   background-color:var(--primary);
+   border: 3px solid var(--border-hard);
+
 }
 `
 
@@ -148,19 +151,19 @@ export default function UserInterface({
     useEffect(() => {
       if(weatherData) {
         if(weatherData.weather[0].main == "Clouds"){
-            setIcon('/weather-icons/broken-clouds.png');
+            setIcon('/weather-icons/scattered-clouds.gif');
           } else if(weatherData.weather[0].main == "Clear") {
-            setIcon('/weather-icons/clear-sky.png');
+            setIcon('/weather-icons/clear-sky.gif');
           } else if(weatherData.weather[0].main == "Atmosphere") {
-            setIcon('/weather-icons/mist.png');
+            setIcon('/weather-icons/mist.gif');
           } else if(weatherData.weather[0].main == "Rain") {
-            setIcon('/weather-icons/rain.png');
+            setIcon('/weather-icons/rain.gif');
           } else if(weatherData.weather[0].main == "Drizzle") {
-            setIcon('/weather-icons/shower-rain.png');
+            setIcon('/weather-icons/shower-rain.gif');
           } else if(weatherData.weather[0].main == "Snow") {
-            setIcon('/weather-icons/snow.png');
+            setIcon('/weather-icons/snow.gif');
           } else if(weatherData.weather[0].main == "Thunderstorm") {
-            setIcon('/weather-icons/thunderstorm.png');
+            setIcon('/weather-icons/thunderstorm.gif');
           }
          }
     }, [weatherData]);
