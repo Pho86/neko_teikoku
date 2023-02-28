@@ -72,7 +72,7 @@ export default function WeatherPopup({
           } else if(weatherData.weather[0].main == "Thunderstorm") {
             setIcon('/weather-icons/thunderstorm.gif');
           }
-    });
+    }, [weatherData.weather]);
 
     return (
         <AnimatePresence>
