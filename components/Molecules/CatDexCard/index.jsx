@@ -61,6 +61,7 @@ export default function CatDexCard({
          {catData.id === show && <>
             <OpacityBackgroundFade onClick={onExit} />
             <CatDexCardDiv
+               id={`${catData.breedName}-card`}
                initial={{ x: "100vw", }}
                animate={{ x: "-0%" }}
                exit={{ x: "100vw" }}

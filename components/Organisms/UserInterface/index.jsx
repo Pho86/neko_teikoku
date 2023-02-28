@@ -145,7 +145,7 @@ export default function UserInterface({
    const [treats, setTreatsShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
-   const [icon, setIcon] = useState('/weather-icons/clear-sky.png');
+   const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
    // const weather = useContext(weatherContext)
 
     useEffect(() => {
@@ -238,7 +238,7 @@ export default function UserInterface({
 
             </TopIcons>
             <BottomIcons>
-               <ColIcon onClick={onCatDexClick}>
+               <ColIcon onClick={onCatDexClick} id="catdex">
                   <IconButton image={"/cats/caticon.svg"} alt="CatDex Button" />
                   <Typography
                      text={"cat dex"}

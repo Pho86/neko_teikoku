@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { signIn } from './helper'
+import { signIn } from './helper';
+
 const homeURL = 'http://localhost:3000/'
 const loginURL = 'http://localhost:3000/login'
 
@@ -21,7 +22,18 @@ test.describe("Home game area, account required functionalities", () => {
       expect(computedStyles.background).toEqual('rgba(254, 249, 237, 0.8)');
       expect(computedStyles.borderRadius).toEqual('16px');
       expect(computedStyles.border).toEqual('3px solid rgb(77, 70, 153)');
-   })
+   });
+
+   test('open the catdex and find the asian cat and click it', async ({ page }) => {
+      await signIn(page)
+      await page.waitForTimeout(5000);
+      const catdex = page.locator('#catdex');
+      await catdex.click();
+      await expect(page.getByAltText("Go back")).toBeVisible();
+      await page.getByAltText("Go forward").click();
+      const asian = await page.locator('div').filter({ hasText: 'Asian' }).first();
+      await asian.click()
+   });
 })
 
 
