@@ -10,8 +10,12 @@ background:none;
 const ImageBut = styled(Image)`
 cursor:pointer;
 transition: all .2s;
+filter: drop-shadow(3px 3px 0px var(--border-hard));
 &:hover{
-   filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
+   // filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
+   filter: drop-shadow(0px 0px 0px var(--border-hard));
+   transform: rotate(-15deg);
+
 }
 `
 /**
