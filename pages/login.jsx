@@ -259,7 +259,7 @@ export default function Login({
                                                         />
                                                         <InputLogin type="text" name="email" placeholder="enter email" />
                                                         <InputLogin type="password" name="password" placeholder="enter password" />
-                                                        <Typography
+                                                        <Typography id='forgotPass'
                                                             text={"Forgot Your Password?"}
                                                             weight={"500"}
                                                             size={"0.8rem"}
@@ -278,7 +278,7 @@ export default function Login({
                                                         border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
                                                         textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"}/>
 
-                                                    <Typography
+                                                    <Typography 
                                                         text={"Need an account? Register!"}
                                                         weight={"500"}
                                                         size={"1rem"}

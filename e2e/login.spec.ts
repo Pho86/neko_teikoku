@@ -31,3 +31,17 @@ test.describe("Login area", () => {
     await expect(page).toHaveURL(homeURL)
   })
 })
+
+test.describe("forget password popup", () => {
+  test('find the forgot password button then submit a request', async ({ page }) => {
+    await page.goto(loginURL)
+    await page.click('text=start')
+    await page.click('text=Forgot Your Password?')
+    const emailinput = await page.locator('input').last().type('test@meow.meow', { delay: 50 });
+    await page.click('text=SUBMIT')
+    const Submit = page.locator('button').last();
+    const text = page.locator('#forgotPass');
+    await Submit.click()
+    expect(text).toContainText('an email has been sent')
+  })
+})
