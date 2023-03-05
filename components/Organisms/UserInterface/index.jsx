@@ -10,7 +10,7 @@ import WeatherPopup from "@/components/Molecules/WeatherPopup";
 import { StrokedText } from 'stroked-text';
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
-import { weatherContext } from "@/pages";
+import { userContext } from "@/pages";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -126,9 +126,9 @@ const SettingIcon = styled.div`
    gap: .5em;
 `
 
+
+
 export default function UserInterface({
-   weatherData,
-   currentUser,
    onCatDexClick = () => { },
    onWeatherSubmit = () => { },
    onWeatherChange = () => { },
@@ -146,27 +146,28 @@ export default function UserInterface({
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
-   // const weather = useContext(weatherContext)
+   const { weather, currentUser } = useContext(userContext)
 
-    useEffect(() => {
-      if(weatherData) {
-        if(weatherData.weather[0].main == "Clouds"){
+   useEffect(() => {
+      console.log(weather)
+      if (weather) {
+         if (weather.weather[0].main == "Clouds") {
             setIcon('/weather-icons/scattered-clouds.gif');
-          } else if(weatherData.weather[0].main == "Clear") {
+         } else if (weather.weather[0].main == "Clear") {
             setIcon('/weather-icons/clear-sky.gif');
-          } else if(weatherData.weather[0].main == "Atmosphere") {
+         } else if (weather.weather[0].main == "Atmosphere") {
             setIcon('/weather-icons/mist.gif');
-          } else if(weatherData.weather[0].main == "Rain") {
+         } else if (weather.weather[0].main == "Rain") {
             setIcon('/weather-icons/rain.gif');
-          } else if(weatherData.weather[0].main == "Drizzle") {
+         } else if (weather.weather[0].main == "Drizzle") {
             setIcon('/weather-icons/shower-rain.gif');
-          } else if(weatherData.weather[0].main == "Snow") {
+         } else if (weather.weather[0].main == "Snow") {
             setIcon('/weather-icons/snow.gif');
-          } else if(weatherData.weather[0].main == "Thunderstorm") {
+         } else if (weather.weather[0].main == "Thunderstorm") {
             setIcon('/weather-icons/thunderstorm.gif');
-          }
          }
-    }, [weatherData]);
+      }
+   }, [weather]);
 
    return (
       <>
@@ -203,7 +204,7 @@ export default function UserInterface({
                         {
                            settings && <SettingsDiv
                               initial={{ x: "-120%" }}
-                              animate={{  x: -0 }}
+                              animate={{ x: -0 }}
                               exit={{ x: "-120%" }}
                               transition={{ duration: .5 }}>
                               <SettingsPopup onExit={() => { setSettings(false) }} />
@@ -214,24 +215,24 @@ export default function UserInterface({
 
                </RowIcon>
                <WeatherCol>
-                  {weatherData && <>
-                     <WeatherRow onClick={() => { setWeatherShow(!weatherShow) }}>
+                  {weather && <>
+                     <WeatherRow onClick={() => { setWeatherShow(!weatherShow) }} id="weather">
                         <IconButton image={icon} alt="Weather Icon" />
                         <WeatherDiv>
                            <Typography
-                              text={weatherData.weather[0].main}
+                              text={weather.weather[0].main}
                               weight={"600"}
                               size={"1.2rem"}
                            />
                            <Typography
-                              text={`${weatherData.main.temp} °C`}
+                              text={`${weather.main.temp} °C`}
                               size={"1.8rem"}
                               color={"var(--border-hard)"}
                               weight={"500"}
                            />
                         </WeatherDiv>
                      </WeatherRow>
-                     <WeatherPopup weatherData={weatherData} location={location} onWeatherChange={onWeatherChange} onWeatherSubmit={onWeatherSubmit} active={weatherShow} onExit={() => { setWeatherShow(false) }} />
+                     <WeatherPopup location={location} onWeatherChange={onWeatherChange} onWeatherSubmit={onWeatherSubmit} active={weatherShow} onExit={() => { setWeatherShow(false) }} />
                   </>
                   }
                </WeatherCol>

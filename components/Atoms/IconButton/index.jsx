@@ -9,7 +9,7 @@ background:none;
 
 const ImageBut = styled(Image)`
 cursor:pointer;
-transition: all .2s;
+transition: all .2s ease-in-out;
 filter: drop-shadow(3px 3px 0px var(--border-hard));
 &:hover{
    // filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));

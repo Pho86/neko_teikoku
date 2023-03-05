@@ -6,7 +6,9 @@ import Image from "next/image";
 import IconButton from "@/components/Atoms/IconButton";
 import Button from "@/components/Atoms/Button";
 import WeatherInput from "@/components/Atoms/WeatherInput";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { userContext } from "@/pages";
+
 const WeatherDiv = styled.div`
     background-color: var(--primary);
     display: flex;
@@ -26,7 +28,7 @@ const WeatherCol = styled.div`
     gap:.5em;
     width:100%:
 `
-    
+
 const WeatherHighlight = styled.div`
     width:95%;
     height:10px;
@@ -48,41 +50,40 @@ const WeatherRow = styled.div`
 `
 
 export default function WeatherPopup({
-    weatherData,
     active,
     onExit = () => { },
     onWeatherSubmit = () => { },
     onWeatherChange = () => { }
 }) {
     const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
-
+    const { weather } = useContext(userContext)
     useEffect(() => {
-        if(weatherData.weather[0].main == "Clouds"){
+        if (weather.weather[0].main == "Clouds") {
             setIcon('/weather-icons/Scattered-clouds.gif');
-          } else if(weatherData.weather[0].main == "Clear") {
+        } else if (weather.weather[0].main == "Clear") {
             setIcon('/weather-icons/clear-sky.gif');
-          } else if(weatherData.weather[0].main == "Atmosphere") {
+        } else if (weather.weather[0].main == "Atmosphere") {
             setIcon('/weather-icons/mist.gif');
-          } else if(weatherData.weather[0].main == "Rain") {
+        } else if (weather.weather[0].main == "Rain") {
             setIcon('/weather-icons/rain.gif');
-          } else if(weatherData.weather[0].main == "Drizzle") {
+        } else if (weather.weather[0].main == "Drizzle") {
             setIcon('/weather-icons/shower-rain.gif');
-          } else if(weatherData.weather[0].main == "Snow") {
+        } else if (weather.weather[0].main == "Snow") {
             setIcon('/weather-icons/snow.gif');
-          } else if(weatherData.weather[0].main == "Thunderstorm") {
+        } else if (weather.weather[0].main == "Thunderstorm") {
             setIcon('/weather-icons/thunderstorm.gif');
-          }
-    }, [weatherData.weather]);
+        }
+    }, [weather]);
 
     return (
         <AnimatePresence>
             {active &&
                 <>
-                    <WeatherContainer 
-                    initial={{x:"120%"}}
-                    animate={{x:0}}
-                    exit={{x:"120%"}}
-                    transition={{ delay: .01, duration: .5, ease: "easeInOut" }}
+                    <WeatherContainer
+                        initial={{ x: "120%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "120%" }}
+                        transition={{ delay: .01, duration: .5, ease: "easeInOut" }}
                     >
                         <ButtonDiv>
                             <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-light)" alt="exit button" colorhover="var(--border-hard)" imgwidth={37} imgheight={34} />
@@ -92,15 +93,15 @@ export default function WeatherPopup({
                                 <WeatherCol>
                                     <WeatherRow padding={"0em 2em"}>
                                         <WeatherCol>
-                                            <Typography text={weatherData.name} weight={"600"}
+                                            <Typography text={weather.name} weight={"600"}
                                                 size={"1.7rem"} />
-                                            <Typography text={`${weatherData.main.temp} °C`}
+                                            <Typography text={`${weather.main.temp} °C`}
                                                 size={"2rem"}
                                                 color={"var(--border-hard)"}
                                                 weight={"600"} />
-                                            <Typography text={weatherData.weather[0].description} />
+                                            <Typography text={weather.weather[0].description} />
                                         </WeatherCol>
-                                        <IconButton image={icon} alt="Weather Icon" width={100} height={100}/>
+                                        <IconButton image={icon} alt="Weather Icon" width={100} height={100} />
                                     </WeatherRow>
                                     <WeatherHighlight />
                                 </WeatherCol>

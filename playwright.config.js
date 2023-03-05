@@ -26,7 +26,7 @@ const config ={
         {
             name: 'Desktop Firefox',
             use:{
-                browserName: 'webkit',
+                browserName: 'firefox',
                 viewport: {width: 1280, height: 720}
             },
         },
