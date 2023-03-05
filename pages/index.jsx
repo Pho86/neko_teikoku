@@ -7,7 +7,7 @@ import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef, useContext, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -17,7 +17,6 @@ import TreatsData from "@/data/treats.json"
 import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
 import useSound from 'use-sound';
-import { createContext } from 'react';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
 
@@ -41,7 +40,8 @@ align-items:center;
 position:absolute;
 pointer-events:none;
 `
-export const weatherData = createContext()
+
+export const userContext = createContext()
 
 export default function Home() {
 
@@ -195,7 +195,7 @@ export default function Home() {
   useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser != null) {
-        Playit()
+        // Playit()
         const currentUserData = await fetchCurrentUserData();
         setCurrentUser(currentUser);
         setCurrentUserData(currentUserData);
@@ -223,9 +223,9 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <weatherData.Provider value={weather}>
-          {currentUser && <UserInterface currentUser={currentUser} filteredItems={filteredItems} currentItems={currentItems} location={location} weatherData={weather} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
-        </weatherData.Provider>
+        <userContext.Provider value={{weather, currentUser}}>
+          {currentUser && <UserInterface filteredItems={filteredItems} currentItems={currentItems} location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
+        </userContext.Provider>
         <GameArea id="game">
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />

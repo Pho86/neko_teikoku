@@ -182,6 +182,7 @@ export default function Login({
                         </ImgCont>
                         <StartDiv
                             onClick={() => { setStart(true) }}
+                            id="start"
                         >
                             <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
                                 start
