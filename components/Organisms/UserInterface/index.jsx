@@ -239,7 +239,7 @@ export default function UserInterface({
             </TopIcons>
             <BottomIcons>
                <ColIcon onClick={onCatDexClick} id="catdex">
-                  <IconButton image={"/cats/caticon.svg"} alt="CatDex Button" />
+                  <IconButton image={"/menuIcons/catdex.svg"} alt="CatDex Button" />
                   <Typography
                      text={"cat dex"}
                      weight={"600"}
@@ -247,7 +247,7 @@ export default function UserInterface({
                   />
                </ColIcon>
                <ColIcon onClick={() => { setItemsShow(true) }}>
-                  <IconButton image={"/cats/caticon.svg"} alt="Items Button" />
+                  <IconButton image={"/menuIcons/items.svg"} alt="Items Button" />
                   <Typography
                      text={"items"}
                      weight={"600"}
@@ -266,7 +266,7 @@ export default function UserInterface({
                         >
                            <RowIcon gap={"2em"}>
                               <ColIcon>
-                                 <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} />
+                                 <IconButton image={"/menuIcons/place.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} />
                                  <Typography
                                     text={"place"}
                                     weight={"600"}
@@ -274,7 +274,7 @@ export default function UserInterface({
                                  />
                               </ColIcon>
                               <ColIcon>
-                                 <IconButton image={"/cats/caticon.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} />
+                                 <IconButton image={"/menuIcons/cook.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} />
                                  <Typography
                                     text={"cook"}
                                     weight={"600"}
@@ -286,7 +286,7 @@ export default function UserInterface({
                      }
                   </AnimatePresence>
                   <ColIcon onClick={() => { setExpanded(!expanded) }}>
-                     <IconButton image={"/cats/caticon.svg"} alt="Treats Button" />
+                     <IconButton image={"/menuIcons/treats.svg"} alt="Treats Button" />
                      <Typography
                         text={"treats"}
                         weight={"600"}
@@ -296,7 +296,7 @@ export default function UserInterface({
                </ColIcon>
 
                <ColIcon onClick={() => { }}>
-                  <IconButton image={"/cats/caticon.svg"} alt="Offerings Button" />
+                  <IconButton image={"/menuIcons/offerings.svg"} alt="Offerings Button" />
                   <Typography
                      text={"offerings"}
                      weight={"600"}
