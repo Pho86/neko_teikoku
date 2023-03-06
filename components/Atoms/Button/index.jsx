@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Typography from "../Text";
 import Image from "next/image";
 import { StrokedText } from "stroked-text";
 const ButtonDiv = styled.button`

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { EmptySpace } from "@/components/Atoms/EmptySpacer";
 import Image from "next/image";
 import { OpacityBackgroundFade, PopUpWithTab } from "@/components/Atoms/Popup";

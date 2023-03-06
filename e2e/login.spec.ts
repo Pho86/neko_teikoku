@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 const homeURL = 'http://localhost:3000/'
 const loginURL = 'http://localhost:3000/login'
 
-test.describe("Head Area", () => {
+test.describe("Head Area of login page", () => {
   test.skip('should navigate to the login page', async ({ page }) => {
     await page.goto(loginURL)
     await expect(page).toHaveTitle('Login - Neko Teikoku');
@@ -17,7 +17,7 @@ test.describe("Head Area", () => {
 })
 
 
-test.describe("Login area", () => {
+test.describe("Login area tests", () => {
   test.skip('find the start button and press it, then test the tabs, then login to a test account', async ({ page }) => {
     await page.goto(loginURL)
     const start = page.locator('#start')

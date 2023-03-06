@@ -96,7 +96,7 @@ const StartDiv = styled.div`
 `
 
 export default function Login({
-    onExit = () => { }
+
 }) {
 
     const [start, setStart] = useState(false);
@@ -142,9 +142,8 @@ export default function Login({
             setErrorMessage("ERROR OCCURED")
         }
     }
-    const handleSignOut = async () => {
-        await SignOut(auth)
-    }
+
+
     const handleForgotPassword = async () => {
         setPasswordText("sending email...");
         try {
@@ -161,6 +160,7 @@ export default function Login({
             setCurrentUser(currentUser);
         })
     }, [])
+    
     return (
         <>
             <Head>
@@ -169,26 +169,30 @@ export default function Login({
             <main className="loginBackground">
                 <div className={styles.loginCont}>
                     <TitleDiv>
-                        <ImgCont>
-                            {/* make the logo bob up and down? */}
-                            <AnimatePresence>
-                                <Image
-                                    src={'/icons/nekoTeikokuV2.svg'}
-                                    width={500}
-                                    height={100}
-                                    alt={"Neko Teikoku Logo Horizontal"}
-                                />
-                            </AnimatePresence>
-                        </ImgCont>
-                        <StartDiv
-                            onClick={() => { setStart(true) }}
-                            id="start"
-                        >
-                            <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
-                                start
-                            </StrokedText>
-
-                        </StartDiv>
+                        <AnimatePresence>
+                            <>
+                                <ImgCont>
+                                    <motion.div >
+                                        <Image
+                                            src={'/icons/nekoTeikokuV2.svg'}
+                                            width={500}
+                                            height={100}
+                                            alt={"Neko Teikoku Logo Horizontal"}
+                                        />
+                                    </motion.div>
+                                </ImgCont>
+                                <motion.div initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}>
+                                    <StartDiv
+                                        onClick={() => { setStart(true) }}
+                                        id="start"
+                                    >
+                                        <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
+                                            start
+                                        </StrokedText>
+                                    </StartDiv>
+                                </motion.div>
+                            </>
+                        </AnimatePresence>
                     </TitleDiv>
 
 
@@ -235,22 +239,22 @@ export default function Login({
 
                                             {tabs ? <FormCont>
                                                 <LoginForm onChange={handleChange} name="login">
-                                                <SpaceDiv>
-                                                    <Typography
-                                                        text={"Meowcome back!"}
-                                                        weight={"600"}
-                                                        size={"1.8rem"}
-                                                        color={"var(--black)"}
-                                                        align={"center"}
-                                                    />
-                                                    <Typography
-                                                        text={"meowmeowmewomeowmeow!"}
-                                                        weight={"500"}
-                                                        size={"1rem"}
-                                                        color={"var(--black)"}
-                                                        align={"center"}
-                                                    />
-                                                </SpaceDiv>
+                                                    <SpaceDiv>
+                                                        <Typography
+                                                            text={"Meowcome back!"}
+                                                            weight={"600"}
+                                                            size={"1.8rem"}
+                                                            color={"var(--black)"}
+                                                            align={"center"}
+                                                        />
+                                                        <Typography
+                                                            text={"meowmeowmewomeowmeow!"}
+                                                            weight={"500"}
+                                                            size={"1rem"}
+                                                            color={"var(--black)"}
+                                                            align={"center"}
+                                                        />
+                                                    </SpaceDiv>
                                                     <InputDiv>
                                                         <Typography
                                                             text={ErrorMessage && ErrorMessage}
@@ -272,25 +276,25 @@ export default function Login({
                                                         />
 
                                                     </InputDiv>
-                                                <BtnSpaceDiv>
+                                                    <BtnSpaceDiv>
 
-                                                    <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
-                                                        color={"var(--button-light)"} colorhover={"var(--button-medium)"}
-                                                        border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                        textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"}/>
+                                                        <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
+                                                            color={"var(--button-light)"} colorhover={"var(--button-medium)"}
+                                                            border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
+                                                            textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"} />
 
-                                                    <Typography 
-                                                        text={"Need an account? Register!"}
-                                                        weight={"500"}
-                                                        size={"1rem"}
-                                                        color={"var(--border-hard)"}
-                                                        textHover={"var(--secondary-accent)"}
-                                                        padding={"1em"}
-                                                        align={"center"}
-                                                        onClick={() => { setTabs(false) }}
-                                                        
-                                                    />
-                                                </BtnSpaceDiv>
+                                                        <Typography
+                                                            text={"Need an account? Register!"}
+                                                            weight={"500"}
+                                                            size={"1rem"}
+                                                            color={"var(--border-hard)"}
+                                                            textHover={"var(--secondary-accent)"}
+                                                            padding={"1em"}
+                                                            align={"center"}
+                                                            onClick={() => { setTabs(false) }}
+
+                                                        />
+                                                    </BtnSpaceDiv>
                                                 </LoginForm>
 
 
@@ -324,20 +328,20 @@ export default function Login({
                                                         <InputLogin type="password" name="password" placeholder="enter password" />
                                                     </InputDiv>
                                                     <BtnSpaceDiv>
-                                                        <Button type="button" text="REGISTER" onClick={handleRegisterSubmit} 
+                                                        <Button type="button" text="REGISTER" onClick={handleRegisterSubmit}
                                                             color={"var(--button-light)"} colorhover={"var(--button-medium)"}
                                                             border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                            textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"}/>
+                                                            textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"} />
                                                         <Typography
-                                                                text={"Have an account? Login!"}
-                                                                weight={"500"}
-                                                                size={"1rem"}
-                                                                color={"var(--border-hard)"}
-                                                                textHover={"var(--secondary-accent)"}
-                                                                padding={"1em"}
-                                                                align={"center"}
-                                                                onClick={() => { setTabs(true) }}
-                                                                />
+                                                            text={"Have an account? Login!"}
+                                                            weight={"500"}
+                                                            size={"1rem"}
+                                                            color={"var(--border-hard)"}
+                                                            textHover={"var(--secondary-accent)"}
+                                                            padding={"1em"}
+                                                            align={"center"}
+                                                            onClick={() => { setTabs(true) }}
+                                                        />
                                                     </BtnSpaceDiv>
                                                 </LoginForm>
                                             </FormCont>

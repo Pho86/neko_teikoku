@@ -1,9 +1,8 @@
 import CatCard from "@/components/Molecules/CatCard";
-import { PopUp, OpacityBackgroundFade, PopUpWithTab, Tab } from "@/components/Atoms/Popup";
-import { motion, AnimatePresence } from "framer-motion";
+import { OpacityBackgroundFade, PopUpWithTab } from "@/components/Atoms/Popup";
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import IconButton from "@/components/Atoms/IconButton";
 
 const PopUpGrid = styled.div`
 display:grid;

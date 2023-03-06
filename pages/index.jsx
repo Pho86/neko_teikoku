@@ -7,7 +7,7 @@ import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
-import { useEffect, useState, useRef, useContext, createContext } from 'react';
+import { useEffect, useState, useRef, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -226,17 +226,23 @@ export default function Home() {
         <userContext.Provider value={{weather, currentUser}}>
           {currentUser && <UserInterface filteredItems={filteredItems} currentItems={currentItems} location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
+
         <GameArea id="game">
+
           <PopUps>
             <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
           </PopUps>
+
           {cats && cats.map((cat, i) => {
             return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
           })}
+
           <Advisor />
+
           {activeItems && activeItems.map((item, i) => {
             return <Item key={i} alt={item.name} image={item.image} />
           })}
+
           {randomCats && randomCats.map((cat, i) => {
             return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
           })}

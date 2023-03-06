@@ -2,12 +2,10 @@ import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Button from "@/components/Atoms/Button";
 
-import { SignUp, SignIn, SignOut, ForgotPassword } from "/server";
-import { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { SignOut } from "/server";
+import { useState } from "react";
 import { auth } from "@/firebase/firebase.config";
-import { useRouter } from "next/router";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 const PopupCont = styled.div`
     background-color: var(--primary);
     display: flex;
@@ -22,12 +20,6 @@ const PopupCont = styled.div`
     cursor:auto;
 `
 
-const PopupText = styled.div`
-    display: flex;
-    // align-items: center;
-    // justify-content: center;
-    margin: 0.5em;
-`
 const BtnCont = styled.div`
     margin: 1em;
     display: flex;

@@ -149,7 +149,6 @@ export default function UserInterface({
    const { weather, currentUser } = useContext(userContext)
 
    useEffect(() => {
-      console.log(weather)
       if (weather) {
          if (weather.weather[0].main == "Clouds") {
             setIcon('/weather-icons/scattered-clouds.gif');
