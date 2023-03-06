@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Typography from "@/components/Atoms/Text";
 import { StrokedText } from "stroked-text";
 import { motion } from "framer-motion";
 const CatTextBoxContent = styled.div`

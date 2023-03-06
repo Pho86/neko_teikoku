@@ -44,9 +44,9 @@ export default function TreatsSlider({
         <AnimatePresence>
             {active &&
                 <SliderTab
-                    initial={{ y: "30vh" }}
+                    initial={{ y: "50vh" }}
                     animate={{ y: 10 }}
-                    exit={{ y: "30vh" }}
+                    exit={{ y: "50vh" }}
                     transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                     tab={"treats"}
                     onExit={onExit}

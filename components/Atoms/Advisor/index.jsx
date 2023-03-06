@@ -3,9 +3,9 @@ import { AnimatePresence, motion } from "framer-motion"
 import styled from "styled-components"
 import { useState } from "react";
 import CatTextBox from "@/components/Molecules/CatTextBox";
-import { useEffect } from "react";
 import AdvisorPhrases from "@/data/phrases.json"
 import { selectRandomFromArray } from "@/util";
+
 const CatImage = styled(Image)`
 cursor:pointer;
 user-drag: none;
@@ -32,6 +32,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 transform:translate(-20vw, -10vh);
+pointer-events:auto;
 `
 const CatBox = styled(motion.div)`
 pointer-events:none;
@@ -49,7 +50,7 @@ export default function Advisor({
    return (
       <CatBox>
          <CatDiv>
-            <CatImage src={'/cats/advisor.svg'} id="advisor" width={180} height={180} alt={'this is your advisor'} onClick={HandleTextBox} />
+            <CatImage src={'/cats/advisor.svg'} id="advisor" width={180} height={150} alt={'this is your advisor'} onClick={HandleTextBox} />
             <AnimatePresence>
                {textbox && <CatTextBox text={text} />}
             </AnimatePresence>

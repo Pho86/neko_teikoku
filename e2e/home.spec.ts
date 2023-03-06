@@ -5,7 +5,7 @@ const homeURL = 'http://localhost:3000/'
 const loginURL = 'http://localhost:3000/login'
 
 
-test.describe("Home game area, account required functionalities", () => {
+test.describe("Home game area tests, account required functionalities", () => {
    test.skip('find the advisor and click on him and find the textbox', async ({ page }) => {
       await signIn(page)
       const advisor = page.locator('#advisor')
@@ -47,10 +47,11 @@ test.describe("Home game area, account required functionalities", () => {
       const meowing = page.locator('h2')
       expect(meowing).toContainText("meowing @ vancouver")
    });
+
 })
 
 
-test.describe("Home game area, no login", () => {
+test.describe("Home game area tests, no login required", () => {
    test.skip('find the h2 of meowing @ __place', async ({ page }) => {
       await page.goto(homeURL)
       const meowing = page.locator('h2')

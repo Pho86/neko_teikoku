@@ -4,14 +4,7 @@ import Image from "next/image";
 
 const TreatArea = styled.div`
 position:absolute;
-// width:100vw;
-// height:100vh;
 pointer-events:none;
-`
-const ItemImgArea = styled(motion.div)`
-pointer-events:auto;
-position:relative;
-cursor:pointer;
 `
 const TreatImage = styled(Image)`
 pointer-events:none;

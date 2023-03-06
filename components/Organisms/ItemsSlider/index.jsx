@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";

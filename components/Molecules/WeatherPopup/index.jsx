@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Typography from "@/components/Atoms/Text";
-import Image from "next/image";
 import IconButton from "@/components/Atoms/IconButton";
 import Button from "@/components/Atoms/Button";
 import WeatherInput from "@/components/Atoms/WeatherInput";
