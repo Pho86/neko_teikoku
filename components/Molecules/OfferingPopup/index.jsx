@@ -5,6 +5,7 @@ import Button from "@/components/Atoms/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { PopUpWithTab } from "@/components/Atoms/Popup";
 import CatCard from "../CatCard";
+import OfferCard from "../OfferingCard";
 
 const BtnCont = styled.div`
     // margin-top: 1em;
@@ -18,7 +19,10 @@ const InvCont=styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: 25em;
+    height: 25em;
+    padding-left: 2em;
+    padding-right: 2em;
+    overflow-y:scroll;
 `
 
 export default function Offerings(
@@ -36,7 +40,7 @@ export default function Offerings(
                     <PopUpWithTab
                         title={"offerings"}
                         size={"1.2em"}
-                        direction="row"
+                        direction="column"
                         initial={{ y: "-100vh" }}
                         animate={{ y: "-5%" }}
                         exit={{ y: "-100vh" }}
@@ -45,7 +49,10 @@ export default function Offerings(
                         content={
                             <>
                                 <InvCont>
-                                    {/* <CatCard/> */}
+                                    <OfferCard/>
+                                    <OfferCard/>
+                                    <OfferCard/>
+                                    <OfferCard/>
                                 </InvCont>
                                 <BtnCont>
                                     <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={btnClick} />

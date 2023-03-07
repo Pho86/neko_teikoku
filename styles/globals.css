@@ -85,3 +85,26 @@ hr{
   border-radius: 2px;
   border: 0;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #F9D982;
+  border-radius: 1em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--button-medium);
+  border-radius: 1em;
+  height: 1em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hard);
+
+}
