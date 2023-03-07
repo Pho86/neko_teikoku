@@ -11,6 +11,7 @@ import { StrokedText } from 'stroked-text';
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
 import { userContext } from "@/pages";
+import Offerings from "@/components/Molecules/OfferingPopup";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -143,6 +144,7 @@ export default function UserInterface({
    const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
+   const [offer, setOfferShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
@@ -239,7 +241,7 @@ export default function UserInterface({
             </TopIcons>
             <BottomIcons>
                <ColIcon onClick={onCatDexClick} id="catdex">
-                  <IconButton image={"/menuIcons/catdex.svg"} alt="CatDex Button" />
+                  <IconButton image={"/menuIcons/catdex.svg"} alt="CatDex Button" type={'menu'} />
                   <Typography
                      text={"cat dex"}
                      weight={"600"}
@@ -247,7 +249,7 @@ export default function UserInterface({
                   />
                </ColIcon>
                <ColIcon onClick={() => { setItemsShow(true) }}>
-                  <IconButton image={"/menuIcons/items.svg"} alt="Items Button" />
+                  <IconButton image={"/menuIcons/items.svg"} alt="Items Button" type={'menu'} />
                   <Typography
                      text={"items"}
                      weight={"600"}
@@ -266,7 +268,7 @@ export default function UserInterface({
                         >
                            <RowIcon gap={"2em"}>
                               <ColIcon>
-                                 <IconButton image={"/menuIcons/place.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} />
+                                 <IconButton image={"/menuIcons/place.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} type={'menu'}/>
                                  <Typography
                                     text={"place"}
                                     weight={"600"}
@@ -274,7 +276,7 @@ export default function UserInterface({
                                  />
                               </ColIcon>
                               <ColIcon>
-                                 <IconButton image={"/menuIcons/cook.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} />
+                                 <IconButton image={"/menuIcons/cook.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} type={'menu'}/>
                                  <Typography
                                     text={"cook"}
                                     weight={"600"}
@@ -286,7 +288,7 @@ export default function UserInterface({
                      }
                   </AnimatePresence>
                   <ColIcon onClick={() => { setExpanded(!expanded) }}>
-                     <IconButton image={"/menuIcons/treats.svg"} alt="Treats Button" />
+                     <IconButton image={"/menuIcons/treats.svg"} alt="Treats Button" type={'menu'}/>
                      <Typography
                         text={"treats"}
                         weight={"600"}
@@ -295,8 +297,8 @@ export default function UserInterface({
                   </ColIcon>
                </ColIcon>
 
-               <ColIcon onClick={() => { }}>
-                  <IconButton image={"/menuIcons/offerings.svg"} alt="Offerings Button" />
+               <ColIcon onClick={() => { setOfferShow(true) }}>
+                  <IconButton image={"/menuIcons/offerings.svg"} alt="Offerings Button" type={'menu'}/>
                   <Typography
                      text={"offerings"}
                      weight={"600"}
@@ -311,6 +313,11 @@ export default function UserInterface({
                onExit={() => { setItemsShow(false) }} />}
 
          </UserInterfaceDiv>
+         <AnimatePresence>
+            {offer && <Offerings btnText={"ACKNOWLEDGE ALL"}
+               onExit={()=>{setOfferShow(false)}}
+            />}
+         </AnimatePresence>
          <TreatsDex active={cookShow}
             onExit={() => { setCookShow(false) }} />
 

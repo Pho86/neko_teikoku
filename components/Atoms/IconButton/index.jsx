@@ -14,7 +14,7 @@ filter: drop-shadow(3px 3px 0px var(--border-hard));
 &:hover{
    // filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
    filter: drop-shadow(0px 0px 0px var(--border-hard));
-   transform: rotate(-15deg);
+   transform: ${props=>props.menu || ""};
 
 }
 `
@@ -33,7 +33,8 @@ export default function IconButton({
    height = 100,
    alt,
    hover,
-   secondImage
+   secondImage,
+   type
 }) {
    const [ishovering, sethovering] = useState(false);
    return <Button onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} >
@@ -44,7 +45,10 @@ export default function IconButton({
             }
          </>
          :
-         <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} />}
+         type === "menu" ?
+            <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} menu={"rotate(-15deg)"}/>
+            :
+            <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} />}
    </Button>
 
 }
