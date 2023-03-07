@@ -11,6 +11,7 @@ import { StrokedText } from 'stroked-text';
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
 import { userContext } from "@/pages";
+import Offerings from "@/components/Molecules/OfferingPopup";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -143,6 +144,7 @@ export default function UserInterface({
    const [expanded, setExpanded] = useState(false);
    const [setItems, setItemsShow] = useState(false);
    const [treats, setTreatsShow] = useState(false);
+   const [offer, setOfferShow] = useState(false);
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
@@ -296,7 +298,7 @@ export default function UserInterface({
                   </ColIcon>
                </ColIcon>
 
-               <ColIcon onClick={() => { }}>
+               <ColIcon onClick={() => { setOfferShow(true) }}>
                   <IconButton image={"/menuIcons/offerings.svg"} alt="Offerings Button" />
                   <Typography
                      text={"offerings"}
@@ -312,6 +314,11 @@ export default function UserInterface({
                onExit={() => { setItemsShow(false) }} />}
 
          </UserInterfaceDiv>
+         <AnimatePresence>
+            {offer && <Offerings btnText={"ACKNOWLEDGE ALL"}
+               onExit={()=>{setOfferShow(false)}}
+            />}
+         </AnimatePresence>
          <TreatsDex active={cookShow}
             onExit={() => { setCookShow(false) }} />
 
