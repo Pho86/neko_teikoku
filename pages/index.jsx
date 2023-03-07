@@ -89,7 +89,7 @@ export default function Home() {
         if (weather.rain) {
           setBackground('rain')
         }
-        else if (weather.snow) {
+        else if (weather.weather[0].main === "Snow") {
           setBackground('snow')
         }
         else if (weather.clouds.all > 50) {
