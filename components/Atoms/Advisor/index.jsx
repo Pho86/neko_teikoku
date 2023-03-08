@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, m } from "framer-motion"
 import styled from "styled-components"
 import { useState } from "react";
 import CatTextBox from "@/components/Molecules/CatTextBox";
@@ -34,7 +34,7 @@ align-items:center;
 transform:translate(-20vw, -10vh);
 pointer-events:auto;
 `
-const CatBox = styled(motion.div)`
+const CatBox = styled(m.div)`
 pointer-events:none;
 z-index:43;
 `

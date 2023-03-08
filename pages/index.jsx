@@ -1,22 +1,22 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
+import { selectRandomFromArray, generateRandomNumber } from '@/util';
+import { useEffect, useState, useRef, createContext } from 'react';
+import useSound from 'use-sound';
+import { useRouter } from 'next/router';
+import { auth } from '@/firebase/firebase.config';
+import { onAuthStateChanged } from 'firebase/auth';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
-import { selectRandomFromArray, generateRandomNumber } from '@/util';
-import { useEffect, useState, useRef, createContext } from 'react';
-import { useRouter } from 'next/router';
-import { auth } from '@/firebase/firebase.config';
-import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat } from '@/server';
 import ItemData from "@/data/items.json"
 import TreatsData from "@/data/treats.json"
 import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
-import useSound from 'use-sound';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
 
@@ -223,7 +223,7 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userContext.Provider value={{weather, currentUser}}>
+        <userContext.Provider value={{ weather, currentUser }}>
           {currentUser && <UserInterface filteredItems={filteredItems} currentItems={currentItems} location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
 
@@ -256,6 +256,7 @@ export default function Home() {
 
 
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
+        
       </main>
     </>
   )

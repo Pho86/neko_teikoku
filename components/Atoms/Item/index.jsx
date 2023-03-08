@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import styled from "styled-components";
 import Image from "next/image";
 
@@ -8,7 +8,7 @@ position:absolute;
 // height:100vh;
 pointer-events:none;
 `
-const ItemImgArea = styled(motion.div)`
+const ItemImgArea = styled(m.div)`
 pointer-events:auto;
 position:relative;
 cursor:pointer;

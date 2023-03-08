@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import Typography from "../Text";
 import Image from "next/image";
 import IconButton from "../IconButton";
 
-export const OpacityBackground = styled(motion.div)`
+export const OpacityBackground = styled(m.div)`
 background: rgba(0, 0, 0, 5);
 width:100vw;
 height:100vh;
@@ -17,7 +17,7 @@ z-index:55;
 pointer-events:auto;
 `
 
-export const PopUp = styled(motion.div)`
+export const PopUp = styled(m.div)`
 background-color:var(--primary);
 top: 50%;
 left: 50%;
@@ -34,7 +34,7 @@ z-index:56;
 border: 5px solid var(--border);
 `
 
-export const PopUpNT = styled(motion.div)`
+export const PopUpNT = styled(m.div)`
 background-color:var(--primary);
 padding:2.5em 2em;
 border-radius:1em;
@@ -47,7 +47,7 @@ border: 5px solid var(--border);
 gap:1em;
 pointer-events:auto;
 `
-export const TopTab = styled(motion.div)`
+export const TopTab = styled(m.div)`
 width:150px;
 height:40px;
 border-radius: 1.2em 1.2em 0 0;
@@ -58,7 +58,7 @@ align-items:center;
 pointer-events:auto;
 cursor:pointer;
 `
-export const PopUpCont = styled(motion.div)`
+export const PopUpCont = styled(m.div)`
 position:fixed;
 z-index:55;
 display:flex;

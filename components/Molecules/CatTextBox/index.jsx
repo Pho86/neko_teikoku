@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { StrokedText } from "stroked-text";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 const CatTextBoxContent = styled.div`
     background-color: rgba(254,249,237,0.8);
     padding: 0.5em;
@@ -11,7 +11,7 @@ const CatTextBoxContent = styled.div`
     max-width: 180px;
 `
 
-const CatTextBoxDiv = styled(motion.div)`
+const CatTextBoxDiv = styled(m.div)`
     display: flex;
     align-items: center;
     justify-content: center;

@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Image from "next/image";
 import Button from "@/components/Atoms/Button";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
-const PopupCont = styled(motion.div)`
+const PopupCont = styled(m.div)`
     background-color: var(--primary);
     display: flex;
     flex-direction: column;

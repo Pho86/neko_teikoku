@@ -178,3 +178,46 @@ export const fetchUserTreats = async () => {
     });
     return data;
 }
+
+export const addUserOfferings = async (cat, offering) => {
+    let data;
+    const q = query(collection(db, "offerings"), where("name", "==", offering.name), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data = document.id
+    });
+    try {
+        const ref = doc(db, "offerings", data);
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            const update = updateDoc(ref, {
+                count: docSnap.data().count + 1
+                // count: docSnap.data().count
+            });
+        } else {
+        }
+    }
+    catch (error) {
+        const offeringData = {
+            uid: auth.currentUser.uid,
+            name: offering.name,
+            count: 1,
+            itemID: offering.id,
+            image: offering.image,
+            cat: cat.breedName,
+            catImg: "/cats/caticon.svg",
+            state: false,
+        }
+        const docRef = await addDoc(collection(db, "offerings"), offeringData);
+    }
+}
+
+export const fetchUserOfferings = async () => {
+    let data = []
+    const q = query(collection(db, "offerings"), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data() })
+    });
+    return data;
+}

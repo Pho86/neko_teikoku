@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import IconButton from "@/components/Atoms/IconButton";
 import Typography from "@/components/Atoms/Text";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useContext } from "react";
 import ItemsSlider from "@/components/Organisms/ItemsSlider";
 import TreatsSlider from "../TreatsSlider";
@@ -97,7 +97,7 @@ transition: all .2s ease-in-out;
 }
 `
 
-const SliderIcons = styled(motion.div)`
+const SliderIcons = styled(m.div)`
 position:absolute;
 `
 
@@ -108,12 +108,14 @@ justify-content:center;
 gap:.3em;
 text-align:center;
 `
-const SettingsDiv = styled(motion.div)`
+
+const SettingsDiv = styled(m.div)`
    display:flex;
    flex-direction:column;
    gap:1.5em;
    align-self:flex-start;
 `
+
 const TextCont = styled.div`
    display:flex;
    flex-direction: column;
@@ -121,6 +123,7 @@ const TextCont = styled.div`
    display: flex;
    align-items: flex-start;
 `
+
 const SettingIcon = styled.div`
    display: flex;
    align-items: center;
