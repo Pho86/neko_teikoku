@@ -14,7 +14,7 @@ import { auth } from "@/firebase/firebase.config";
 import { useRouter } from "next/router";
 
 import { PopUpWithTab } from "@/components/Atoms/Popup";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import PopupPrompt from "@/components/Molecules/PopupPrompt";
 
 
@@ -172,16 +172,16 @@ export default function Login({
                         <AnimatePresence>
                             <>
                                 <ImgCont>
-                                    <motion.div >
+                                    <m.div >
                                         <Image
                                             src={'/icons/nekoTeikokuV2.svg'}
                                             width={500}
                                             height={100}
                                             alt={"Neko Teikoku Logo Horizontal"}
                                         />
-                                    </motion.div>
+                                    </m.div>
                                 </ImgCont>
-                                <motion.div initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}>
+                                <m.div initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}>
                                     <StartDiv
                                         onClick={() => { setStart(true) }}
                                         id="start"
@@ -190,7 +190,7 @@ export default function Login({
                                             start
                                         </StrokedText>
                                     </StartDiv>
-                                </motion.div>
+                                </m.div>
                             </>
                         </AnimatePresence>
                     </TitleDiv>

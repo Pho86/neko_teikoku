@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Typography from "../Text";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Button from "../Button";
 import IconButton from "../IconButton";
 
-export const Slider = styled(motion.div)`
+export const Slider = styled(m.div)`
 width:100vw;
 padding:2em 4em;
 background-color:var(--primary);
@@ -16,7 +16,7 @@ align-items:center;
 pointer-events:auto;
 `
 
-export const SliderTabCont = styled(motion.div)`
+export const SliderTabCont = styled(m.div)`
 position:fixed;
 bottom:0;
 left:0;

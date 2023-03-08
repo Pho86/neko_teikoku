@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { generateRandomNumber } from "@/util";
 import { useEffect, useState } from "react";
 
@@ -26,7 +26,7 @@ transition:;
 }
 `
 
-const CatBox = styled(motion.div)`
+const CatBox = styled(m.div)`
 width:100vw;
 height:100vh;
 position:fixed;
@@ -38,7 +38,7 @@ left:0;
 top:0;
 
 `
-const CatArea = styled(motion.div)`
+const CatArea = styled(m.div)`
 `
 export default function Cat({
    catData,

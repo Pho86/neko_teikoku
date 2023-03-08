@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Typography from "@/components/Atoms/Text";
 import IconButton from "@/components/Atoms/IconButton";
 import Button from "@/components/Atoms/Button";
@@ -38,7 +38,7 @@ const WeatherHighlight = styled.div`
 const ButtonDiv = styled.div`
     pointer-events:auto;
 `
-const WeatherContainer = styled(motion.div)`
+const WeatherContainer = styled(m.div)`
     display:flex;
     gap:.5em;
 `
