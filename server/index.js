@@ -179,7 +179,7 @@ export const fetchUserTreats = async () => {
     return data;
 }
 
-export const addUserOfferings = async (cat, offering) => {
+export const addUserOfferings = async (offering) => {
     let data;
     const q = query(collection(db, "offerings"), where("name", "==", offering.name), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
@@ -204,7 +204,7 @@ export const addUserOfferings = async (cat, offering) => {
             count: 1,
             itemID: offering.id,
             image: offering.image,
-            cat: cat.breedName,
+            cat: offering.catName,
             catImg: "/cats/caticon.svg",
             state: false,
         }

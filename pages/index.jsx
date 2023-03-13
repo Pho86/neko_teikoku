@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -19,6 +19,7 @@ import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
+import OfferingsData from "@/data/ingredients.json"
 
 const GameArea = styled.div`
 position:absolute;
@@ -57,7 +58,8 @@ export default function Home() {
   const [currentUserData, setCurrentUserData] = useState({});
   const [currentItems, setCurrentItems] = useState([]);
   const [activeItems, setActiveItems] = useState([]);
-  const [treats, setTreats] = useState([])
+  const [treats, setTreats] = useState([]);
+  const [currentOfferings, setCurrentOfferings] = useState([])
 
   // user weather data
   const [location, setLocation] = useState("Vancouver");
@@ -131,7 +133,7 @@ export default function Home() {
   const generateCats = async (data, amountOfCats) => {
     let randomMeows = randomCats;
     for (let i = 0; i < amountOfCats; i++) {
-      let randomCat = selectRandomFromArray(data);
+      let randomCat = await selectRandomFromArray(data);
       const x = generateRandomNumber(0, 100);
       let y;
       randomCat.x = x;
@@ -143,10 +145,26 @@ export default function Home() {
       }
       randomCat.y = y;
       randomMeows.push(randomCat)
+      let offering = await selectRandomFromArray(OfferingsData)
+      offering.catname = randomCat.breedName
+      setCurrentOfferings(offering)
+      console.log(offering)
+      // addUserOfferings(offering)
     }
     for (let i = 0; i < randomMeows.length; i++) {
       setRandomCats([...randomCats, randomMeows[i]])
     }
+  }
+
+  const filterItems = async (items) => {
+    await ItemData.filter((item, index) => {
+      for (let i = 0; i < items.length; i++) {
+        if (item.name === items[i].name) {
+          ItemData[i].count = items[i].count
+        }
+      }
+    })
+    return ItemData
   }
 
   const fetchData = async () => {
@@ -156,13 +174,14 @@ export default function Home() {
   }
 
   const getData = async () => {
-    const catResult = await fetchCats()
-    const weatherResult = await fetchWeather()
-    const itemsResult = await fetchItems()
+    const catResult = await fetchCats();
+    const weatherResult = await fetchWeather();
+    const itemsResult = await fetchItems();
+    const filteredItems = await filterItems(itemsResult);
     try {
       setCats(catResult)
       setWeather(weatherResult);
-      setCurrentItems(itemsResult);
+      setCurrentItems(filteredItems);
       return catResult
     }
     catch (error) {
@@ -223,7 +242,7 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userContext.Provider value={{ weather, currentUser }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems }}>
           {currentUser && <UserInterface filteredItems={filteredItems} currentItems={currentItems} location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
 
@@ -256,7 +275,7 @@ export default function Home() {
 
 
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
-        
+
       </main>
     </>
   )
