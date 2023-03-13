@@ -2,18 +2,18 @@ import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ItemData from "@/data/items.json"
 import { SliderTab } from "@/components/Atoms/Slider";
 import Ingredients from "@/data/ingredients.json"
-
+import { userContext } from "@/pages";
 const Grid = styled.div`
 display:grid;
 grid-template-columns:repeat(6, 1fr);
 gap:2em;
-@media (max-width: 1280px) {
-   grid-template-columns:repeat(3, 1fr);
-}
+// @media (max-width: 1280px) {
+//    grid-template-columns:repeat(3, 1fr);
+// }
 `
 const GridItem = styled.div`
 display: flex;
@@ -24,39 +24,25 @@ flex-direction:column;
 export default function ItemsSlider({
    active,
    onExit = () => { },
-   currentItems,
+   // currentItems,
    filteredItems,
-   onActiveClick = (item) => {return item },
+   onActiveClick = (item) => { return item },
 }) {
+   const { currentItems } = useContext(userContext)
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
    const [tab, setTab] = useState(true);
-   const [maxPage, setMaxPage] = useState(1);
+   const [maxPage, setMaxPage] = useState(2);
    const [ownedItemsMin, setOwnedItemsMin] = useState(0);
-   const [ownedItemsMax, setOwnedItemsMax] = useState(currentItems.length);
+   const [ownedItemsMax, setOwnedItemsMax] = useState(6);
    const [unownedItemsMin, setunOwnedItemsMin] = useState(0);
    const [unownedItemsMax, setunOwnedItemsMax] = useState(6);
 
-   const [filterItems, setFilteredItems] = useState([]);
 
-   const filter = async () => {
-      ItemData.filter((item, index)=> {
-         for(let i = 0; i < currentItems.length; i++) {
-            if(item.id === currentItems[i].itemID) {
-               ItemData.splice(i, 1)
-            }
-         }
-      })
-      console.log(ItemData)
-   } 
    useEffect(() => {
-      filter()
       console.log(currentItems)
-      setOwnedItemsMax(currentItems.length + 1);
-      // setunOwnedItemsMax(4)
-      // setMaxPage(Math.round((ItemData.length / 6)));
-   }, [pageLimit])
+   }, [])
 
    return (
       <AnimatePresence>
@@ -92,22 +78,11 @@ export default function ItemsSlider({
                         ?
                         <>
                            {
-                              currentItems.slice(0, 6).map((item, i) => {
-                                 return <GridItem key={i} onClick={()=>{onActiveClick(item);}}>
+                              currentItems.slice(pageMin, pageLimit).map((item, i) => {
+                                 return <GridItem key={i} onClick={() => { onActiveClick(item); }}>
                                     <ItemCard image={item.image} alt={item.name} />
-                                    <Typography text={`x${item.count}`} weight={"400"} size={".9rem"} />
+                                    <Typography text={`x${item.count ? item.count : 0}`} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
-                                    {/* <Typography text={"OWNED"} weight={"500"} size={".6rem"} /> */}
-                                 </GridItem>
-                              })
-                           }
-                           {
-                              // fix later
-                              ItemData.slice(1, unownedItemsMax -1).map((item, i) => {
-                                 return <GridItem key={i}>
-                                    <ItemCard image={item.image} alt={item.name} />
-                                    <Typography text={item.name} weight={"500"} size={"1.2rem"} />
-                                    <Typography text={"UNOWNED"} weight={"500"} size={".6rem"} />
                                  </GridItem>
                               })
                            }
