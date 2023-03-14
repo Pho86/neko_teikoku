@@ -33,6 +33,12 @@ justify-content:center;
 align-items:center;
 transform:translate(-20vw, -10vh);
 pointer-events:auto;
+user-drag: none;
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
 `
 const CatBox = styled(m.div)`
 pointer-events:none;

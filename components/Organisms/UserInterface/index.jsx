@@ -60,15 +60,14 @@ background-color: rgba(254, 249, 237, 0.8);
 padding:.5em 2em;
 gap:2em;
 border-radius:1.5em;
+border: 0px solid var(--border-hard);
 border-left: 5px solid var(--border-hard);
-// border-bottom: 8px solid var(--border-hard);
 align-self:flex-start;
-transition: all .2s ease-in-out;
+transition: all .15s ease-in-out;
 display: flex;
 align-items: center;
 &:hover {
    border: 3px solid var(--border-hard);
-
    background-color: var(--primary);
 }
 `
@@ -82,18 +81,17 @@ align-self:flex-start;
 
 const WeatherRow = styled(RowIcon)`
 background-color: rgba(254, 249, 237, 0.8);
+border: 0px solid var(--border-hard);
 border-right: 5px solid var(--border-hard);
 padding:.5em 1.5em;
 gap:2em;
 border-radius:1.5em;
 align-self:flex-end;
 display:flex;
-transition: all .2s ease-in-out;
-// justify-self:auto;
+transition: all .15s ease-in-out;
 &:hover {
    background-color:var(--primary);
    border: 3px solid var(--border-hard);
-
 }
 `
 
@@ -137,8 +135,6 @@ export default function UserInterface({
    onWeatherSubmit = () => { },
    onWeatherChange = () => { },
    location,
-   currentItems,
-   filteredItems,
    onActiveClick = (item) => { return item },
    onTreatClick = (treat) => { return treat },
 
@@ -271,7 +267,7 @@ export default function UserInterface({
                         >
                            <RowIcon gap={"2em"}>
                               <ColIcon>
-                                 <IconButton image={"/menuIcons/place.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} type={'menu'}/>
+                                 <IconButton image={"/menuIcons/place.svg"} alt="Cooking Button" onClick={() => { setTreatsShow(true) }} type={'menu'} />
                                  <Typography
                                     text={"place"}
                                     weight={"600"}
@@ -279,7 +275,7 @@ export default function UserInterface({
                                  />
                               </ColIcon>
                               <ColIcon>
-                                 <IconButton image={"/menuIcons/cook.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} type={'menu'}/>
+                                 <IconButton image={"/menuIcons/cook.svg"} alt="Cooking Button" onClick={() => { setCookShow(true) }} type={'menu'} />
                                  <Typography
                                     text={"cook"}
                                     weight={"600"}
@@ -291,7 +287,7 @@ export default function UserInterface({
                      }
                   </AnimatePresence>
                   <ColIcon onClick={() => { setExpanded(!expanded) }}>
-                     <IconButton image={"/menuIcons/treats.svg"} alt="Treats Button" type={'menu'}/>
+                     <IconButton image={"/menuIcons/treats.svg"} alt="Treats Button" type={'menu'} />
                      <Typography
                         text={"treats"}
                         weight={"600"}
@@ -301,7 +297,7 @@ export default function UserInterface({
                </ColIcon>
 
                <ColIcon onClick={() => { setOfferShow(true) }}>
-                  <IconButton image={"/menuIcons/offerings.svg"} alt="Offerings Button" type={'menu'}/>
+                  <IconButton image={"/menuIcons/offerings.svg"} alt="Offerings Button" type={'menu'} />
                   <Typography
                      text={"offerings"}
                      weight={"600"}
@@ -312,15 +308,14 @@ export default function UserInterface({
             </BottomIcons>
             <TreatsSlider active={treats}
                onExit={() => { setTreatsShow(false) }} onTreatClick={onTreatClick} />
-            <ItemsSlider onActiveClick={onActiveClick} filteredItems={filteredItems} currentItems={currentItems} active={setItems}
+            <ItemsSlider onActiveClick={onActiveClick} active={setItems}
                onExit={() => { setItemsShow(false) }} />
-
          </UserInterfaceDiv>
-         <AnimatePresence>
-            {offer && <Offerings btnText={"ACKNOWLEDGE ALL"}
-               onExit={()=>{setOfferShow(false)}}
-            />}
-         </AnimatePresence>
+
+         <Offerings active={offer} btnText={"ACKNOWLEDGE ALL"}
+            onExit={() => { setOfferShow(false) }}
+         />
+
          <TreatsDex active={cookShow}
             onExit={() => { setCookShow(false) }} />
 

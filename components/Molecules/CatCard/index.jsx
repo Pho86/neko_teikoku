@@ -10,13 +10,16 @@ display:flex;
 flex-direction:column;
 justify-content:space-around;
 border-radius:1.2em;
-min-width:18em;
+width:18em;
 cursor:pointer;
 transition:all .1s ease-in-out;
 border: 3px solid var(--border-hard);
 border-bottom: 9px solid var(--border-hard);
 &:hover {
    background-color:var(--primary);
+}
+@media (max-width: 1280px) {
+   width:15em;
 }
 `
 const CatTextDiv = styled.div`
@@ -56,7 +59,7 @@ export default function CatCard({
                size={"1.2rem"}
                />
          </CatTextDiv>
-         <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} />
+         <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50,  }} />
                </CatCardContent>
          <CatCardHighlight />
       </CatCardDiv>
