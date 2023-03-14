@@ -10,7 +10,7 @@ margin: ${props => props.margin};
 padding: ${props => props.padding};
 width: ${props => props.width};
 cursor: ${props => props.textHover ? "pointer" : "auto"};
-transition: ${props => props.textHover ? "all .15s ease-in-out" : "none"};
+transition: ${props => props.textHover ? "all .18s ease-in-out" : "none"};
    &:hover {
       color:${props => props.textHover};
    }

@@ -217,7 +217,21 @@ export const fetchUserOfferings = async () => {
     const q = query(collection(db, "offerings"), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((document) => {
-        data.push({ ...document.data() })
+        data.push({ ...document.data(), id: document.id })
     });
     return data;
+}
+
+export const changeUserOfferingState = async (offerings) => {
+    for (let i = 0; i < offerings.length; i++) {
+        const docRef = doc(db, "offerings", offerings[i].id);
+        const docSnap = await getDoc(docRef);
+        await updateDoc(docRef, {
+            state: true
+        });
+    }
+}
+
+export const makeTreat = async (food, items) => {
+    
 }

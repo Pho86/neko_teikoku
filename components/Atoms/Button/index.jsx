@@ -8,7 +8,7 @@ width: ${props => props.width || "inherit"};
 border: ${props => props.border || "none"};
 border-radius: ${props => props.borderradius || "1.5em"};
 cursor:pointer;
-transition:all .1s ease-in-out;
+transition:all .15s ease-in-out;
 &:hover {
     background-color:${props => props.colorhover || "var(--border-hard)"};
 }

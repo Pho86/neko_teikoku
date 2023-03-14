@@ -36,7 +36,12 @@ align-items:center;
 pointer-events:none;
 left:0;
 top:0;
-
+user-drag: none;
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
 `
 const CatArea = styled(m.div)`
 `
@@ -54,7 +59,7 @@ export default function Cat({
    const [y, setY] = useState(0);
    const [duration, setDuration] = useState(0);
    useEffect(() => {
-      console.log(catData)
+      // console.log(catData)
       setY(bottom)
       setX(right)
       setTimeout(() => {

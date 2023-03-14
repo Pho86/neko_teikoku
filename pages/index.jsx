@@ -58,8 +58,9 @@ export default function Home() {
   const [currentUserData, setCurrentUserData] = useState({});
   const [currentItems, setCurrentItems] = useState([]);
   const [activeItems, setActiveItems] = useState([]);
-  const [treats, setTreats] = useState([]);
+  const [activetreats, setActiveTreats] = useState([]);
   const [currentOfferings, setCurrentOfferings] = useState([])
+  const [currentTreats, setCurrentTreats] = useState([])
 
   // user weather data
   const [location, setLocation] = useState("Vancouver");
@@ -160,7 +161,7 @@ export default function Home() {
     await ItemData.filter((item, index) => {
       for (let i = 0; i < items.length; i++) {
         if (item.name === items[i].name) {
-          ItemData[i].count = items[i].count
+          item.count = items[i].count
         }
       }
     })
@@ -198,7 +199,7 @@ export default function Home() {
   }
 
   const addTreat = async (treat) => {
-    setTreats([treat])
+    setActiveTreats([treat])
     treat.count -= 1
     setTimeout(async () => {
       const amountOfCats = generateRandomNumber(1, 3);
@@ -221,6 +222,8 @@ export default function Home() {
         setLocation(currentUserData.location);
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
         await fetchData();
+
+        // PLACEHOLDER FOR TESTING
         await addUserItem(ItemData[0]);
         await addUserTreat(TreatsData[0]);
       } else {
@@ -242,14 +245,14 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems }}>
-          {currentUser && <UserInterface filteredItems={filteredItems} currentItems={currentItems} location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, }}>
+          {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
 
         <GameArea id="game">
 
           <PopUps>
-            <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { console.log(id); setCatCard(id) }} />
+            <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { setCatCard(id) }} />
           </PopUps>
 
           {cats && cats.map((cat, i) => {
@@ -263,10 +266,10 @@ export default function Home() {
           })}
 
           {randomCats && randomCats.map((cat, i) => {
-            return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { console.log(cat.id); setCatCard(cat.id); }} />
+            return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { setCatCard(cat.id); }} />
           })}
 
-          {treats && treats.map((treat, i) => {
+          {activetreats && activetreats.map((treat, i) => {
             return <Treats key={i} alt={treat.name} image={treat.image} />
           })}
 
