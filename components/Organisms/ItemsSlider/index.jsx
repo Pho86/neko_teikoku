@@ -28,7 +28,7 @@ export default function ItemsSlider({
    filteredItems,
    onActiveClick = (item) => { return item },
 }) {
-   const { currentItems } = useContext(userContext)
+   const { currentItems, currentOfferings } = useContext(userContext)
    const [pageLimit, setPageLimit] = useState(6)
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
@@ -88,10 +88,10 @@ export default function ItemsSlider({
                            }
                         </>
                         :
-                        Ingredients.slice(pageMin, pageLimit).map((item, i) => {
+                        currentOfferings.slice(pageMin, pageLimit).map((item, i) => {
                            return <GridItem key={i}>
                               <ItemCard image={item.image} alt={item.name} />
-                              <Typography text={"x1"} weight={"400"} size={".9rem"} />
+                              <Typography text={`x${item.count ? item.count : 0}`} weight={"400"} size={".9rem"} />
                               <Typography text={item.name} weight={"500"} size={"1.2rem"} />
                            </GridItem>
                         })

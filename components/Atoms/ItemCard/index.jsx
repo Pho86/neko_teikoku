@@ -3,6 +3,12 @@ import Image from "next/image";
 
 const ImageBut = styled(Image)`
 cursor:pointer;
+user-drag: none;
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
 &:hover{
    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
 }

@@ -11,11 +11,16 @@ const ImageBut = styled(Image)`
 cursor:pointer;
 transition: all .2s ease-in-out;
 filter: drop-shadow(3px 3px 0px var(--border-hard));
+user-drag: none;
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
 &:hover{
    // filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
    filter: drop-shadow(0px 0px 0px var(--border-hard));
    transform: ${props=>props.menu || ""};
-
 }
 `
 /**

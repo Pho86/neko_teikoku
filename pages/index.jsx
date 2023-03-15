@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -148,8 +148,8 @@ export default function Home() {
       randomMeows.push(randomCat)
       let offering = await selectRandomFromArray(OfferingsData)
       offering.catname = randomCat.breedName
-      setCurrentOfferings(offering)
       console.log(offering)
+      setCurrentOfferings([...currentOfferings, offering])
       // addUserOfferings(offering)
     }
     for (let i = 0; i < randomMeows.length; i++) {
@@ -160,12 +160,29 @@ export default function Home() {
   const filterItems = async (items) => {
     await ItemData.filter((item, index) => {
       for (let i = 0; i < items.length; i++) {
-        if (item.name === items[i].name) {
+        if (item.id === items[i].itemID) {
           item.count = items[i].count
         }
       }
     })
     return ItemData
+  }
+  const filterOfferings = async (offerings) => {
+    // let CloneData = OfferingsData
+    // let cloned = []
+    await OfferingsData.filter((item, index) => {
+      for (let i = 0; i < offerings.length; i++) {
+        if (item.id === offerings[i].itemID) {
+          item.count = offerings[i].count
+          item.cat = offerings[i].cat
+          item.catImg = offerings[i].catImg
+          item.state = offerings[i].state
+          item.dataID = offerings[i].id
+          // cloned.push(item)
+        }
+      }
+    })
+    return OfferingsData
   }
 
   const fetchData = async () => {
@@ -179,10 +196,14 @@ export default function Home() {
     const weatherResult = await fetchWeather();
     const itemsResult = await fetchItems();
     const filteredItems = await filterItems(itemsResult);
+    const offeringsResult = await fetchUserOfferings();
+    const filteredOfferings = await filterOfferings(offeringsResult);
+    console.log(filteredOfferings)
     try {
       setCats(catResult)
       setWeather(weatherResult);
       setCurrentItems(filteredItems);
+      setCurrentOfferings(filteredOfferings);
       return catResult
     }
     catch (error) {
@@ -245,7 +266,7 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
 
