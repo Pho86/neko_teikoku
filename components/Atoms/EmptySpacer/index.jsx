@@ -22,6 +22,6 @@ export const EmptySpace = styled.span`
   border-left: ${props => props.borderLeft};
 `;
 
-//0 x 30 wide span     <Spacer axis='horizontal' size={30}/>
-//30 x 0 high span     <Spacer axis='vertical' size={30}/>
-//30 x 30 blank span   <Spacer size={30}/> 
+//0 x 30 wide span     <EmptySpace axis='horizontal' size={30}/>
+//30 x 0 high span     <EmptySpace axis='vertical' size={30}/>
+//30 x 30 blank span   <EmptySpace size={30}/> 

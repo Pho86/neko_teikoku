@@ -29,7 +29,7 @@ flex-direction:column;
 gap:.5em;
 text-align:left;
 `
-const OfferCardContent =styled.div`
+const OfferCardContent = styled.div`
 display:flex;
 justify-content:space-between;
 `
@@ -41,31 +41,25 @@ border-radius: 0px 0px 1em 1em;
 background-color: var(--light-accent);
 `
 export default function OfferCard({
-   catData,
-   onClick = () => { },
+    catData,
+    onClick = () => { },
 }) {
-    const [text,setText] = useState("");
-    useEffect(()=>{
-        let y = selectRandomFromArray(CatPhrases[0]);
-        setText(y)
-    },[])
+    const [text, setText] = useState("");
+    useEffect(() => {
+        let randomText = selectRandomFromArray(CatPhrases[0]);
+        setText(randomText)
+    }, [])
     return (
         <OfferCardDiv onClick={onClick}>
             <OfferCardContent>
 
-                <Image src={'/cats/caticon.svg'} width={60} height={60} alt="cat" style={{ borderRadius: 15, alignSelf:"flex-end", marginRight:"0.2em" }} />
+                <Image src={'/cats/caticon.svg'} width={60} height={60} alt="cat" style={{ borderRadius: 15, alignSelf: "flex-end", marginRight: "0.2em" }} />
                 <OfferTextDiv>
-                    {/* placholder text */}
                     <Typography
-                        text={"meowster"}
+                        text={catData.cat}
                         weight={"500"}
                         size={"1.2rem"}
                     />
-                    {/* <Typography
-                        text={catData.breedName}
-                        weight={"500"}
-                        size={"1.2rem"}
-                    /> */}
                     <Typography
                         text={text}
                         color={"var(--secondary-accent)"}
@@ -75,10 +69,10 @@ export default function OfferCard({
                         size={"1rem"}
                     />
                 </OfferTextDiv>
-                <Image src={'/menuIcons/treats.svg'} width={50} height={50} alt="cat" style={{ borderRadius: 50, alignSelf:"flex-end", backgroundColor:"#FFE5D2" }} />
+                <Image src={'/menuIcons/treats.svg'} width={50} height={50} alt="cat" style={{ borderRadius: 50, alignSelf: "flex-end", backgroundColor: "#FFE5D2" }} />
                 {/* <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} /> */}
             </OfferCardContent>
-         <OfferCardHighlight />
-      </OfferCardDiv>
-   )
+            <OfferCardHighlight />
+        </OfferCardDiv>
+    )
 }

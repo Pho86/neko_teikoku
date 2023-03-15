@@ -191,8 +191,9 @@ export const addUserOfferings = async (offering) => {
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
             const update = updateDoc(ref, {
-                count: docSnap.data().count + 1
-                // count: docSnap.data().count
+                count: docSnap.data().count + 1,
+                cat: offering.catName,
+                state: false,
             });
         } else {
         }
@@ -200,12 +201,12 @@ export const addUserOfferings = async (offering) => {
     catch (error) {
         const offeringData = {
             uid: auth.currentUser.uid,
-            name: offering.name,
+            // name: offering.name,
             count: 1,
             itemID: offering.id,
-            image: offering.image,
-            cat: offering.catName,
-            catImg: "/cats/caticon.svg",
+            // image: offering.image,
+            cat: offering.catname,
+            // catImg: "/cats/caticon.svg",
             state: false,
         }
         const docRef = await addDoc(collection(db, "offerings"), offeringData);
@@ -222,16 +223,14 @@ export const fetchUserOfferings = async () => {
     return data;
 }
 
-export const changeUserOfferingState = async (offerings) => {
-    for (let i = 0; i < offerings.length; i++) {
-        const docRef = doc(db, "offerings", offerings[i].id);
-        const docSnap = await getDoc(docRef);
-        await updateDoc(docRef, {
-            state: true
-        });
-    }
+export const changeUserOfferingState = async (offering) => {
+    const docRef = doc(db, "offerings", offering.dataID);
+    const docSnap = await getDoc(docRef);
+    await updateDoc(docRef, {
+        state: true
+    });
 }
 
 export const makeTreat = async (food, items) => {
-    
+
 }

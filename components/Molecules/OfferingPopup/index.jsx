@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
-import Image from "next/image";
 import Button from "@/components/Atoms/Button";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { PopUpWithTab } from "@/components/Atoms/Popup";
-import CatCard from "../CatCard";
 import OfferCard from "../OfferingCard";
 import { OpacityBackgroundFade } from "@/components/Atoms/Popup";
+import { useContext } from "react";
+import { userContext } from "@/pages";
+import { changeUserOfferingState } from "@/server";
+import { EmptySpace } from "@/components/Atoms/EmptySpacer";
 
 const BtnCont = styled.div`
     // margin-top: 1em;
@@ -36,7 +38,14 @@ export default function Offerings(
         active,
     }
 ) {
-
+    const { currentOfferings, setCurrentOfferings } = useContext(userContext)
+    const setOfferingState = async (offerings) => {
+        for (let i = 0; i < offerings.length; i++) {
+            // await changeUserOfferingState(offerings[i]);
+            currentOfferings[offerings[i].id - 1].state = true
+            setCurrentOfferings(setCurrentOfferings)
+        }
+    }
     return (
         <>
             <AnimatePresence>
@@ -56,13 +65,17 @@ export default function Offerings(
                             content={
                                 <>
                                     <InvCont>
-                                        <OfferCard />
-                                        <OfferCard />
-                                        <OfferCard />
-                                        <OfferCard />
+                                        <EmptySpace axis='horizontal' size={200} />
+                                        {currentOfferings && currentOfferings.map((offering, i) => {
+                                            if (offering.state === false) {
+                                                return (
+                                                    <OfferCard key={i} catData={offering} onClick={() => { setOfferingState([offering]) }} />
+                                                )
+                                            }
+                                        })}
                                     </InvCont>
                                     <BtnCont>
-                                        <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={btnClick} />
+                                        <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={() => { setOfferingState(currentOfferings) }} />
                                     </BtnCont>
                                 </>
                             }>

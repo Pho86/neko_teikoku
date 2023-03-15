@@ -1,26 +1,33 @@
 [
    {
       "name": "rice",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 1
    },
    {
       "name": "water",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 2
    },
    {
       "name": "ing 3",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 3
+      
    },
    {
       "name": "ing 4",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 4
    },
    {
       "name": "ing 5",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 5
    },
    {
       "name": "ing 6",
-      "image": "/items/cat_lamp.svg"
+      "image": "/items/cat_lamp.svg",
+      "id": 6
    }
 ]
