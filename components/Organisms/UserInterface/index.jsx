@@ -12,6 +12,7 @@ import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
 import { userContext } from "@/pages";
 import Offerings from "@/components/Molecules/OfferingPopup";
+import PopupPrompt from "@/components/Molecules/PopupPrompt";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -147,7 +148,8 @@ export default function UserInterface({
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
-   const { weather, currentUser } = useContext(userContext)
+   const { weather, currentUser } = useContext(userContext);
+   const [popup, setPopup] = useState(false);
 
    useEffect(() => {
       if (weather) {

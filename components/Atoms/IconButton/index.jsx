@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
+import useSound from 'use-sound';
+import { useContext } from "react";
+import { userContext } from "@/pages";
+
 const Button = styled.button`
 outline:none;
 border:none;
@@ -20,7 +24,7 @@ user-select: none;
 &:hover{
    // filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.1));
    filter: drop-shadow(0px 0px 0px var(--border-hard));
-   transform: ${props=>props.menu || ""};
+   transform: ${props => props.menu || ""};
 }
 `
 /**
@@ -41,19 +45,21 @@ export default function IconButton({
    secondImage,
    type
 }) {
+   // const { Volume } = useContext(userContext)
+   // const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
    const [ishovering, sethovering] = useState(false);
-   return <Button onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} >
+   return <Button onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} onClick={onClick} >
       {hover ?
          <>
             {
-               !ishovering ? <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} /> : <ImageBut src={secondImage} width={width} height={height} onClick={onClick} alt={alt} />
+               !ishovering ? <ImageBut src={image} width={width} height={height} alt={alt} /> : <ImageBut src={secondImage} width={width} height={height}  alt={alt} />
             }
          </>
          :
          type === "menu" ?
-            <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} menu={"rotate(-15deg)"}/>
+            <ImageBut src={image} width={width} height={height} alt={alt} menu={"rotate(-15deg)"} />
             :
-            <ImageBut src={image} width={width} height={height} onClick={onClick} alt={alt} />}
+            <ImageBut src={image} width={width} height={height} alt={alt} />}
    </Button>
 
 }

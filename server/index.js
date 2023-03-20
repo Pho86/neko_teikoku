@@ -139,6 +139,7 @@ export const addUserItem = async (item) => {
         const docRef = await addDoc(collection(db, "items"), itemData);
     }
 }
+
 export const addUserTreat = async (item) => {
     let data;
     const q = query(collection(db, "treats"), where("name", "==", item.name), where("uid", "==", auth.currentUser.uid));
@@ -181,35 +182,33 @@ export const fetchUserTreats = async () => {
 
 export const addUserOfferings = async (offering) => {
     let data;
-    const q = query(collection(db, "offerings"), where("name", "==", offering.name), where("uid", "==", auth.currentUser.uid));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((document) => {
-        data = document.id
-    });
     try {
+        const q = query(collection(db, "offerings"), where("itemID", "==", offering.id), where("uid", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((document) => {
+            data = document.id
+        });
         const ref = doc(db, "offerings", data);
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
             const update = updateDoc(ref, {
                 count: docSnap.data().count + 1,
-                cat: offering.catName,
+                cat: offering.cat,
                 state: false,
             });
-        } else {
         }
     }
     catch (error) {
+        // console.log(error)
         const offeringData = {
             uid: auth.currentUser.uid,
-            // name: offering.name,
             count: 1,
             itemID: offering.id,
-            // image: offering.image,
             cat: offering.catname,
-            // catImg: "/cats/caticon.svg",
             state: false,
         }
         const docRef = await addDoc(collection(db, "offerings"), offeringData);
+
     }
 }
 
@@ -224,11 +223,15 @@ export const fetchUserOfferings = async () => {
 }
 
 export const changeUserOfferingState = async (offering) => {
-    const docRef = doc(db, "offerings", offering.dataID);
-    const docSnap = await getDoc(docRef);
-    await updateDoc(docRef, {
-        state: true
-    });
+    try {
+        const docRef = doc(db, "offerings", offering.itemID);
+        const docSnap = await getDoc(docRef);
+        await updateDoc(docRef, {
+            state: true,
+        });
+    } catch (error) {
+        // console.log(error)
+    }
 }
 
 export const makeTreat = async (food, items) => {

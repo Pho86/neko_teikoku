@@ -72,23 +72,26 @@ export default function PopupPrompt(
     {
         type,
         oneBtn,
-        cooktext,
-        treatimg,
+        poptext,
+        treat,
         btnText1,
         btnText2,
         btnClick = () => { },
         btnClick1 = () => { },
         onChange,
-        
+        initial,
+        animate,
+        transition,
+        exit
     }
 ) {
 
     return (
         <>
-            <PopupCont>
+            <PopupCont initial={initial} animate={animate} transition={transition} exit={exit}>
                 <PopupText>
                     <Typography
-                        text={cooktext}
+                        text={poptext}
                         weight={"400"}
                         size={"1.5em"}
                         color={"var(--black)"}
@@ -97,7 +100,7 @@ export default function PopupPrompt(
 
                 {type === "treats" &&
                     <ImgCont>
-                        <Image src={treatimg} width={100} height={100} alt="bento" />
+                        <Image src={`/treats/${treat}.svg`} width={100} height={100} alt={`${treat} image`} />
                     </ImgCont>
                 }
                 {type === "input" &&

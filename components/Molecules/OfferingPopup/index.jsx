@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { userContext } from "@/pages";
 import { changeUserOfferingState } from "@/server";
 import { EmptySpace } from "@/components/Atoms/EmptySpacer";
+import { useEffect } from "react";
 
 const BtnCont = styled.div`
     // margin-top: 1em;
@@ -41,11 +42,16 @@ export default function Offerings(
     const { currentOfferings, setCurrentOfferings } = useContext(userContext)
     const setOfferingState = async (offerings) => {
         for (let i = 0; i < offerings.length; i++) {
-            // await changeUserOfferingState(offerings[i]);
             currentOfferings[offerings[i].id - 1].state = true
-            setCurrentOfferings(setCurrentOfferings)
+            console.log(currentOfferings[offerings[i].id - 1])
+            await changeUserOfferingState(offerings[i]);
         }
+        setCurrentOfferings(currentOfferings)
+        console.log(currentOfferings)
     }
+    useEffect(()=> {
+        setCurrentOfferings(currentOfferings)
+    },[currentOfferings, setCurrentOfferings])
     return (
         <>
             <AnimatePresence>
@@ -71,7 +77,7 @@ export default function Offerings(
                                                 return (
                                                     <OfferCard key={i} catData={offering} onClick={() => { setOfferingState([offering]) }} />
                                                 )
-                                            }
+                                            } else { return }
                                         })}
                                     </InvCont>
                                     <BtnCont>

@@ -34,15 +34,6 @@ export default function ItemsSlider({
    const [currentPage, setCurrentPage] = useState(1);
    const [tab, setTab] = useState(true);
    const [maxPage, setMaxPage] = useState(2);
-   const [ownedItemsMin, setOwnedItemsMin] = useState(0);
-   const [ownedItemsMax, setOwnedItemsMax] = useState(6);
-   const [unownedItemsMin, setunOwnedItemsMin] = useState(0);
-   const [unownedItemsMax, setunOwnedItemsMax] = useState(6);
-
-
-   useEffect(() => {
-      console.log(currentItems)
-   }, [])
 
    return (
       <AnimatePresence>

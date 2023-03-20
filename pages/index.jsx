@@ -76,7 +76,7 @@ export default function Home() {
   // sound data
   const [Volume, setVolume] = useState(1);
   const [bgm1] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
-  const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume });
+  const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume, });
 
   const router = useRouter();
 
@@ -143,18 +143,20 @@ export default function Home() {
         let helper = generateRandomNumber(1, 2)
         if (helper === 1) y = generateRandomNumber(90, 100)
         if (helper === 2) y = generateRandomNumber(0, 15)
-      }
+      } 
       randomCat.y = y;
       randomMeows.push(randomCat)
-      let offering = await selectRandomFromArray(OfferingsData)
-      offering.catname = randomCat.breedName
-      console.log(offering)
+      // let offering = await selectRandomFromArray(OfferingsData)
+      let offering = OfferingsData[2]
+      offering.cat = randomCat.breedName
       setCurrentOfferings([...currentOfferings, offering])
-      // addUserOfferings(offering)
+      await addUserOfferings(offering);
     }
     for (let i = 0; i < randomMeows.length; i++) {
       setRandomCats([...randomCats, randomMeows[i]])
     }
+    const offerings = await fetchOfferings();
+    setCurrentOfferings(offerings)
   }
 
   const filterItems = async (items) => {
@@ -168,8 +170,6 @@ export default function Home() {
     return ItemData
   }
   const filterOfferings = async (offerings) => {
-    // let CloneData = OfferingsData
-    // let cloned = []
     await OfferingsData.filter((item, index) => {
       for (let i = 0; i < offerings.length; i++) {
         if (item.id === offerings[i].itemID) {
@@ -177,8 +177,7 @@ export default function Home() {
           item.cat = offerings[i].cat
           item.catImg = offerings[i].catImg
           item.state = offerings[i].state
-          item.dataID = offerings[i].id
-          // cloned.push(item)
+          item.itemID = offerings[i].id
         }
       }
     })
@@ -191,19 +190,22 @@ export default function Home() {
     setCatData(data)
   }
 
+  const fetchOfferings = async () => {
+    const offeringsResult = await fetchUserOfferings();
+    const filteredOfferings = await filterOfferings(offeringsResult);
+    return filteredOfferings
+  }
   const getData = async () => {
     const catResult = await fetchCats();
     const weatherResult = await fetchWeather();
     const itemsResult = await fetchItems();
     const filteredItems = await filterItems(itemsResult);
-    const offeringsResult = await fetchUserOfferings();
-    const filteredOfferings = await filterOfferings(offeringsResult);
-    console.log(filteredOfferings)
+    const offerings = await fetchOfferings();
     try {
       setCats(catResult)
       setWeather(weatherResult);
       setCurrentItems(filteredItems);
-      setCurrentOfferings(filteredOfferings);
+      setCurrentOfferings(offerings);
       return catResult
     }
     catch (error) {
@@ -229,7 +231,7 @@ export default function Home() {
   }
 
   const Playit = () => {
-    var audio = new Audio({ src: ["/music/bgm1.mp3"], volumne: .5 });
+    var audio = new Audio({ src: ["/music/bgm1.mp3"], Volume: .5 });
     audio.play();
   }
 
@@ -266,7 +268,7 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, Volume }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
 
