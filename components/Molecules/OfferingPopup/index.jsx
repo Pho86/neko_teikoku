@@ -39,19 +39,16 @@ export default function Offerings(
         active,
     }
 ) {
-    const { currentOfferings, setCurrentOfferings } = useContext(userContext)
+    const { currentOfferings, setCurrentOfferings, setOfferings } = useContext(userContext)
     const setOfferingState = async (offerings) => {
-        for (let i = 0; i < offerings.length; i++) {
-            currentOfferings[offerings[i].id - 1].state = true
-            console.log(currentOfferings[offerings[i].id - 1])
-            await changeUserOfferingState(offerings[i]);
-        }
-        setCurrentOfferings(currentOfferings)
-        console.log(currentOfferings)
+        // for (let i = 0; i < offerings.length; i++) {
+        //     currentOfferings[offerings[i].id - 1].state = true
+        //     console.log(currentOfferings[offerings[i].id - 1])
+        //     await changeUserOfferingState(offerings[i]);
+        // }
+        // setCurrentOfferings(currentOfferings)
+        // console.log(currentOfferings)
     }
-    useEffect(()=> {
-        setCurrentOfferings(currentOfferings)
-    },[currentOfferings, setCurrentOfferings])
     return (
         <>
             <AnimatePresence>
@@ -72,16 +69,18 @@ export default function Offerings(
                                 <>
                                     <InvCont>
                                         <EmptySpace axis='horizontal' size={200} />
-                                        {currentOfferings && currentOfferings.map((offering, i) => {
+                                        {currentOfferings?.map((offering, i) => {
                                             if (offering.state === false) {
                                                 return (
-                                                    <OfferCard key={i} catData={offering} onClick={() => { setOfferingState([offering]) }} />
+                                                    <OfferCard key={i} food={offering.name} catData={offering} onClick={() => { setOfferings([offering]) }} />
                                                 )
-                                            } else { return }
+                                            }
+                                            return
+
                                         })}
                                     </InvCont>
                                     <BtnCont>
-                                        <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={() => { setOfferingState(currentOfferings) }} />
+                                        <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={() => { setOfferings(currentOfferings) }} />
                                     </BtnCont>
                                 </>
                             }>

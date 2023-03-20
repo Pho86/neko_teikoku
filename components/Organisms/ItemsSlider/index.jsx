@@ -24,8 +24,6 @@ flex-direction:column;
 export default function ItemsSlider({
    active,
    onExit = () => { },
-   // currentItems,
-   filteredItems,
    onActiveClick = (item) => { return item },
 }) {
    const { currentItems, currentOfferings } = useContext(userContext)

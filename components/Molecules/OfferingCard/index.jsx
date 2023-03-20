@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Image from 'next/image';
 import CatPhrases from "@/data/phrases.json"
+import OfferingImg from "@/data/ingredients.json"
 import { selectRandomFromArray } from "@/util";
 import { useEffect, useState } from "react";
 
@@ -43,6 +44,7 @@ background-color: var(--light-accent);
 export default function OfferCard({
     catData,
     onClick = () => { },
+    food,
 }) {
     const [text, setText] = useState("");
     useEffect(() => {
@@ -69,7 +71,7 @@ export default function OfferCard({
                         size={"1rem"}
                     />
                 </OfferTextDiv>
-                <Image src={'/menuIcons/treats.svg'} width={50} height={50} alt="cat" style={{ borderRadius: 50, alignSelf: "flex-end", backgroundColor: "#FFE5D2" }} />
+                <Image src={`/ingredients/${food}.png`} width={50} height={50} alt="cat" style={{ borderRadius: 50, alignSelf: "flex-end", backgroundColor: "#FFE5D2" }} />
                 {/* <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} /> */}
             </OfferCardContent>
             <OfferCardHighlight />

@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -80,7 +80,6 @@ export default function Home() {
 
   const router = useRouter();
 
-  const [filteredItems, setFilteredItems] = useState([]);
 
   const fetchWeather = async () => {
     try {
@@ -143,11 +142,11 @@ export default function Home() {
         let helper = generateRandomNumber(1, 2)
         if (helper === 1) y = generateRandomNumber(90, 100)
         if (helper === 2) y = generateRandomNumber(0, 15)
-      } 
+      }
       randomCat.y = y;
       randomMeows.push(randomCat)
-      // let offering = await selectRandomFromArray(OfferingsData)
-      let offering = OfferingsData[2]
+      let offering = selectRandomFromArray(OfferingsData)
+      // let offering = OfferingsData[2]
       offering.cat = randomCat.breedName
       setCurrentOfferings([...currentOfferings, offering])
       await addUserOfferings(offering);
@@ -257,7 +256,23 @@ export default function Home() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+  const setOfferings = async (offerings) => {
+    let offers = currentOfferings
+    offerings.filter((offers)=> {
+      if(offers.state === false) {
+        offers.state = true
+      }
+    })
+    // for (let i = 0; i < offerings.length; i++) {
+    //   if (offers[offerings[i].id - 1].state === false) {
+    //     offers[offerings[i].id - 1].state = true
+    //     console.log(offers[offerings[i].id - 1])
+    //     await changeUserOfferingState(offerings[i]);
+    //   }
+    // }
+    console.log(offerings)
+    setCurrentOfferings(offers)
+  }
   return (
 
     <>
@@ -268,10 +283,9 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, Volume }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, Volume, setOfferings }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
         </userContext.Provider>
-
         <GameArea id="game">
 
           <PopUps>
