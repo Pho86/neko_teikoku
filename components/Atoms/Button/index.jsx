@@ -2,7 +2,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import { StrokedText } from "stroked-text";
 import useSound from 'use-sound';
-
+import { useContext } from "react";
+import { userContext } from "@/pages";
 const ButtonDiv = styled.button`
 padding:${props => props.padding || "1em 2em"};
 background-color:${props => props.color || "var(--button-light)"};
@@ -43,13 +44,15 @@ export default function Button({
     imgheight = 33,
     width
 }) {
-    const [sound1] = useSound('/sound/bamboohit.mp3');
+    const { Volume } = useContext(userContext)
+    const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
+
     return (
-        <ButtonDiv color={color} border={border} onClick={()=>{onClick(); sound1() }} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type} width={width} >
+        <ButtonDiv color={color} border={border} onClick={() => { onClick(); sound() }} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type} width={width} >
             {text && <StrokedText fill={textcolor} stroke={colorhover} strokeWidth={5} style={{
                 fontSize: size, fontWeight: weight
             }} >
-    
+
                 {text}
             </StrokedText>}
             {image && <Image src={image} width={imgwidth} height={imgheight} alt={alt} />}

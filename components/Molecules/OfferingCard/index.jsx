@@ -14,7 +14,7 @@ display:flex;
 flex-direction:column;
 justify-content:space-around;
 border-radius:1.2em;
-min-width:18em;
+width:20.5em;
 cursor:pointer;
 transition:all .1s ease-in-out;
 border: 3px solid var(--border-hard);
@@ -53,7 +53,7 @@ export default function OfferCard({
         <OfferCardDiv onClick={onClick}>
             <OfferCardContent>
 
-                <Image src={'/cats/caticon.svg'} width={60} height={60} alt="cat" style={{ borderRadius: 15, alignSelf: "flex-end", marginRight: "0.2em" }} />
+                <Image src={'/cats/caticon.svg'} width={50} height={50} alt="cat" style={{ borderRadius: 15, alignSelf: "flex-end", marginRight: "0.2em" }} />
                 <OfferTextDiv>
                     <Typography
                         text={catData.cat}
@@ -64,7 +64,7 @@ export default function OfferCard({
                         text={text}
                         color={"var(--secondary-accent)"}
                         weight={"400"}
-                        width={"110px"}
+                        width={"10em"}
                         height={"40px"}
                         size={"1rem"}
                     />

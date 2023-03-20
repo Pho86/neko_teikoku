@@ -2,8 +2,6 @@ import FoodCard from "@/components/Molecules/FoodCard";
 import PopupPrompt from "@/components/Molecules/PopupPrompt";
 import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import { useContext, useEffect } from "react";
-import { weatherContext } from ".";
-import Offerings from "@/components/Molecules/OfferingPopup";
 
 export default function Testing() {
     // const handleForgotPassword = async () => {
@@ -32,7 +30,7 @@ export default function Testing() {
                 btnText2={"SUBMIT"}
                 onClick={handleForgotPassword}
             /> */}
-            <Offerings btnText={'ACKNOWLEDGE ALL'}/>
+            {/* <Offerings btnText={'ACKNOWLEDGE ALL'}/> */}
         </>
     )
 }
