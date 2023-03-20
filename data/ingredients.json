@@ -1,33 +1,33 @@
 [
    {
       "name": "rice",
-      "image": "/items/cat_lamp.svg",
+      "image": "/ingredients/rice.png",
       "id": 1
    },
    {
-      "name": "water",
-      "image": "/items/cat_lamp.svg",
+      "name": "catnip",
+      "image": "/ingredients/catnip.png",
       "id": 2
    },
    {
-      "name": "ing 3",
-      "image": "/items/cat_lamp.svg",
+      "name": "leek",
+      "image": "/ingredients/leek.png",
       "id": 3
       
    },
    {
-      "name": "ing 4",
-      "image": "/items/cat_lamp.svg",
+      "name": "rat",
+      "image": "/ingredients/rat.png",
       "id": 4
    },
    {
-      "name": "ing 5",
-      "image": "/items/cat_lamp.svg",
+      "name": "seaweed",
+      "image": "/ingredients/seaweed.png",
       "id": 5
    },
    {
-      "name": "ing 6",
-      "image": "/items/cat_lamp.svg",
+      "name": "strawberry",
+      "image": "/ingredients/strawberry.png",
       "id": 6
    }
 ]

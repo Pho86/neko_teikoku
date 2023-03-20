@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Image from 'next/image';
 import CatPhrases from "@/data/phrases.json"
+import OfferingImg from "@/data/ingredients.json"
 import { selectRandomFromArray } from "@/util";
 import { useEffect, useState } from "react";
 
@@ -45,9 +46,12 @@ export default function OfferCard({
     onClick = () => { },
 }) {
     const [text, setText] = useState("");
+    const [offer, setOffer] = useState("");
     useEffect(() => {
         let randomText = selectRandomFromArray(CatPhrases[0]);
         setText(randomText)
+        // let randomImg = selectRandomFromArray(OfferingImg[0]);
+        // setOffer(randomImg)
     }, [])
     return (
         <OfferCardDiv onClick={onClick}>
