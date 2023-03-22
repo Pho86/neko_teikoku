@@ -45,6 +45,7 @@ test.describe("forget password popup", () => {
     const Submit = page.locator('button').last();
     const text = page.locator('#forgotPass');
     await Submit.click()
+    await page.waitForTimeout(5000);
     expect(text).toContainText('an email has been sent')
   })
 })

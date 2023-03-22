@@ -70,7 +70,7 @@ export default function Offerings(
                                     <InvCont>
                                         <EmptySpace axis='horizontal' size={200} />
                                         {currentOfferings?.map((offering, i) => {
-                                            if (offering.state === false) {
+                                            if (offering.state === false && offering.count > 0) {
                                                 return (
                                                     <OfferCard key={i} food={offering.name} catData={offering} onClick={() => { setOfferings([offering]) }} />
                                                 )

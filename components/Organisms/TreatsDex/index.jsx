@@ -7,6 +7,8 @@ import Treats from "@/data/treats.json"
 import Ingredients from "@/data/ingredients.json";
 import { userContext } from "@/pages";
 import PopupPrompt from "@/components/Molecules/PopupPrompt";
+import { makeTreat } from "@/server";
+import useSound from "use-sound";
 const PopUpGrid = styled.div`
 display:grid;
 grid-template-columns: repeat(2, 1fr);
@@ -27,10 +29,28 @@ export default function TreatsDex({
     const [currentPage, setCurrentPage] = useState(1);
     const [activePop, setActivePop] = useState(false)
     const [treat, setTreat] = useState("")
+    const [cooked, setCooked] = useState(false)
+    const [popText, setPopText] = useState("missing")
+    const { currentItems, currentOfferings, setCurrentOfferings, setCurrentTreats, Volume } = useContext(userContext);
 
-    const { currentItems, currentOfferings, setCurrentOfferings, setCurrentTreats } = useContext(userContext);
-    const handlePopup = async () => {
+    const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
+    const cookTreat = async (treat) => {
+        const treats = await makeTreat(treat, currentOfferings)
+        if (treats === 1) {
+            setPopText(`Missing x1 of ${currentOfferings[treat.ing1].name}`)
+            setCooked(true)
+            return
+        }
+        else if (treats === 2) {
+            setPopText(`Missing x1 of ${currentOfferings[treat.ing2].name}`)
+            setCooked(true)
+            return
+        }
+        else {
+            setPopText(`${treat.name} acquired!`)
+            setCooked(true)
+        }
     }
     return (
         <>
@@ -67,7 +87,7 @@ export default function TreatsDex({
                                 <PopUpGrid>
                                     {Treats && Treats.slice(pageMin, pageLimit).map((treat, id) => {
                                         return (
-                                            <FoodCard key={id} onClick={() => { setActivePop(!activePop); setTreat(treat.name) }} treatname={treat.name} treatimg={treat.image} aing={"x1"} bing={"x1"} aimg={Ingredients[treat.ing1].image} bimg={Ingredients[treat.ing2].image} />
+                                            <FoodCard key={id} onClick={() => { setActivePop(!activePop); setTreat(treat); setCooked(false) }} treatname={treat.name} treatimg={treat.image} aing={"x1"} bing={"x1"} aimg={Ingredients[treat.ing1].image} bimg={Ingredients[treat.ing2].image} />
                                         )
                                     })}
                                 </PopUpGrid>
@@ -82,7 +102,14 @@ export default function TreatsDex({
 
             </AnimatePresence>
             <AnimatePresence>
-                {activePop && <PopupPrompt type="treats" btnText1="NO" btnText2="YES" poptext={`cook a ${treat}`} treat={treat} initial={{ y: -500 }} animate={{ y: "35vh" }} transition={{ duration: .8, ease: "easeInOut" }} exit={{ y: -500 }} btnClick={()=>{setActivePop(false)}}/>}
+                {activePop && <>
+                    <OpacityBackgroundFade key={"Treats"} onClick={() => { setActivePop(false) }} />
+                    {cooked ?
+                        <PopupPrompt type="treats" oneBtn btnText1="OKAY" poptext={popText} treat={treat.name} initial={{ y: -500 }} animate={{ y: "35vh" }} transition={{ duration: .8, ease: "easeInOut" }} exit={{ y: -500 }} btnClick={() => { setActivePop(false) }} btnClick1={() => cookTreat(treat)} />
+                        :
+                        <PopupPrompt type="treats" btnText1="NO" btnText2="YES" poptext={`cook a ${treat.name}`} treat={treat.name} initial={{ y: -500 }} animate={{ y: "35vh" }} transition={{ duration: .8, ease: "easeInOut" }} exit={{ y: -500 }} btnClick={() => { setActivePop(false) }} btnClick1={() => cookTreat(treat)} />
+                    }
+                </>}
             </AnimatePresence>
 
         </>

@@ -31,7 +31,7 @@ export default function ItemsSlider({
    const [pageMin, setPageMin] = useState(0)
    const [currentPage, setCurrentPage] = useState(1);
    const [tab, setTab] = useState(true);
-   const [maxPage, setMaxPage] = useState(2);
+   const [maxPage, setMaxPage] = useState(1);
 
    return (
       <AnimatePresence>
