@@ -3,9 +3,12 @@ import { m } from "framer-motion"
 import Typography from "../Text";
 import Image from "next/image";
 import IconButton from "../IconButton";
+import useSound from 'use-sound';
+import { useContext } from "react";
+import { userContext } from "@/pages";
 
 export const OpacityBackground = styled(m.div)`
-background: rgba(0, 0, 0, 5);
+background: rgba(0, 0, 0, ${props => props.opacity || ".5"});
 width:100vw;
 height:100vh;
 position:fixed;
@@ -98,12 +101,13 @@ gap:2em;
 
 export function OpacityBackgroundFade({
    onClick = () => { },
-   transform
+   transform,
+   opacity
 }) {
    return (
       <OpacityBackground
          initial={{ opacity: 0 }}
-         animate={{ opacity: .2 }}
+         animate={{ opacity: (opacity ? opacity : .2) }}
          exit={{ opacity: 0 }}
          onClick={onClick}
          transform={transform}
@@ -136,6 +140,8 @@ export function PopUpWithTab({
    onSecondTabClick = () => { },
    onFirstTabClick = () => { },
 }) {
+   const { Volume } = useContext(userContext)
+   const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
    return (
       <PopUpCont initial={initial}
          animate={animate}
@@ -171,10 +177,10 @@ export function PopUpWithTab({
                   onClick={onNext} />}
             </PopUpNT>
             <PopUpTabsCol>
-               {exitTab && <PopupTab onClick={onExit}>
+               {exitTab && <PopupTab onClick={() => { onExit(); sound() }}>
                   <Image src="/icons/exit.svg" width={47} height={44} alt="exit icon" />
                </PopupTab>}
-               {catDexTab && <PopupTab onClick={onCatDex} color={"var(--accent)"} hovercolor={"var(--light-accent)"}>
+               {catDexTab && <PopupTab onClick={() => { onCatDex(); sound() }} color={"var(--accent)"} hovercolor={"var(--light-accent)"}>
                   <Image src="/icons/cat.svg" width={47} height={44} alt="catdex icon" />
                </PopupTab>}
             </PopUpTabsCol>

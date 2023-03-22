@@ -35,7 +35,7 @@ const config ={
             use:{
                 browserName: 'chromium',
                 ...devices['iPhone XR'],
-                viewport: {width: 414, height: 896}
+                viewport: {width: 896, height: 414}
             },
         },
         {
@@ -43,7 +43,7 @@ const config ={
             use:{
                 browserName: 'chromium',
                 ...devices['iPad Air'],
-                viewport: {width: 820, height: 1180}
+                viewport: {width: 1180, height: 820}
             }
         }
         

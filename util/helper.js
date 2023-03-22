@@ -4,8 +4,8 @@
  * @returns a random value from the array
  */
 export function selectRandomFromArray(array) {
-   let randomValue = array[Math.floor(Math.random() * array.length)]
-   return randomValue
+   // let randomValue =
+   return array[Math.floor(Math.random() * array.length)]
 }
 
 

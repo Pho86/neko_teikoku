@@ -145,8 +145,7 @@ export default function Home() {
       }
       randomCat.y = y;
       randomMeows.push(randomCat)
-      let offering = selectRandomFromArray(OfferingsData)
-      // let offering = OfferingsData[2]
+      let offering = await selectRandomFromArray(OfferingsData)
       offering.cat = randomCat.breedName
       setCurrentOfferings([...currentOfferings, offering])
       await addUserOfferings(offering);
@@ -258,9 +257,9 @@ export default function Home() {
   }, [])
   const setOfferings = async (offerings) => {
     let offers = currentOfferings
-    offerings.filter((offers)=> {
-      if(offers.state === false) {
-        offers.state = true
+    offerings.filter((offers) => {
+      if (offers.state === false) {
+        return offers.state = true
       }
     })
     // for (let i = 0; i < offerings.length; i++) {
@@ -283,35 +282,35 @@ export default function Home() {
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
+
         <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, Volume, setOfferings }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
+          <GameArea id="game">
+
+            <PopUps>
+              <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { setCatCard(id) }} />
+            </PopUps>
+
+            {cats && cats.map((cat, i) => {
+              return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
+            })}
+
+            <Advisor />
+
+            {activeItems && activeItems.map((item, i) => {
+              return <Item key={i} alt={item.name} image={item.image} />
+            })}
+
+            {randomCats && randomCats.map((cat, i) => {
+              return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { setCatCard(cat.id); }} />
+            })}
+
+            {activetreats && activetreats.map((treat, i) => {
+              return <Treats key={i} alt={treat.name} image={treat.image} />
+            })}
+
+          </GameArea>
         </userContext.Provider>
-        <GameArea id="game">
-
-          <PopUps>
-            <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { setCatCard(id) }} />
-          </PopUps>
-
-          {cats && cats.map((cat, i) => {
-            return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
-          })}
-
-          <Advisor />
-
-          {activeItems && activeItems.map((item, i) => {
-            return <Item key={i} alt={item.name} image={item.image} />
-          })}
-
-          {randomCats && randomCats.map((cat, i) => {
-            return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { setCatCard(cat.id); }} />
-          })}
-
-          {activetreats && activetreats.map((treat, i) => {
-            return <Treats key={i} alt={treat.name} image={treat.image} />
-          })}
-
-        </GameArea>
-
 
 
         <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>

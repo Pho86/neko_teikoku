@@ -204,7 +204,7 @@ export const addUserOfferings = async (offering) => {
             uid: auth.currentUser.uid,
             count: 1,
             itemID: offering.id,
-            cat: offering.catname,
+            cat: offering.cat,
             state: false,
         }
         const docRef = await addDoc(collection(db, "offerings"), offeringData);
@@ -235,5 +235,49 @@ export const changeUserOfferingState = async (offering) => {
 }
 
 export const makeTreat = async (food, items) => {
-
+    console.log(items[food.ing1].count, items[food.ing2].count)
+    if (items[food.ing1].count <= 0) {
+        return 1
+    }
+    if (items[food.ing2].count <= 0) {
+        return 2
+    }
+    const OneRef = doc(db, "offerings", (items[food.ing1].itemID));
+    const oneSnap = await getDoc(OneRef);
+    await updateDoc(OneRef, {
+        count: items[food.ing1].count - 1
+    });
+    const TwoRef = doc(db, "offerings", (items[food.ing2].itemID));
+    const secSnap = await getDoc(TwoRef);
+    await updateDoc(TwoRef, {
+        count: items[food.ing2].count - 1
+    });
+    try {
+        let data;
+        const q = query(collection(db, "treats"), where("itemID", "==", food.id), where("uid", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((document) => {
+            data = document.id
+        });
+        const ref = doc(db, "treats", data);
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            const update = updateDoc(ref, {
+                count: docSnap.data().count + 1,
+            });
+        }
+    }
+    catch (error) {
+        const treatData = {
+            uid: auth.currentUser.uid,
+            name: food.name,
+            count: 1,
+            itemID: food.id,
+            image: food.image,
+            ing1ID: items[food.ing1].itemID,
+            ing2ID: items[food.ing2].itemID
+        }
+        const docRef = await addDoc(collection(db, "treats"), treatData);
+    }
+    return true
 }
