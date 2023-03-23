@@ -3,6 +3,7 @@ import Image from "next/image";
 import { StrokedText } from "stroked-text";
 import useSound from 'use-sound';
 import { useContext } from "react";
+import { GameContext } from "@/pages/_app";
 import { userContext } from "@/pages";
 const ButtonDiv = styled.button`
 padding:${props => props.padding || "1em 2em"};
@@ -44,7 +45,7 @@ export default function Button({
     imgheight = 33,
     width
 }) {
-    const { Volume } = useContext(userContext)
+    const { Volume } = useContext(GameContext )
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
     return (

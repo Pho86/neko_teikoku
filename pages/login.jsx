@@ -160,7 +160,7 @@ export default function Login({
             setCurrentUser(currentUser);
         })
     }, [])
-    
+
     return (
         <>
             <Head>
@@ -181,10 +181,12 @@ export default function Login({
                                         />
                                     </m.div>
                                 </ImgCont>
-                                <m.div initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}>
+                                <m.div initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}
+                                    onClick={() => { setStart(true) }}
+                                    id="start"
+                                >
                                     <StartDiv
-                                        onClick={() => { setStart(true) }}
-                                        id="start"
+
                                     >
                                         <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
                                             start
@@ -194,17 +196,6 @@ export default function Login({
                             </>
                         </AnimatePresence>
                     </TitleDiv>
-
-
-
-                    {/* {forgot &&
-                        <CookPrompt>
-                            <LoginForm onChange={handleChange} name="forgot">
-                            <Input type="text" name="email" placeholder="enter email" />
-                            <Button type="button" text="Forgot Password" onClick={handleForgotPassword} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
-                            </LoginForm>
-                        </CookPrompt>
-                    } */}
 
                     <AnimatePresence>
                         {start &&
@@ -270,7 +261,6 @@ export default function Login({
                                                             size={"0.8rem"}
                                                             color={"var(--border-hard)"}
                                                             textHover={"var(--secondary-accent)"}
-                                                            // padding={"1em"}
                                                             align={"left"}
                                                             onClick={() => { setForgot(true) }}
                                                         />
@@ -292,7 +282,6 @@ export default function Login({
                                                             padding={"1em"}
                                                             align={"center"}
                                                             onClick={() => { setTabs(false) }}
-
                                                         />
                                                     </BtnSpaceDiv>
                                                 </LoginForm>
@@ -366,27 +355,9 @@ export default function Login({
                             onChange={handleChange}
                         />
                         }
-
                     </AnimatePresence>
 
-
-                    {/* <div>
-
-                        {currentUser ? currentUser.displayName : 'Not logged in'}
-
-                        
-                        {currentUser ? <>
-                            <Button type="button" text="Logout" onClick={handleSignOut} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
-                            <Button type="button" text="GO HOME" onClick={() => { router.push('/') }} colorhover="var(--border)" border="6px solid var(--border)" borderradius={"2.2em"} padding={"1em 3em"} />
-                            </>
-                            : <></>}
-                        </div> */}
-                    {/* <LoginForm onChange={handleChange} name="forgot">
-                        <Input type="text" name="email" placeholder="enter email" />
-                        <Button type="button" text="Forgot Password" onClick={handleForgotPassword} color="var(--border)" colorhover="var(--border-hard)" border="6px solid var(--border-hard)" borderradius={"2.2em"} padding={"1em 3em"} />
-                    </LoginForm> */}
                 </div>
-
             </main>
         </>
     )

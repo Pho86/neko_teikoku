@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
-import { useEffect, useState, useRef, createContext } from 'react';
+import { useEffect, useState, useRef, createContext, useContext } from 'react';
 import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
@@ -19,7 +19,8 @@ import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
-import OfferingsData from "@/data/ingredients.json"
+import OfferingsData from "@/data/ingredients.json";
+import { GameContext } from './_app';
 
 const GameArea = styled.div`
 position:absolute;
@@ -74,12 +75,11 @@ export default function Home() {
   const catUrl = useRef('/api/catbreed');
 
   // sound data
-  const [Volume, setVolume] = useState(1);
+  const { Volume, setVolume } = useContext(GameContext)
   const [bgm1] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
   const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume, });
 
   const router = useRouter();
-
 
   const fetchWeather = async () => {
     try {
@@ -87,7 +87,6 @@ export default function Home() {
       await updateWeatherData(weatherResult.data.name)
       const weather = weatherResult.data
       if (weather) {
-        console.log(weather)
         if (weather.rain) {
           setBackground('rain')
         }
@@ -158,7 +157,7 @@ export default function Home() {
   }
 
   const filterItems = async (items) => {
-    await ItemData.filter((item, index) => {
+    await ItemData.filter((item) => {
       for (let i = 0; i < items.length; i++) {
         if (item.id === items[i].itemID) {
           item.count = items[i].count
@@ -167,13 +166,14 @@ export default function Home() {
     })
     return ItemData
   }
+
   const filterOfferings = async (offerings) => {
-    await OfferingsData.filter((item, index) => {
+    await OfferingsData.filter((item) => {
       for (let i = 0; i < offerings.length; i++) {
         if (item.id === offerings[i].itemID) {
           item.count = offerings[i].count
           item.cat = offerings[i].cat
-          item.catImg = offerings[i].catImg
+          // item.catImg = offerings[i].catImg
           item.state = offerings[i].state
           item.itemID = offerings[i].id
         }
@@ -246,7 +246,6 @@ export default function Home() {
 
         // PLACEHOLDER FOR TESTING
         await addUserItem(ItemData[0]);
-        await addUserTreat(TreatsData[0]);
       } else {
         router.push('/login')
         // alert("please log in")
