@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -124,6 +124,11 @@ export default function Home() {
     return itemsResult
   }
 
+  const fetchTreats = async () => {
+    const treatsResult = await fetchUserTreats();
+    return treatsResult
+  }
+
   const fetchCats = async () => {
     const catResults = await axios.get(catUrl.current);
     return catResults.data
@@ -161,6 +166,7 @@ export default function Home() {
       for (let i = 0; i < items.length; i++) {
         if (item.id === items[i].itemID) {
           item.count = items[i].count
+          item.itemID = items[i].id
         }
       }
     })
@@ -182,6 +188,18 @@ export default function Home() {
     return OfferingsData
   }
 
+  const filterTreats = async (treats) => {
+    await TreatsData.filter((treat) => {
+      for (let i = 0; i < treats.length; i++) {
+        if (treat.id === treats[i].itemID) {
+          treat.count = treats[i].count
+          treat.itemID = treats[i].id
+        }
+      }
+    })
+    return TreatsData
+  }
+
   const fetchData = async () => {
     const data = await getData();
     console.log(data)
@@ -193,17 +211,21 @@ export default function Home() {
     const filteredOfferings = await filterOfferings(offeringsResult);
     return filteredOfferings
   }
+
   const getData = async () => {
     const catResult = await fetchCats();
     const weatherResult = await fetchWeather();
     const itemsResult = await fetchItems();
     const filteredItems = await filterItems(itemsResult);
     const offerings = await fetchOfferings();
+    const treatsResult = await fetchTreats();
+    const filteredTreats = filterTreats(treatsResult)
     try {
       setCats(catResult)
       setWeather(weatherResult);
       setCurrentItems(filteredItems);
       setCurrentOfferings(offerings);
+      setCurrentTreats(filteredTreats)
       return catResult
     }
     catch (error) {
@@ -220,12 +242,14 @@ export default function Home() {
   }
 
   const addTreat = async (treat) => {
-    setActiveTreats([treat])
-    treat.count -= 1
-    setTimeout(async () => {
-      const amountOfCats = generateRandomNumber(1, 3);
-      await generateCats(catData, amountOfCats)
-    }, 1500)
+    if (treat.count > 0) {
+      setActiveTreats([treat])
+      treat.count -= 1
+      setTimeout(async () => {
+        const amountOfCats = generateRandomNumber(1, 3);
+        await generateCats(catData, amountOfCats)
+      }, 1500)
+    }
   }
 
   const Playit = () => {

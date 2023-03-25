@@ -5,6 +5,7 @@ const homeURL = 'http://localhost:3000/'
 
 export async function signIn(page) {
    await page.goto(loginURL)
+   await page.waitForTimeout(1500);
    const start = page.locator('#start')
    await start.click()
    await page.waitForTimeout(1500);

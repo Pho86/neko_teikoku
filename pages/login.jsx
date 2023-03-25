@@ -66,6 +66,7 @@ const ImgCont = styled.div`
     flex-direction:column;
     align-items:center;
     padding:4em;
+    pointer-events:none;
 `
 const InputDiv = styled.div`
     display:flex;
@@ -90,7 +91,7 @@ const TitleDiv = styled.div`
     justify-content: center;
 `
 
-const StartDiv = styled.div`
+const StartDiv = styled(m.div)`
     cursor:pointer;
     z-index: 50;
 `
@@ -181,18 +182,15 @@ export default function Login({
                                         />
                                     </m.div>
                                 </ImgCont>
-                                <m.div initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}
+                                <StartDiv
+                                    initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}
                                     onClick={() => { setStart(true) }}
                                     id="start"
                                 >
-                                    <StartDiv
-
-                                    >
-                                        <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
-                                            start
-                                        </StrokedText>
-                                    </StartDiv>
-                                </m.div>
+                                    <StrokedText fill='var(--white)' stroke='var(--button-medium)' strokeWidth={10} style={{ fontSize: '4rem', fontWeight: "800" }}>
+                                        start
+                                    </StrokedText>
+                                </StartDiv>
                             </>
                         </AnimatePresence>
                     </TitleDiv>
@@ -345,7 +343,7 @@ export default function Login({
                         {forgot && <PopupPrompt
                             key="password prompt"
                             type={"input"}
-                            cooktext={passwordtext}
+                            poptext={passwordtext}
                             oneBtn={false}
                             btnText1={"EXIT"}
                             btnText2={"SUBMIT"}

@@ -9,6 +9,7 @@ import { userContext } from "@/pages";
 import PopupPrompt from "@/components/Molecules/PopupPrompt";
 import { makeTreat } from "@/server";
 import useSound from "use-sound";
+import { GameContext } from "@/pages/_app";
 const PopUpGrid = styled.div`
 display:grid;
 grid-template-columns: repeat(2, 1fr);
@@ -31,19 +32,20 @@ export default function TreatsDex({
     const [treat, setTreat] = useState("")
     const [cooked, setCooked] = useState(false)
     const [popText, setPopText] = useState("missing")
-    const { currentItems, currentOfferings, setCurrentOfferings, setCurrentTreats, Volume } = useContext(userContext);
-
+    const { currentItems, currentOfferings, setCurrentOfferings, setCurrentTreats } = useContext(userContext);
+    const { Volume } = useContext(GameContext);
+    
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
     const cookTreat = async (treat) => {
         const treats = await makeTreat(treat, currentOfferings)
         if (treats === 1) {
-            setPopText(`Missing x1 of ${currentOfferings[treat.ing1].name}`)
+            setPopText(`Missing x1 ${currentOfferings[treat.ing1].name}`)
             setCooked(true)
             return
         }
         else if (treats === 2) {
-            setPopText(`Missing x1 of ${currentOfferings[treat.ing2].name}`)
+            setPopText(`Missing x1 ${currentOfferings[treat.ing2].name}`)
             setCooked(true)
             return
         }

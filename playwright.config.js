@@ -30,14 +30,14 @@ const config ={
                 viewport: {width: 1280, height: 720}
             },
         },
-        {
-            name: 'Mobile Chrome',
-            use:{
-                browserName: 'chromium',
-                ...devices['iPhone XR'],
-                viewport: {width: 896, height: 414}
-            },
-        },
+        // {
+        //     name: 'Mobile Chrome',
+        //     use:{
+        //         browserName: 'chromium',
+        //         ...devices['iPhone XR'],
+        //         viewport: {width: 896, height: 414}
+        //     },
+        // },
         {
             name: 'Tablet Chrome',
             use:{

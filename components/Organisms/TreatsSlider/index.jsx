@@ -2,11 +2,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import TreatsData from "@/data/treats.json"
 import IconButton from "@/components/Atoms/IconButton";
 import { SliderTab } from "@/components/Atoms/Slider";
-import Ingredients from "@/data/ingredients.json";
+import { userContext } from "@/pages";
+import { GameContext } from "@/pages/_app";
+import useSound from "use-sound";
+import { adjustUserTreat } from "@/server";
 
 
 const Grid = styled.div`
@@ -26,20 +29,25 @@ flex-direction:column;
 `
 export default function TreatsSlider({
     active,
-    treats,
     onExit = () => { },
     onTreatClick = (treat) => { return treat }
 }) {
+    const { currentTreats } = useContext(userContext)
     const [pageLimit, setPageLimit] = useState(6)
     const [pageMin, setPageMin] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [tab, setTab] = useState(true);
     const [maxPage, setMaxPage] = useState(1);
 
-    useEffect(() => {
-        setMaxPage(Math.round((pageLimit / TreatsData.length)))
-    }, [pageLimit])
+    const { Volume } = useContext(GameContext);
 
+    const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
+
+    const cookTreat = async (treat) => {
+        if (treat.count > 0) {
+            // const treats = await adjustUserTreat(treat, currentOfferings)
+        }
+    }
     return (
         <AnimatePresence>
             {active &&
@@ -70,9 +78,9 @@ export default function TreatsSlider({
                     content={<>
                         <Grid>
                             {tab && TreatsData.slice(pageMin, pageLimit).map((item, i) => {
-                                return <GridItem key={i} onClick={()=>onTreatClick(item)}>
+                                return <GridItem key={i} onClick={() => { onTreatClick(item); cookTreat(item); }}>
                                     <ItemCard image={item.image} alt="MEOW MEOW" />
-                                    <Typography text={"x1"} weight={"400"} size={".9rem"} />
+                                    <Typography text={`x${item.count ? item.count : 0}`} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />
                                 </GridItem>
                             })}

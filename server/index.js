@@ -197,6 +197,18 @@ export const fetchUserTreats = async () => {
     return data;
 }
 
+export const adjustUserTreat = async (treat) => {
+    try {
+        const docRef = doc(db, "treats", treat.itemID);
+        const docSnap = await getDoc(docRef);
+        await updateDoc(docRef, {
+            count: treat.count -1,
+        });
+    } catch (error) {
+        // console.log(error)
+    }
+}
+
 export const addUserOfferings = async (offering) => {
     let data;
     try {
