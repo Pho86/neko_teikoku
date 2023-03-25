@@ -7,6 +7,9 @@ import ItemData from "@/data/items.json"
 import { SliderTab } from "@/components/Atoms/Slider";
 import Ingredients from "@/data/ingredients.json"
 import { userContext } from "@/pages";
+import { GameContext } from "@/pages/_app";
+import useSound from "use-sound";
+
 const Grid = styled.div`
 display:grid;
 grid-template-columns:repeat(6, 1fr);
@@ -33,6 +36,10 @@ export default function ItemsSlider({
    const [tab, setTab] = useState(true);
    const [maxPage, setMaxPage] = useState(1);
 
+   const { Volume } = useContext(GameContext);
+   const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
+
+   
    return (
       <AnimatePresence>
          {active &&

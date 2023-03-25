@@ -5,7 +5,7 @@ import Image from "next/image";
 import IconButton from "../IconButton";
 import useSound from 'use-sound';
 import { useContext } from "react";
-import { userContext } from "@/pages";
+import { GameContext } from "@/pages/_app";
 
 export const OpacityBackground = styled(m.div)`
 background: rgba(0, 0, 0, ${props => props.opacity || ".5"});
@@ -50,6 +50,7 @@ border: 5px solid var(--border);
 gap:1em;
 pointer-events:auto;
 `
+
 export const TopTab = styled(m.div)`
 width:150px;
 height:40px;
@@ -61,6 +62,7 @@ align-items:center;
 pointer-events:auto;
 cursor:pointer;
 `
+
 export const PopUpCont = styled(m.div)`
 position:fixed;
 z-index:55;
@@ -70,10 +72,12 @@ justify-content:center;
 align-items:center;
 pointer-events:none;
 `
+
 const PopUpRow = styled.div`
 display:flex;
 pointer-events:none;
 `
+
 const PopUpTabsCol = styled.div`
 display:flex;
 flex-direction:column;
@@ -81,6 +85,7 @@ gap:2em;
 pointer-events:none;
 margin-top:5%;
 `
+
 const PopupTab = styled.div`
 background-color:${props => props.color || "var(--border-light)"};
 display:flex;
@@ -93,6 +98,7 @@ cursor:pointer;
    background-color:${props => props.hovercolor || "var(--border-hard)"};
 }
 `
+
 const TopTabs = styled.div`
 display:flex;
 width:80%;
@@ -140,7 +146,7 @@ export function PopUpWithTab({
    onSecondTabClick = () => { },
    onFirstTabClick = () => { },
 }) {
-   const { Volume } = useContext(userContext)
+   const { Volume } = useContext(GameContext)
    const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
    return (
       <PopUpCont initial={initial}

@@ -3,9 +3,11 @@ import Typography from "@/components/Atoms/Text";
 import Button from "@/components/Atoms/Button";
 
 import { SignOut } from "/server";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { auth } from "@/firebase/firebase.config";
 import { AnimatePresence } from "framer-motion";
+import { GameContext } from "@/pages/_app";
+
 const PopupCont = styled.div`
     background-color: var(--primary);
     display: flex;
@@ -87,66 +89,70 @@ const PopupDiv = styled.div`
 export default function SettingsPopup(
     {
         exit,
-        onExit = ()=>{ }
-}){
+        onExit = () => { }
+    }) {
 
     const [currentUser, setCurrentUser] = useState({})
-    const [ErrorMessage, setErrorMessage] = useState("")
+    const [ErrorMessage, setErrorMessage] = useState("");
+    const { Volume, setVolume } = useContext(GameContext)
 
     const handleSignOut = async () => {
         await SignOut(auth)
-    } 
- 
+    }
 
-    return(
+
+    return (
         <AnimatePresence>
-        <PopupDiv>
-            <PopupCont 
-                exit={exit}
-            >
-            
-                <BtnCont>
-                    <AudCont>
+            <PopupDiv>
+                <PopupCont
+                    exit={exit}
+                >
+
+                    <BtnCont>
+                        <AudCont>
+                            <Typography
+                                text={"sound"}
+                                weight={"400"}
+                                size={"1.3rem"}
+                                color={"var(--black)"}
+                            />
+                            <AudBar />
+                        </AudCont>
+
+                        {Volume > 0 ?
+                            <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(0) }} />
+                            :
+                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--button-hard)"} border={"4px solid var(--button-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(1) }} />
+                        }
+
+                    </BtnCont>
+
+                    <DisplayEmail>
                         <Typography
-                            text={"sound"}
+                            text={auth.currentUser.email}
                             weight={"400"}
-                            size={"1.3rem"}
-                            color={"var(--black)"}
+                            size={"1rem"}
+                            color={"var(--button-medium)"}
+                            align={"center"}
                         />
-                        <AudBar/>
-                    </AudCont>
+                    </DisplayEmail>
 
-                    {/* <Button text={`NAH`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.5em 2em"} textstroke={"1px var(--border-hard)"} /> */}
-
-                    {/* need mute and unmute audio functions */}
-                    <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"}/>
-                </BtnCont>
-
-                <DisplayEmail>
-                    <Typography
-                        text={auth.currentUser.email}
-                        weight={"400"}
-                        size={"1rem"}
-                        color={"var(--button-medium)"}
-                        align={"center"}
-                    />
-                </DisplayEmail>
-
-                <BotCont>
-                    <CusHr/>
-                    {currentUser ? <>
-                        <Button type="button" text="LOGOUT" onClick={handleSignOut}  
-                            color={"var(--button-red)"} colorhover={"var(--border-hard)"}
-                            border={"4px solid var(--border-hard)"} borderradius={"1.5em"}
-                            textstroke={"1px var(--button-medium)"} padding={"0.5em 6em"} />
-                    </>
-                        : <></>}
-                </BotCont>
-            </PopupCont>
-            <ButtonDiv>
+                    <BotCont>
+                        <CusHr />
+                        {currentUser ? <>
+                            <Button type="button" text="LOGOUT" onClick={handleSignOut}
+                                color={"var(--button-red)"} colorhover={"var(--border-hard)"}
+                                border={"4px solid var(--border-hard)"} borderradius={"1.5em"}
+                                textstroke={"1px var(--button-medium)"} padding={"0.5em 6em"} />
+                        </>
+                            : <></>
+                        }
+                    </BotCont>
+                </PopupCont>
+                <ButtonDiv>
                     <Button onClick={onExit} image="/icons/exit.svg" color="var(--border-light)" alt="exit button" colorhover="var(--border-hard)" />
-            </ButtonDiv>
-        </PopupDiv>
+                </ButtonDiv>
+            </PopupDiv>
         </AnimatePresence>
     )
 }

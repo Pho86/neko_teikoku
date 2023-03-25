@@ -2,12 +2,12 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios';
 import { selectRandomFromArray, generateRandomNumber } from '@/util';
-import { useEffect, useState, useRef, createContext } from 'react';
+import { useEffect, useState, useRef, createContext, useContext } from 'react';
 import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -19,7 +19,8 @@ import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
-import OfferingsData from "@/data/ingredients.json"
+import OfferingsData from "@/data/ingredients.json";
+import { GameContext } from './_app';
 
 const GameArea = styled.div`
 position:absolute;
@@ -74,12 +75,11 @@ export default function Home() {
   const catUrl = useRef('/api/catbreed');
 
   // sound data
-  const [Volume, setVolume] = useState(1);
+  const { Volume, setVolume } = useContext(GameContext)
   const [bgm1] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
   const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume, });
 
   const router = useRouter();
-
 
   const fetchWeather = async () => {
     try {
@@ -87,7 +87,6 @@ export default function Home() {
       await updateWeatherData(weatherResult.data.name)
       const weather = weatherResult.data
       if (weather) {
-        console.log(weather)
         if (weather.rain) {
           setBackground('rain')
         }
@@ -125,6 +124,11 @@ export default function Home() {
     return itemsResult
   }
 
+  const fetchTreats = async () => {
+    const treatsResult = await fetchUserTreats();
+    return treatsResult
+  }
+
   const fetchCats = async () => {
     const catResults = await axios.get(catUrl.current);
     return catResults.data
@@ -158,28 +162,42 @@ export default function Home() {
   }
 
   const filterItems = async (items) => {
-    await ItemData.filter((item, index) => {
+    await ItemData.filter((item) => {
       for (let i = 0; i < items.length; i++) {
         if (item.id === items[i].itemID) {
           item.count = items[i].count
+          item.itemID = items[i].id
         }
       }
     })
     return ItemData
   }
+
   const filterOfferings = async (offerings) => {
-    await OfferingsData.filter((item, index) => {
+    await OfferingsData.filter((item) => {
       for (let i = 0; i < offerings.length; i++) {
         if (item.id === offerings[i].itemID) {
           item.count = offerings[i].count
           item.cat = offerings[i].cat
-          item.catImg = offerings[i].catImg
+          // item.catImg = offerings[i].catImg
           item.state = offerings[i].state
           item.itemID = offerings[i].id
         }
       }
     })
     return OfferingsData
+  }
+
+  const filterTreats = async (treats) => {
+    await TreatsData.filter((treat) => {
+      for (let i = 0; i < treats.length; i++) {
+        if (treat.id === treats[i].itemID) {
+          treat.count = treats[i].count
+          treat.itemID = treats[i].id
+        }
+      }
+    })
+    return TreatsData
   }
 
   const fetchData = async () => {
@@ -193,17 +211,21 @@ export default function Home() {
     const filteredOfferings = await filterOfferings(offeringsResult);
     return filteredOfferings
   }
+
   const getData = async () => {
     const catResult = await fetchCats();
     const weatherResult = await fetchWeather();
     const itemsResult = await fetchItems();
     const filteredItems = await filterItems(itemsResult);
     const offerings = await fetchOfferings();
+    const treatsResult = await fetchTreats();
+    const filteredTreats = filterTreats(treatsResult)
     try {
       setCats(catResult)
       setWeather(weatherResult);
       setCurrentItems(filteredItems);
       setCurrentOfferings(offerings);
+      setCurrentTreats(filteredTreats)
       return catResult
     }
     catch (error) {
@@ -220,12 +242,14 @@ export default function Home() {
   }
 
   const addTreat = async (treat) => {
-    setActiveTreats([treat])
-    treat.count -= 1
-    setTimeout(async () => {
-      const amountOfCats = generateRandomNumber(1, 3);
-      await generateCats(catData, amountOfCats)
-    }, 1500)
+    if (treat.count > 0) {
+      setActiveTreats([treat])
+      treat.count -= 1
+      setTimeout(async () => {
+        const amountOfCats = generateRandomNumber(1, 3);
+        await generateCats(catData, amountOfCats)
+      }, 1500)
+    }
   }
 
   const Playit = () => {
@@ -246,7 +270,6 @@ export default function Home() {
 
         // PLACEHOLDER FOR TESTING
         await addUserItem(ItemData[0]);
-        await addUserTreat(TreatsData[0]);
       } else {
         router.push('/login')
         // alert("please log in")

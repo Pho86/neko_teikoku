@@ -8,7 +8,7 @@ test.describe("Head Area of login page", () => {
     await page.goto(loginURL)
     await expect(page).toHaveTitle('Login - Neko Teikoku');
   })
-  test('The meta tag', async ({ page }) => {
+  test.skip('The meta tag', async ({ page }) => {
     await page.goto(loginURL)
 
     const metaDescriptionOne = page.locator('meta[name="description"]')

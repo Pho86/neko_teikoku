@@ -8,11 +8,13 @@ position:absolute;
 // height:100vh;
 pointer-events:none;
 `
+
 const ItemImgArea = styled(m.div)`
 pointer-events:auto;
 position:relative;
 cursor:pointer;
 `
+
 const ItemImage = styled(Image)`
 pointer-events:none;
 

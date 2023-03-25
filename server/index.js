@@ -103,7 +103,7 @@ export const fetchUserItems = async () => {
     const q = query(collection(db, "items"), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((document) => {
-        data.push({ ...document.data() })
+        data.push({ ...document.data(), id: document.id })
     });
     return data;
 }
@@ -140,107 +140,12 @@ export const addUserItem = async (item) => {
     }
 }
 
-export const addUserTreat = async (item) => {
-    let data;
-    const q = query(collection(db, "treats"), where("name", "==", item.name), where("uid", "==", auth.currentUser.uid));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((document) => {
-        data = document.id
-    });
-    try {
-        const ref = doc(db, "treats", data);
-        const docSnap = await getDoc(ref);
-        if (docSnap.exists()) {
-            const update = updateDoc(ref, {
-                // count: docSnap.data().count + 1
-                count: docSnap.data().count
-            });
-        } else {
-        }
-    }
-    catch (error) {
-        const treatData = {
-            uid: auth.currentUser.uid,
-            name: item.name,
-            count: 1,
-            itemID: item.id,
-            image: item.image
-        }
-        const docRef = await addDoc(collection(db, "treats"), treatData);
-    }
-}
-
-export const fetchUserTreats = async () => {
-    let data = []
-    const q = query(collection(db, "treats"), where("uid", "==", auth.currentUser.uid));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((document) => {
-        data.push({ ...document.data() })
-    });
-    return data;
-}
-
-export const addUserOfferings = async (offering) => {
-    let data;
-    try {
-        const q = query(collection(db, "offerings"), where("itemID", "==", offering.id), where("uid", "==", auth.currentUser.uid));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((document) => {
-            data = document.id
-        });
-        const ref = doc(db, "offerings", data);
-        const docSnap = await getDoc(ref);
-        if (docSnap.exists()) {
-            const update = updateDoc(ref, {
-                count: docSnap.data().count + 1,
-                cat: offering.cat,
-                state: false,
-            });
-        }
-    }
-    catch (error) {
-        // console.log(error)
-        const offeringData = {
-            uid: auth.currentUser.uid,
-            count: 1,
-            itemID: offering.id,
-            cat: offering.cat,
-            state: false,
-        }
-        const docRef = await addDoc(collection(db, "offerings"), offeringData);
-
-    }
-}
-
-export const fetchUserOfferings = async () => {
-    let data = []
-    const q = query(collection(db, "offerings"), where("uid", "==", auth.currentUser.uid));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((document) => {
-        data.push({ ...document.data(), id: document.id })
-    });
-    return data;
-}
-
-export const changeUserOfferingState = async (offering) => {
-    try {
-        const docRef = doc(db, "offerings", offering.itemID);
-        const docSnap = await getDoc(docRef);
-        await updateDoc(docRef, {
-            state: true,
-        });
-    } catch (error) {
-        // console.log(error)
-    }
-}
-
 export const makeTreat = async (food, items) => {
-    console.log(items[food.ing1].count, items[food.ing2].count)
     if (items[food.ing1].count <= 0) {
         return 1
     }
     if (items[food.ing2].count <= 0) {
-        return 2
+        return 2    
     }
     const OneRef = doc(db, "offerings", (items[food.ing1].itemID));
     const oneSnap = await getDoc(OneRef);
@@ -281,3 +186,78 @@ export const makeTreat = async (food, items) => {
     }
     return true
 }
+
+export const fetchUserTreats = async () => {
+    let data = []
+    const q = query(collection(db, "treats"), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data(), id: document.id })
+    });
+    return data;
+}
+
+export const adjustUserTreat = async (treat) => {
+    try {
+        const docRef = doc(db, "treats", treat.itemID);
+        const docSnap = await getDoc(docRef);
+        await updateDoc(docRef, {
+            count: treat.count -1,
+        });
+    } catch (error) {
+        // console.log(error)
+    }
+}
+
+export const addUserOfferings = async (offering) => {
+    let data;
+    try {
+        const q = query(collection(db, "offerings"), where("itemID", "==", offering.id), where("uid", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((document) => {
+            data = document.id
+        });
+        const ref = doc(db, "offerings", data);
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            const update = updateDoc(ref, {
+                count: docSnap.data().count + 1,
+                cat: offering.cat,
+                state: false,
+            });
+        }
+    }
+    catch (error) {
+        const offeringData = {
+            uid: auth.currentUser.uid,
+            count: 1,
+            itemID: offering.id,
+            cat: offering.cat,
+            state: false,
+        }
+        const docRef = await addDoc(collection(db, "offerings"), offeringData);
+    }
+}
+
+export const fetchUserOfferings = async () => {
+    let data = []
+    const q = query(collection(db, "offerings"), where("uid", "==", auth.currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data(), id: document.id })
+    });
+    return data;
+}
+
+export const changeUserOfferingState = async (offering) => {
+    try {
+        const docRef = doc(db, "offerings", offering.itemID);
+        const docSnap = await getDoc(docRef);
+        await updateDoc(docRef, {
+            state: true,
+        });
+    } catch (error) {
+        // console.log(error)
+    }
+}
+

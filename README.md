@@ -17,7 +17,7 @@ Apis we are using are:
 * Firebase
 
 ## Getting Started
-1. Run the cmd in terminal `https://github.com/Pho86/neko_teikoku.git`.
+1. Run the cmd in terminal `git clone https://github.com/Pho86/neko_teikoku.git`.
 
 2. Cd into the directory with `cd ./neko_teikoku`.
 
