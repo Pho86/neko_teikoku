@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/CatDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -52,11 +52,9 @@ export default function Home() {
   const [catDex, setCatDex] = useState(false);
   const [catCard, setCatCard] = useState(0);
   const [randomCats, setRandomCats] = useState([]);
-  const [catData, setCatData] = useState([]);
 
   // user data
   const [currentUser, setCurrentUser] = useState({});
-  const [currentUserData, setCurrentUserData] = useState({});
   const [currentItems, setCurrentItems] = useState([]);
   const [activeItems, setActiveItems] = useState([]);
   const [activetreats, setActiveTreats] = useState([]);
@@ -119,25 +117,32 @@ export default function Home() {
     weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${value.target.value}`
   }
 
-  const fetchItems = async () => {
+  const fetchUserItem = async () => {
     const itemsResult = await fetchUserItems();
     return itemsResult
   }
 
-  const fetchTreats = async () => {
+  const fetchUserTreat = async () => {
     const treatsResult = await fetchUserTreats();
     return treatsResult
   }
 
-  const fetchCats = async () => {
+  const fetchUserCats = async () => {
+    const catsResult = await fetchCatData();
+    return catsResult
+  }
+
+  const fetchCatsData = async () => {
     const catResults = await axios.get(catUrl.current);
     return catResults.data
   }
 
   const generateCats = async (data, amountOfCats) => {
     let randomMeows = randomCats;
+    console.log(randomMeows)
     for (let i = 0; i < amountOfCats; i++) {
       let randomCat = await selectRandomFromArray(data);
+      await addCatData(randomCat)
       const x = generateRandomNumber(0, 100);
       let y;
       randomCat.x = x;
@@ -148,14 +153,10 @@ export default function Home() {
         if (helper === 2) y = generateRandomNumber(0, 15)
       }
       randomCat.y = y;
-      randomMeows.push(randomCat)
       let offering = await selectRandomFromArray(OfferingsData)
       offering.cat = randomCat.breedName
-      setCurrentOfferings([...currentOfferings, offering])
       await addUserOfferings(offering);
-    }
-    for (let i = 0; i < randomMeows.length; i++) {
-      setRandomCats([...randomCats, randomMeows[i]])
+      setRandomCats([...randomMeows, randomCat])
     }
     const offerings = await fetchOfferings();
     setCurrentOfferings(offerings)
@@ -179,7 +180,6 @@ export default function Home() {
         if (item.id === offerings[i].itemID) {
           item.count = offerings[i].count
           item.cat = offerings[i].cat
-          // item.catImg = offerings[i].catImg
           item.state = offerings[i].state
           item.itemID = offerings[i].id
         }
@@ -200,10 +200,26 @@ export default function Home() {
     return TreatsData
   }
 
-  const fetchData = async () => {
-    const data = await getData();
-    console.log(data)
-    setCatData(data)
+  const filterNewCats = async (apiCats, userCats) => {
+    await apiCats.filter((cat) => {
+      for (let i = 0; i < userCats.length; i++) {
+        if (cat.id === userCats[i].catId) {
+          cat.count = userCats[i].count;
+        }
+      }
+    })
+    return apiCats
+  }
+
+  const filterCats = async (userCats) => {
+    await cats.filter((cat) => {
+      for (let i = 0; i < userCats.length; i++) {
+        if (cat.id === userCats[i].catId) {
+          cat.count = userCats[i].count;
+        }
+      }
+    })
+    return cats
   }
 
   const fetchOfferings = async () => {
@@ -212,21 +228,43 @@ export default function Home() {
     return filteredOfferings
   }
 
-  const getData = async () => {
-    const catResult = await fetchCats();
-    const weatherResult = await fetchWeather();
-    const itemsResult = await fetchItems();
+  const fetchItems = async () => {
+    const itemsResult = await fetchUserItem();
     const filteredItems = await filterItems(itemsResult);
+    return filteredItems;
+  }
+
+  const fetchTreats = async () => {
+    const treatsResult = await fetchUserTreat();
+    const filteredTreats = await filterTreats(treatsResult)
+    return filteredTreats
+  }
+
+  const fetchNewCats = async () => {
+    const catAPIResult = await fetchCatsData();
+    const catUserResult = await fetchUserCats();
+    const filteredCats = await filterNewCats(catAPIResult, catUserResult)
+    return filteredCats
+  }
+
+  const fetchCats = async () => {
+    const catUserResult = await fetchUserCats();
+    const filteredCats = await filterCats(catUserResult)
+    return filteredCats
+  }
+
+  const fetchAllData = async () => {
+    const catsResult = await fetchNewCats();
+    const weatherResult = await fetchWeather();
     const offerings = await fetchOfferings();
-    const treatsResult = await fetchTreats();
-    const filteredTreats = filterTreats(treatsResult)
+    const items = await fetchItems();
+    const treats = await fetchTreats();
     try {
-      setCats(catResult)
       setWeather(weatherResult);
-      setCurrentItems(filteredItems);
+      setCurrentItems(items);
       setCurrentOfferings(offerings);
-      setCurrentTreats(filteredTreats)
-      return catResult
+      setCurrentTreats(treats)
+      setCats(catsResult);
     }
     catch (error) {
       console.log(error)
@@ -243,12 +281,16 @@ export default function Home() {
 
   const addTreat = async (treat) => {
     if (treat.count > 0) {
+      const treats = await adjustUserTreat(treat)
       setActiveTreats([treat])
       treat.count -= 1
       setTimeout(async () => {
         const amountOfCats = generateRandomNumber(1, 3);
-        await generateCats(catData, amountOfCats)
-      }, 1500)
+        console.log(amountOfCats)
+        await generateCats(cats, amountOfCats)
+
+        await fetchCats();
+      }, 1500);
     }
   }
 
@@ -263,37 +305,31 @@ export default function Home() {
         // Playit()
         const currentUserData = await fetchCurrentUserData();
         setCurrentUser(currentUser);
-        setCurrentUserData(currentUserData);
         setLocation(currentUserData.location);
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
-        await fetchData();
+        await fetchAllData();
 
         // PLACEHOLDER FOR TESTING
         await addUserItem(ItemData[0]);
       } else {
         router.push('/login')
-        // alert("please log in")
       }
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const setOfferings = async (offerings) => {
-    let offers = currentOfferings
-    offerings.filter((offers) => {
+    offerings.filter(async (offers) => {
       if (offers.state === false) {
-        return offers.state = true
+        for (let i = 0; i < offerings.length; i++) {
+          if (currentOfferings[offerings[i].id - 1].state === false) {
+            await changeUserOfferingState(offerings[i]);
+          }
+        }
       }
     })
-    // for (let i = 0; i < offerings.length; i++) {
-    //   if (offers[offerings[i].id - 1].state === false) {
-    //     offers[offerings[i].id - 1].state = true
-    //     console.log(offers[offerings[i].id - 1])
-    //     await changeUserOfferingState(offerings[i]);
-    //   }
-    // }
-    console.log(offerings)
-    setCurrentOfferings(offers)
+    const fetchofferings = await fetchOfferings();
+    setCurrentOfferings(fetchofferings)
   }
   return (
 
@@ -306,7 +342,7 @@ export default function Home() {
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
 
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, Volume, setOfferings }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
           <GameArea id="game">
 
@@ -325,7 +361,7 @@ export default function Home() {
             })}
 
             {randomCats && randomCats.map((cat, i) => {
-              return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={"MEOW MEOW"} onClick={() => { setCatCard(cat.id); }} />
+              return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={`${cat.breedName} image resting`} onClick={() => { setCatCard(cat.id); }} />
             })}
 
             {activetreats && activetreats.map((treat, i) => {

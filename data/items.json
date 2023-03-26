@@ -28,20 +28,5 @@
       "name": "monkey",
       "image": "/items/cat_lamp.svg",
       "id": 6
-   },
-   {
-      "name": "test",
-      "image": "/items/cat_lamp.svg",
-      "id": 7
-   },
-   {
-      "name": "IDK",
-      "image": "/items/cat_lamp.svg",
-      "id": 8
-   },
-   {
-      "name": "l",
-      "image": "/items/cat_lamp.svg",
-      "id": 9
    }
 ]

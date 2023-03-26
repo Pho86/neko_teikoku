@@ -43,11 +43,6 @@ export default function TreatsSlider({
 
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
-    const cookTreat = async (treat) => {
-        if (treat.count > 0) {
-            // const treats = await adjustUserTreat(treat, currentOfferings)
-        }
-    }
     return (
         <AnimatePresence>
             {active &&
@@ -78,7 +73,7 @@ export default function TreatsSlider({
                     content={<>
                         <Grid>
                             {tab && TreatsData.slice(pageMin, pageLimit).map((item, i) => {
-                                return <GridItem key={i} onClick={() => { onTreatClick(item); cookTreat(item); }}>
+                                return <GridItem key={i} onClick={() => { onTreatClick(item) }}>
                                     <ItemCard image={item.image} alt="MEOW MEOW" />
                                     <Typography text={`x${item.count ? item.count : 0}`} weight={"400"} size={".9rem"} />
                                     <Typography text={item.name} weight={"500"} size={"1.2rem"} />

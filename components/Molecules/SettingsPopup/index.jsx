@@ -122,7 +122,7 @@ export default function SettingsPopup(
                         {Volume > 0 ?
                             <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(0) }} />
                             :
-                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--button-hard)"} border={"4px solid var(--button-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(1) }} />
+                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(1) }} />
                         }
 
                     </BtnCont>

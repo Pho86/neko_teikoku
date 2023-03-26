@@ -111,7 +111,6 @@ export default function Login({
         password: ""
     });
     const [currentUser, setCurrentUser] = useState({})
-
     const [ErrorMessage, setErrorMessage] = useState("")
     const [tabs, setTabs] = useState(true)
 
@@ -120,6 +119,7 @@ export default function Login({
     };
 
     const handleRegisterSubmit = async () => {
+        setErrorMessage("signing up...")
         try {
             await SignUp(loginInfo);
             setErrorMessage("you have successfully signed up ")
@@ -131,8 +131,9 @@ export default function Login({
             setErrorMessage("ERROR OCCURED")
         }
     }
-
+    
     const handleLoginSubmit = async () => {
+        setErrorMessage("signing in...")
         try {
             await SignIn(loginInfo)
             setErrorMessage("successfully logged in!")
@@ -209,8 +210,8 @@ export default function Login({
                                 exit={{ y: "-100vh" }}
                                 transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                                 exitTab
-                                onFirstTabClick={() => { setTabs(true) }}
-                                onSecondTabClick={() => { setTabs(false) }}
+                                onFirstTabClick={() => { setTabs(true); setErrorMessage("") }}
+                                onSecondTabClick={() => { setTabs(false); setErrorMessage("") }}
                                 tabs={tabs}
                                 content={
                                     <>
