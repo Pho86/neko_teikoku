@@ -1,7 +1,7 @@
 import { db, auth } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, sendPasswordResetEmail } from '@firebase/auth';
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc } from '@firebase/firestore';
-
+import OfferingsData from "@/data/ingredients.json"
 /**
  * @desc signs a user up with your parameter values
  * @param {*} values an object of values for email, password, and username
@@ -16,6 +16,11 @@ export const SignUp = async (values) => {
     const userUpdate = await updateProfile(userCred.user, {
         displayName: values.username
     });
+    for (let x = 0; x < 10; x++) {
+        for (let i = 0; i < OfferingsData.length; i++) {
+            await addUserOfferings(OfferingsData[i])
+        }
+    }
 }
 
 /**
@@ -75,9 +80,9 @@ export const fetchCatData = async () => {
     const q = query(collection(db, "cats"), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((document) => {
-        data.push({ ...document.data() })
+        data.push({ ...document.data(), id: document.id })
     });
-    return data
+    return data;
 }
 
 
@@ -111,12 +116,13 @@ export const fetchUserItems = async () => {
 
 export const addUserItem = async (item) => {
     let data;
-    const q = query(collection(db, "items"), where("name", "==", item.name), where("uid", "==", auth.currentUser.uid));
+    console.log()
+    const q = query(collection(db, "items"), where("itemID", "==", item.id), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
+    try {
     querySnapshot.forEach((document) => {
         data = document.id
     });
-    try {
         const ref = doc(db, "items", data);
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
@@ -125,7 +131,6 @@ export const addUserItem = async (item) => {
                 // count: docSnap.data().count + 1
                 count: docSnap.data().count
             });
-        } else {
         }
     }
     catch (error) {
@@ -134,7 +139,6 @@ export const addUserItem = async (item) => {
             name: item.name,
             count: 1,
             itemID: item.id,
-            image: item.image
         }
         const docRef = await addDoc(collection(db, "items"), itemData);
     }
@@ -145,7 +149,7 @@ export const makeTreat = async (food, items) => {
         return 1
     }
     if (items[food.ing2].count <= 0) {
-        return 2    
+        return 2
     }
     const OneRef = doc(db, "offerings", (items[food.ing1].itemID));
     const oneSnap = await getDoc(OneRef);
@@ -202,10 +206,10 @@ export const adjustUserTreat = async (treat) => {
         const docRef = doc(db, "treats", treat.itemID);
         const docSnap = await getDoc(docRef);
         await updateDoc(docRef, {
-            count: treat.count -1,
+            count: treat.count - 1,
         });
     } catch (error) {
-        // console.log(error)
+        console.log(error)
     }
 }
 
@@ -220,11 +224,18 @@ export const addUserOfferings = async (offering) => {
         const ref = doc(db, "offerings", data);
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
-            const update = updateDoc(ref, {
-                count: docSnap.data().count + 1,
-                cat: offering.cat,
-                state: false,
-            });
+            if (offering.cat) {
+                const update = updateDoc(ref, {
+                    count: docSnap.data().count + 1,
+                    cat: offering.cat,
+                    state: false,
+                });
+            } else {
+                const update = updateDoc(ref, {
+                    count: docSnap.data().count + 1,
+                    state: false,
+                });
+            }
         }
     }
     catch (error) {
@@ -232,7 +243,7 @@ export const addUserOfferings = async (offering) => {
             uid: auth.currentUser.uid,
             count: 1,
             itemID: offering.id,
-            cat: offering.cat,
+            // cat: offering.cat,
             state: false,
         }
         const docRef = await addDoc(collection(db, "offerings"), offeringData);
