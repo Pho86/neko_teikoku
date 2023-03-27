@@ -8,11 +8,23 @@ test.describe("Head Area of login page", () => {
     await page.goto(loginURL)
     await expect(page).toHaveTitle('Login - Neko Teikoku');
   })
-  test.skip('The meta tag', async ({ page }) => {
-    await page.goto(loginURL)
 
-    const metaDescriptionOne = page.locator('meta[name="description"]')
-    await expect(metaDescriptionOne).toHaveAttribute("content", "Neko Teikoku is a cozy cat web application to help you feel at ease. Meow meow.")
+  test.skip('The meta tag og description', async ({ page }) => {
+    await page.goto(loginURL)
+    const metaDescription = page.locator('meta[name="description"]')
+    await expect(metaDescription).toHaveAttribute("content", "Neko Teikoku is a cozy cat web application to help you feel at ease. Meow meow.")
+  })
+
+  test.skip('The meta tag og description', async ({ page }) => {
+    await page.goto(loginURL)
+    const metaDescription = page.locator('meta[property="og:description"]');
+    await expect(metaDescription).toHaveAttribute('content', 'Neko Teikoku is a cozy cat web application to help you feel at ease. Meow meow.')
+  })
+  
+  test.skip('The meta tag og description', async ({ page }) => {
+    await page.goto(loginURL)
+    const linkTag = page.locator('link[rel="icon"]');
+    await expect(linkTag).toHaveAttribute('href', '/icons/advisor.svg')
   })
 })
 

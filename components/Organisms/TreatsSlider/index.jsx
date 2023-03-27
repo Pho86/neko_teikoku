@@ -40,7 +40,6 @@ export default function TreatsSlider({
     const [maxPage, setMaxPage] = useState(1);
 
     const { Volume } = useContext(GameContext);
-
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
     return (

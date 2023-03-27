@@ -47,6 +47,17 @@ test.describe("Home game area tests, account required functionalities", () => {
       expect(meowing).toContainText("meowing @ vancouver")
    });
 
+   test('open the settings popup and logout', async ({ page }) => {
+      await signIn(page)
+      await page.waitForTimeout(5000);
+      const logout = page.locator('#logout');
+      await logout.click();
+      await page.waitForTimeout(1000);
+      await page.click('#logoutbtn')
+      await page.waitForTimeout(5000);
+      await expect(page).toHaveURL(loginURL)
+   });
+
 })
 
 

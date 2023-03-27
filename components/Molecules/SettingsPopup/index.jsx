@@ -97,7 +97,7 @@ export default function SettingsPopup(
     const [currentUser, setCurrentUser] = useState({})
     const [ErrorMessage, setErrorMessage] = useState("");
     const { Volume, setVolume, BGMVolume, setBGMVolume } = useContext(GameContext)
-    const { bgm1, bgm1Controller, } = useContext(userContext)
+    const { bgm, bgmController, } = useContext(userContext)
 
     const handleSignOut = async () => {
         await SignOut(auth)
@@ -122,9 +122,9 @@ export default function SettingsPopup(
                         </AudCont>
 
                         {BGMVolume > 0 ?
-                            <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setBGMVolume(0); bgm1Controller.stop() }} />
+                            <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setBGMVolume(0); bgmController.stop() }} />
                             :
-                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setBGMVolume(.2); bgm1(); }} />
+                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setBGMVolume(.2); bgm(); }} />
                         }
                     </BtnCont>
                     <BtnCont>
@@ -162,7 +162,7 @@ export default function SettingsPopup(
                             <Button type="button" text="LOGOUT" onClick={handleSignOut}
                                 color={"var(--button-red)"} colorhover={"var(--border-hard)"}
                                 border={"4px solid var(--border-hard)"} borderradius={"1.5em"}
-                                textstroke={"1px var(--button-medium)"} padding={"0.5em 6em"} />
+                                textstroke={"1px var(--button-medium)"} padding={"0.5em 6em"} id="logoutbtn"/>
                         </>
                             : <></>
                         }

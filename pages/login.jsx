@@ -3,20 +3,18 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Typography from "@/components/Atoms/Text";
 import { StrokedText } from "stroked-text";
-
-import Input from "@/components/Atoms/Input"
 import Button from "@/components/Atoms/Button"
 import Head from "next/head"
-import { SignUp, SignIn, SignOut, ForgotPassword } from "/server";
-import { useState, useEffect } from "react";
+import { SignUp, SignIn, ForgotPassword } from "/server";
+import { useState, useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase.config";
 import { useRouter } from "next/router";
-
+import { GameContext } from "./_app";
 import { PopUpWithTab } from "@/components/Atoms/Popup";
 import { m, AnimatePresence } from "framer-motion";
 import PopupPrompt from "@/components/Molecules/PopupPrompt";
-
+import useSound from "use-sound";
 
 const LoginForm = styled.form`
     display:flex;
@@ -109,6 +107,10 @@ export default function Login({
     const [currentUser, setCurrentUser] = useState({})
     const [ErrorMessage, setErrorMessage] = useState("")
     const [tabs, setTabs] = useState(true)
+    const { BGMVolume } = useContext(GameContext);
+    const [bgm2] = useSound('/music/bgm2.mp3', {
+        volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
+    });
 
     const handleChange = (event) => {
         setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });

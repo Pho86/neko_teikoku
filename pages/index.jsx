@@ -74,14 +74,10 @@ export default function Home() {
 
   // sound data
   const { Volume, setVolume, BGMVolume } = useContext(GameContext)
-  const [bgm1, bgm1Controller] = useSound('/music/bgm1.mp3', {
+  const [bgm, bgmController] = useSound('/music/bgm1.mp3', {
     volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
   }
   );
-
-  const [bgm2] = useSound('/music/bgm2.mp3', {
-    volume: BGMVolume - .1, interrupt: true
-  });
   const router = useRouter();
 
   const fetchWeather = async () => {
@@ -348,7 +344,7 @@ export default function Home() {
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
 
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm1, bgm1Controller }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
           <GameArea id="game">
 

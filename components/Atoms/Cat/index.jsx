@@ -2,7 +2,10 @@ import Image from "next/image";
 import styled from "styled-components";
 import { m } from "framer-motion";
 import { generateRandomNumber } from "@/util";
-import { useEffect, useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import useSound from "use-sound";
+import { GameContext } from "@/pages/_app";
+
 
 
 const CatImage = styled(Image)`
@@ -59,7 +62,6 @@ export default function Cat({
    const [y, setY] = useState(0);
    const [duration, setDuration] = useState(0);
    useEffect(() => {
-      // console.log(catData)
       setY(bottom)
       setX(right)
       setTimeout(() => {
@@ -73,20 +75,12 @@ export default function Cat({
       }, 1000)
    }, [])
 
+   const { Volume } = useContext(GameContext);
+   const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
    return (
       <CatBox>
-         {/* <CatArea
-            initial={{ x: `${x}vw`, y: `${y}vh` }}
-            animate={{ x: `${x}vw`, y: `${y}vh` }}
-            transition={{ duration: .2 }}
-            whileHover={{
-               scale: 1.2,
-               transition: { duration: .15 },
-            }}
-         > */}
          <CatImage bottom={`${y}vh`} right={`${x}vw`} src={image} transitionduration={duration} width={width} height={height} onClick={onClick} alt={alt} />
-         {/* </CatArea> */}
       </CatBox>
    )
 }
