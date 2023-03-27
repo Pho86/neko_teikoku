@@ -67,7 +67,7 @@ export default function CatDex({
                         {catData && catData.slice(pageMin, pageLimit).map((cat, i) => {
                            return (
                               <GridItem key={cat.id}>
-                                 <CatCard catData={cat} onClick={() => { selectCatCard(cat.id) }} />
+                                 <CatCard catData={cat} bg={cat.count > 0 ? "var(--white)" : "var(--primary-dark)" } onClick={() => { selectCatCard(cat.id) }} />
                               </GridItem>
                            )
                         })}

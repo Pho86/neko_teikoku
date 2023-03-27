@@ -179,6 +179,7 @@ export default function UserInterface({
                   <WeatherCol>
                      <ProfileRow
                         onClick={() => { setSettings(!settings) }}
+                        id="logout"
                      >
                         <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
                         <TextCont>

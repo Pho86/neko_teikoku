@@ -2,6 +2,7 @@ import { db, auth } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, sendPasswordResetEmail } from '@firebase/auth';
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc } from '@firebase/firestore';
 import OfferingsData from "@/data/ingredients.json"
+import ItemsData from "@/data/items.json"
 /**
  * @desc signs a user up with your parameter values
  * @param {*} values an object of values for email, password, and username
@@ -16,11 +17,14 @@ export const SignUp = async (values) => {
     const userUpdate = await updateProfile(userCred.user, {
         displayName: values.username
     });
-    for (let x = 0; x < 10; x++) {
+    for (let x = 0; x < 5; x++) {
         for (let i = 0; i < OfferingsData.length; i++) {
             await addUserOfferings(OfferingsData[i])
         }
     }
+    // for (let i = 0; i < ItemsData.length; i++) {
+    //     await addUserItem(ItemsData[i])
+    // }
 }
 
 /**
@@ -120,15 +124,13 @@ export const addUserItem = async (item) => {
     const q = query(collection(db, "items"), where("itemID", "==", item.id), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
     try {
-    querySnapshot.forEach((document) => {
-        data = document.id
-    });
+        querySnapshot.forEach((document) => {
+            data = document.id
+        });
         const ref = doc(db, "items", data);
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
             const update = updateDoc(ref, {
-                // don't want to update increase count above 1 yet
-                // count: docSnap.data().count + 1
                 count: docSnap.data().count
             });
         }

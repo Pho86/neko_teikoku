@@ -1,10 +1,12 @@
 import Image from "next/image"
 import { AnimatePresence, m } from "framer-motion"
 import styled from "styled-components"
-import { useState } from "react";
 import CatTextBox from "@/components/Molecules/CatTextBox";
 import AdvisorPhrases from "@/data/phrases.json"
 import { selectRandomFromArray } from "@/util";
+import { useState, useContext } from "react";
+import useSound from "use-sound";
+import { GameContext } from "@/pages/_app";
 
 const CatImage = styled(Image)`
 cursor:pointer;
@@ -52,7 +54,11 @@ export default function Advisor({
       const x = selectRandomFromArray(AdvisorPhrases[1])
       setText(x)
       setTextBox(!textbox)
-   }
+   };
+   const { Volume } = useContext(GameContext);
+
+   const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
+   
    return (
       <CatBox>
          <CatDiv>

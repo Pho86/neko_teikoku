@@ -43,13 +43,14 @@ export default function Button({
     type,
     imgwidth = 37,
     imgheight = 33,
-    width
+    width,
+    id
 }) {
     const { Volume } = useContext(GameContext )
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
     return (
-        <ButtonDiv color={color} border={border} onClick={() => { onClick(); sound() }} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type} width={width} >
+        <ButtonDiv color={color} border={border} onClick={() => { onClick(); sound() }} colorhover={colorhover} padding={padding} borderradius={borderradius} type={type} width={width} id={id}>
             {text && <StrokedText fill={textcolor} stroke={colorhover} strokeWidth={5} style={{
                 fontSize: size, fontWeight: weight
             }} >

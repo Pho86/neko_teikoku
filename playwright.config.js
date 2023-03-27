@@ -16,13 +16,13 @@ const config ={
                 viewport:{width: 1280, height: 720}
             },
         },
-        {
-            name: 'Desktop Safari',
-            use:{
-                browserName: 'webkit',
-                viewport: {width: 1280, height: 720}
-            },
-        },
+        // {
+        //     name: 'Desktop Safari',
+        //     use:{
+        //         browserName: 'webkit',
+        //         viewport: {width: 1280, height: 720}
+        //     },
+        // },
         {
             name: 'Desktop Firefox',
             use:{

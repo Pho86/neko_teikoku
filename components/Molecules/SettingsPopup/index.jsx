@@ -7,6 +7,7 @@ import { useState, useContext } from "react";
 import { auth } from "@/firebase/firebase.config";
 import { AnimatePresence } from "framer-motion";
 import { GameContext } from "@/pages/_app";
+import { userContext } from "@/pages";
 
 const PopupCont = styled.div`
     background-color: var(--primary);
@@ -28,6 +29,7 @@ const BtnCont = styled.div`
     align-items: center;
     flex-direction: row;
     gap: 1em;
+    align-self:flex-start;
 `
 const CusHr = styled.div`
     width: 18em;
@@ -51,7 +53,7 @@ align-items: flex-start;
 `
 
 const AudBar = styled.div`
-    width: 9em;
+    width: 7.5em;
     height:0.5em;
     background-color: var(--button-light);
     margin-top: 0.5em;
@@ -94,7 +96,8 @@ export default function SettingsPopup(
 
     const [currentUser, setCurrentUser] = useState({})
     const [ErrorMessage, setErrorMessage] = useState("");
-    const { Volume, setVolume } = useContext(GameContext)
+    const { Volume, setVolume, BGMVolume, setBGMVolume } = useContext(GameContext)
+    const { bgm, bgmController, } = useContext(userContext)
 
     const handleSignOut = async () => {
         await SignOut(auth)
@@ -107,11 +110,27 @@ export default function SettingsPopup(
                 <PopupCont
                     exit={exit}
                 >
-
                     <BtnCont>
                         <AudCont>
                             <Typography
-                                text={"sound"}
+                                text={"bgm"}
+                                weight={"400"}
+                                size={"1.3rem"}
+                                color={"var(--black)"}
+                            />
+                            <AudBar />
+                        </AudCont>
+
+                        {BGMVolume > 0 ?
+                            <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setBGMVolume(0); bgmController.stop() }} />
+                            :
+                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setBGMVolume(.2); bgm(); }} />
+                        }
+                    </BtnCont>
+                    <BtnCont>
+                        <AudCont>
+                            <Typography
+                                text={"sound fx"}
                                 weight={"400"}
                                 size={"1.3rem"}
                                 color={"var(--black)"}
@@ -122,7 +141,7 @@ export default function SettingsPopup(
                         {Volume > 0 ?
                             <Button text={`MUTE`} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(0) }} />
                             :
-                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(1) }} />
+                            <Button text={`UNMUTE`} color={"var(--button-red)"} colorhover={"var(--border-hard)"} border={"4px solid var(--border-hard)"} borderradius={"1.5em"} padding={"0.2em 1.5em"} textstroke={"1px var(--button-medium)"} onClick={() => { setVolume(.5) }} />
                         }
 
                     </BtnCont>
@@ -143,7 +162,7 @@ export default function SettingsPopup(
                             <Button type="button" text="LOGOUT" onClick={handleSignOut}
                                 color={"var(--button-red)"} colorhover={"var(--border-hard)"}
                                 border={"4px solid var(--border-hard)"} borderradius={"1.5em"}
-                                textstroke={"1px var(--button-medium)"} padding={"0.5em 6em"} />
+                                textstroke={"1px var(--button-medium)"} padding={"0.5em 6em"} id="logoutbtn"/>
                         </>
                             : <></>
                         }

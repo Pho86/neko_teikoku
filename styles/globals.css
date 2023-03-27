@@ -1,6 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fredoka'); */
 :root {
   --primary: #FEF9ED;
+  --primary-dark: #ededed;
   --secondary: #D9D9D9;
   --white: #FFFFFF;
   --border: #EF9771;
@@ -56,19 +57,11 @@ a {
 .background {
   background: url("/backgrounds/default.png") no-repeat;
   background-size: cover;
-  /* background-size: 100vw 150dvh; */
-  /* background-size:inherit ; */
-  /* background-position: center; */
-  /* background-repeat: no-repeat; */
 }
 
 .backgroundSnowy {
   background: url("/backgrounds/default.png") no-repeat;
   background-size: cover;
-  /* background-size: 100vw 150dvh; */
-  /* background-size:inherit ; */
-  /* background-position: center; */
-  /* background-repeat: no-repeat; */
 }
 
 .loginBackground {

@@ -3,27 +3,23 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Typography from "@/components/Atoms/Text";
 import { StrokedText } from "stroked-text";
-
-import Input from "@/components/Atoms/Input"
 import Button from "@/components/Atoms/Button"
 import Head from "next/head"
-import { SignUp, SignIn, SignOut, ForgotPassword } from "/server";
-import { useState, useEffect } from "react";
+import { SignUp, SignIn, ForgotPassword } from "/server";
+import { useState, useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase.config";
 import { useRouter } from "next/router";
-
+import { GameContext } from "./_app";
 import { PopUpWithTab } from "@/components/Atoms/Popup";
 import { m, AnimatePresence } from "framer-motion";
 import PopupPrompt from "@/components/Molecules/PopupPrompt";
-
+import useSound from "use-sound";
 
 const LoginForm = styled.form`
     display:flex;
     flex-direction:column;
-    // width:30%;
     padding: 1em;
-    // gap: 1em;
     width: 23.5em;
 `
 const InputLogin = styled.input`
@@ -66,22 +62,20 @@ const ImgCont = styled.div`
     flex-direction:column;
     align-items:center;
     padding:4em;
-    pointer-events:none;
 `
 const InputDiv = styled.div`
     display:flex;
     flex-direction:column;
-    // width:30%;
     padding: 1em 0;
     gap: 1em;
 `
 const SpaceDiv = styled.div`
 padding:1em;
 `
+
 const BtnSpaceDiv = styled.div`
 padding-top:1em;
 padding-bottom:1em;
-
 `
 
 const TitleDiv = styled.div`
@@ -113,6 +107,10 @@ export default function Login({
     const [currentUser, setCurrentUser] = useState({})
     const [ErrorMessage, setErrorMessage] = useState("")
     const [tabs, setTabs] = useState(true)
+    const { BGMVolume } = useContext(GameContext);
+    const [bgm2] = useSound('/music/bgm2.mp3', {
+        volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
+    });
 
     const handleChange = (event) => {
         setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value });
@@ -131,7 +129,7 @@ export default function Login({
             setErrorMessage("ERROR OCCURED")
         }
     }
-    
+
     const handleLoginSubmit = async () => {
         setErrorMessage("signing in...")
         try {
@@ -174,14 +172,14 @@ export default function Login({
                         <AnimatePresence>
                             <>
                                 <ImgCont>
-                                    <m.div >
-                                        <Image
-                                            src={'/icons/nekoTeikokuV2.svg'}
-                                            width={500}
-                                            height={100}
-                                            alt={"Neko Teikoku Logo Horizontal"}
-                                        />
-                                    </m.div>
+                                    <Image
+                                        src={'/icons/nekoTeikokuV2.svg'}
+                                        width={500}
+                                        height={100}
+                                        alt={"Neko Teikoku Logo Horizontal"}
+                                        onClick={() => { setStart(true) }}
+                                        id="logo"
+                                    />
                                 </ImgCont>
                                 <StartDiv
                                     initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}
@@ -352,6 +350,7 @@ export default function Login({
                             btnClick={() => { setForgot(false) }}
                             btnClick1={handleForgotPassword}
                             onChange={handleChange}
+                            id="confirmation"
                         />
                         }
                     </AnimatePresence>

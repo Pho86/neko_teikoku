@@ -73,10 +73,11 @@ export default function Home() {
   const catUrl = useRef('/api/catbreed');
 
   // sound data
-  const { Volume, setVolume } = useContext(GameContext)
-  const [bgm1] = useSound('/music/bgm1.mp3', { volume: Volume, loop: true, interrupt: true });
-  const [bgm2] = useSound('/music/bgm2.mp3', { volume: Volume, });
-
+  const { Volume, setVolume, BGMVolume } = useContext(GameContext)
+  const [bgm, bgmController] = useSound('/music/bgm1.mp3', {
+    volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
+  }
+  );
   const router = useRouter();
 
   const fetchWeather = async () => {
@@ -139,7 +140,6 @@ export default function Home() {
 
   const generateCats = async (data, amountOfCats) => {
     let randomMeows = randomCats;
-    console.log(randomMeows)
     for (let i = 0; i < amountOfCats; i++) {
       let randomCat = await selectRandomFromArray(data);
       await addCatData(randomCat)
@@ -288,26 +288,26 @@ export default function Home() {
         const amountOfCats = generateRandomNumber(1, 3);
         console.log(amountOfCats)
         await generateCats(cats, amountOfCats)
-
         await fetchCats();
       }, 1500);
     }
   }
 
   const Playit = () => {
-    var audio = new Audio({ src: ["/music/bgm1.mp3"], Volume: .5 });
+    var audio = new Audio({ src: ["/music/bgm1.mp3"], Volume: Volume });
     audio.play();
   }
 
   useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser != null) {
-        // Playit()
         const currentUserData = await fetchCurrentUserData();
         setCurrentUser(currentUser);
         setLocation(currentUserData.location);
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
         await fetchAllData();
+        // bgm1();
+        // Playit();
 
         // PLACEHOLDER FOR TESTING
         await addUserItem(ItemData[0]);
@@ -316,8 +316,10 @@ export default function Home() {
       }
     })
 
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   const setOfferings = async (offerings) => {
     offerings.filter(async (offers) => {
       if (offers.state === false) {
@@ -328,8 +330,8 @@ export default function Home() {
         }
       }
     })
-    const fetchofferings = await fetchOfferings();
-    setCurrentOfferings(fetchofferings)
+    const fetchedofferings = await fetchOfferings();
+    setCurrentOfferings(fetchedofferings)
   }
   return (
 
@@ -342,7 +344,7 @@ export default function Home() {
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
 
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
           <GameArea id="game">
 
@@ -372,7 +374,7 @@ export default function Home() {
         </userContext.Provider>
 
 
-        <h2 className={styles.head} >meowing @ {weather && weather.name.toLowerCase()}</h2>
+        <h2 className={styles.head} id="meowing" >meowing @ {weather && weather.name.toLowerCase()}</h2>
 
       </main>
     </>

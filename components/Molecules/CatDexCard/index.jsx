@@ -87,7 +87,10 @@ export default function CatDexCard({
                               {catData.breedName}
                            </StrokedText>
                         </CatDexCardHead>
-                        <EmptySpace axis={"horizontal"} size={30} />
+                        <Typography
+                           text={`appearances: ${catData.count ? catData.count : 0}`}
+                           weight={500}
+                        />
                      </CatDexCardTitle>
                      <EmptySpace axis={"vertical"} size={15} />
                      <CatDexCardContent>

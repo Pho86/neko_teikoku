@@ -11,7 +11,7 @@
       "image": "/treats/onigiri.svg",
       "id": 2,
       "ing1": 0,
-      "ing2": 3
+      "ing2": 1
    },
    {
       "name": "cake",
@@ -24,7 +24,7 @@
       "name": "fish",
       "image": "/treats/fish.svg",
       "id": 4,
-      "ing1": 4,
-      "ing2": 3
+      "ing1": 3,
+      "ing2": 4
    }
 ]

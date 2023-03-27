@@ -37,7 +37,8 @@ export default function Typography({
    padding,
    width,
    textHover,
-   onClick = () => {}
+   onClick = () => {},
+   id
 }) {
    return (
       <Text
@@ -51,6 +52,7 @@ export default function Typography({
          width={width}
          textHover={textHover}
          onClick={onClick}
+         id={id}
       >
          {text}
       </Text>
