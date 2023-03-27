@@ -21,9 +21,7 @@ import PopupPrompt from "@/components/Molecules/PopupPrompt";
 const LoginForm = styled.form`
     display:flex;
     flex-direction:column;
-    // width:30%;
     padding: 1em;
-    // gap: 1em;
     width: 23.5em;
 `
 const InputLogin = styled.input`
@@ -66,22 +64,20 @@ const ImgCont = styled.div`
     flex-direction:column;
     align-items:center;
     padding:4em;
-    pointer-events:none;
 `
 const InputDiv = styled.div`
     display:flex;
     flex-direction:column;
-    // width:30%;
     padding: 1em 0;
     gap: 1em;
 `
 const SpaceDiv = styled.div`
 padding:1em;
 `
+
 const BtnSpaceDiv = styled.div`
 padding-top:1em;
 padding-bottom:1em;
-
 `
 
 const TitleDiv = styled.div`
@@ -131,7 +127,7 @@ export default function Login({
             setErrorMessage("ERROR OCCURED")
         }
     }
-    
+
     const handleLoginSubmit = async () => {
         setErrorMessage("signing in...")
         try {
@@ -174,14 +170,14 @@ export default function Login({
                         <AnimatePresence>
                             <>
                                 <ImgCont>
-                                    <m.div >
-                                        <Image
-                                            src={'/icons/nekoTeikokuV2.svg'}
-                                            width={500}
-                                            height={100}
-                                            alt={"Neko Teikoku Logo Horizontal"}
-                                        />
-                                    </m.div>
+                                    <Image
+                                        src={'/icons/nekoTeikokuV2.svg'}
+                                        width={500}
+                                        height={100}
+                                        alt={"Neko Teikoku Logo Horizontal"}
+                                        onClick={() => { setStart(true) }}
+                                        id="logo"
+                                    />
                                 </ImgCont>
                                 <StartDiv
                                     initial={{ y: 5 }} animate={{ y: -5 }} transition={{ repeat: Infinity, repeatType: "reverse", duration: 1, ease: 'easeInOut' }}
@@ -352,6 +348,7 @@ export default function Login({
                             btnClick={() => { setForgot(false) }}
                             btnClick1={handleForgotPassword}
                             onChange={handleChange}
+                            id="confirmation"
                         />
                         }
                     </AnimatePresence>

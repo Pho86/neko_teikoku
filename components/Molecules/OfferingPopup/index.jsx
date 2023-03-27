@@ -80,7 +80,7 @@ export default function Offerings(
                                         })}
                                     </InvCont>
                                     <BtnCont>
-                                        <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={() => { setOfferings(currentOfferings) }} />
+                                        {/* <Button text={btnText} color={"var(--button-light)"} colorhover={"var(--button-medium)"} border={"4px solid var(--button-medium)"} borderradius={"1.5em"} padding={"0.3em 2em"} textstroke={"1px var(--button-medium)"} onClick={() => { setOfferings(currentOfferings) }} /> */}
                                     </BtnCont>
                                 </>
                             }>

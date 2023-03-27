@@ -3,7 +3,7 @@ import Typography from "@/components/Atoms/Text";
 import Image from 'next/image';
 
 const CatCardDiv = styled.div`
-background-color:var(--white);
+background-color:${props => props.bg || "var(--white)"};
 padding:1em 1.5em .3em 1.5em;
 gap:1em;
 display:flex;
@@ -28,7 +28,7 @@ flex-direction:column;
 gap:.5em;
 text-align:left;
 `
-const CatCardContent =styled.div`
+const CatCardContent = styled.div`
 display:flex;
 justify-content:space-between;
 `
@@ -42,25 +42,25 @@ background-color: var(--light-accent);
 export default function CatCard({
    catData,
    onClick = () => { },
+   bg
 }) {
    return (
-      <CatCardDiv onClick={onClick}>
+      <CatCardDiv onClick={onClick} bg={bg}>
          <CatCardContent>
-
-         <CatTextDiv>
-            <Typography
-               text={`no. ${catData.id.toString().padStart(2, '0')}`}
-               color={"var(--secondary-accent)"}
-               weight={"500"}
+            <CatTextDiv>
+               <Typography
+                  text={`no. ${catData.id.toString().padStart(2, '0')}`}
+                  color={"var(--secondary-accent)"}
+                  weight={"500"}
                />
-            <Typography
-               text={catData.breedName}
-               weight={"500"}
-               size={"1.2rem"}
+               <Typography
+                  text={catData.breedName}
+                  weight={"500"}
+                  size={"1.2rem"}
                />
-         </CatTextDiv>
-         <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50,  }} />
-               </CatCardContent>
+            </CatTextDiv>
+            <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50, }} />
+         </CatCardContent>
          <CatCardHighlight />
       </CatCardDiv>
    )

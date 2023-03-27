@@ -82,19 +82,21 @@ export default function PopupPrompt(
         initial,
         animate,
         transition,
-        exit
+        exit,
+        id
     }
 ) {
 
     return (
         <>
             <PopupCont initial={initial} animate={animate} transition={transition} exit={exit}>
-                <PopupText>
+                <PopupText >
                     <Typography
                         text={poptext}
                         weight={"400"}
                         size={"1.5em"}
                         color={"var(--black)"}
+                        id={id}
                     />
                 </PopupText>
 

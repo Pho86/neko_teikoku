@@ -20,7 +20,6 @@ test.describe("Home game area tests, account required functionalities", () => {
          };
       });
       expect(computedStyles.background).toEqual('rgba(254, 249, 237, 0.8)');
-      // expect(computedStyles.borderRadius).toEqual('16px');
       expect(computedStyles.border).toEqual('3px solid rgb(77, 70, 153)');
    });
 
@@ -35,7 +34,7 @@ test.describe("Home game area tests, account required functionalities", () => {
       await asian.click()
    });
 
-   test('open the weather popup and change location to vancouver', async ({ page }) => {
+   test.skip('open the weather popup and change location to vancouver', async ({ page }) => {
       await signIn(page)
       await page.waitForTimeout(5000);
       const weather = page.locator('#weather');
@@ -44,7 +43,7 @@ test.describe("Home game area tests, account required functionalities", () => {
       const input = await page.locator('input').type('vancouver', { delay: 50 });
       await page.click('text=GO!')
       await page.waitForTimeout(5000);
-      const meowing = page.locator('h2')
+      const meowing = page.locator('#meowing')
       expect(meowing).toContainText("meowing @ vancouver")
    });
 

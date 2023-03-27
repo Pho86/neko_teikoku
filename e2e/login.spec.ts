@@ -20,7 +20,7 @@ test.describe("Head Area of login page", () => {
 test.describe("Login area tests", () => {
   test.skip('find the start button and press it, then test the tabs, then login to a test account', async ({ page }) => {
     await page.goto(loginURL)
-    const start = page.locator('#start')
+    const start = page.locator('#logo')
     await start.click()
     await page.click('text=register')
     await page.click('text=login')
@@ -36,8 +36,9 @@ test.describe("Login area tests", () => {
 test.describe("forget password popup", () => {
   test('find the forgot password button then submit a request', async ({ page }) => {
     await page.goto(loginURL)
-    await page.waitForTimeout(1000);
-    const start = page.locator('#start')
+    await page.waitForTimeout(1500);
+    const start = page.locator('#logo')
+    await page.waitForTimeout(1500);
     await start.click()
     await page.click('text=Forgot Your Password?')
     const emailinput = await page.locator('input').last().type('test@meow.meow', { delay: 50 });
@@ -46,6 +47,7 @@ test.describe("forget password popup", () => {
     const text = page.locator('#forgotPass');
     await Submit.click()
     await page.waitForTimeout(5000);
-    expect(text).toContainText('an email has been sent')
+    const emailCon = page.locator('#confirmation');
+    expect(emailCon).toContainText('an email has been sent')
   })
 })
