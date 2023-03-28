@@ -84,7 +84,7 @@ export default function TreatsDex({
                                 }
                             }}
                             onNext={() => {
-                                if (currentPage < 2) {
+                                if (currentPage < 3) {
                                     setCurrentPage(currentPage + 1);
                                     setPageMin(pageMin + 2);
                                     setPageLimit(pageLimit + 2);

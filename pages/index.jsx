@@ -290,14 +290,17 @@ export default function Home() {
     if (item.count >= 1) {
       setActiveItems([...activeItems, item])
       item.count -= 1
+      soundPlace();
     }
   }
+  const [soundPlace] = useSound('/sound/place.mp3', { volume: Volume-.3, });
 
   const addTreat = async (treat) => {
     if (treat.count > 0) {
       const treats = await adjustUserTreat(treat)
       setActiveTreats([treat])
       treat.count -= 1
+      soundPlace();
       setTimeout(async () => {
         const amountOfCats = generateRandomNumber(1, 3);
         await generateCats(cats, amountOfCats)

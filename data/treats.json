@@ -7,11 +7,11 @@
       "ing2": 2
    },
    {
-      "name": "onigiri",
-      "image": "/treats/onigiri.svg",
+      "name": "mochi",
+      "image": "/treats/mochi.svg",
       "id": 2,
-      "ing1": 0,
-      "ing2": 1
+      "ing1": 1,
+      "ing2": 0
    },
    {
       "name": "cake",
@@ -21,10 +21,24 @@
       "ing2": 5
    },
    {
+      "name": "onigiri",
+      "image": "/treats/onigiri.svg",
+      "id": 4,
+      "ing1": 0,
+      "ing2": 4
+   },
+   {
       "name": "fish",
       "image": "/treats/fish.svg",
-      "id": 4,
+      "id": 5,
       "ing1": 3,
       "ing2": 4
+   },
+   {
+      "name": "ratatouille",
+      "image": "/treats/ratatouille.svg",
+      "id": 5,
+      "ing1": 3,
+      "ing2": 2
    }
 ]

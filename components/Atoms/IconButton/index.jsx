@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import useSound from 'use-sound';
 import { useContext } from "react";
-import { userContext } from "@/pages";
+import { GameContext } from "@/pages/_app";
 
 const Button = styled.button`
 outline:none;
@@ -44,10 +44,10 @@ export default function IconButton({
    secondImage,
    type
 }) {
-   // const { Volume } = useContext(userContext)
-   // const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
+   const { Volume } = useContext(GameContext)
+   const [sound] = useSound('/sound/page.mp3', { volume: Volume-.3, });
    const [ishovering, sethovering] = useState(false);
-   return <Button onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} onClick={onClick} >
+   return <Button onMouseEnter={() => { sethovering(true) }} onMouseLeave={() => { sethovering(false) }} onClick={()=>{ onClick(); sound() }} >
       {hover ?
          <>
             {
