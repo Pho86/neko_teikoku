@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Image from 'next/image';
 import CatPhrases from "@/data/phrases.json"
-import OfferingImg from "@/data/ingredients.json"
 import { selectRandomFromArray } from "@/util";
 import { useEffect, useState } from "react";
 

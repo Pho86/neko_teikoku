@@ -64,7 +64,7 @@ cursor:pointer;
 `
 
 export const PopUpCont = styled(m.div)`
-position:fixed;
+position:${props => props.pos || "fixed"};
 z-index:55;
 display:flex;
 flex-direction:column;
@@ -145,6 +145,7 @@ export function PopUpWithTab({
    tabcolor,
    onSecondTabClick = () => { },
    onFirstTabClick = () => { },
+   pos
 }) {
    const { Volume } = useContext(GameContext)
    const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
@@ -153,6 +154,7 @@ export function PopUpWithTab({
          animate={animate}
          transition={transition}
          exit={exit}
+         pos={pos}
       >
          <TopTabs>
             <TopTab tabcolor={tabcolor ? "var(--button-light)" : "var(--border)"} onClick={onFirstTabClick}>

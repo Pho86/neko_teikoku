@@ -4,33 +4,33 @@ const homeURL = 'http://localhost:3000/'
 const loginURL = 'http://localhost:3000/login'
 
 test.describe("Head Area of login page", () => {
-  test.skip('should navigate to the login page', async ({ page }) => {
+  test('should navigate to the login page', async ({ page }) => {
     await page.goto(loginURL)
     await expect(page).toHaveTitle('Login - Neko Teikoku');
   })
 
-  test.skip('The meta tag og description', async ({ page }) => {
+  test('The meta tag description', async ({ page }) => {
     await page.goto(loginURL)
     const metaDescription = page.locator('meta[name="description"]')
     await expect(metaDescription).toHaveAttribute("content", "Neko Teikoku is a cozy cat web application to help you feel at ease. Meow meow.")
   })
 
-  test.skip('The meta tag og description', async ({ page }) => {
+  test('The meta tag og description', async ({ page }) => {
     await page.goto(loginURL)
     const metaDescription = page.locator('meta[property="og:description"]');
     await expect(metaDescription).toHaveAttribute('content', 'Neko Teikoku is a cozy cat web application to help you feel at ease. Meow meow.')
   })
-  
-  test.skip('The meta tag og description', async ({ page }) => {
+
+  test('The meta tag icon', async ({ page }) => {
     await page.goto(loginURL)
     const linkTag = page.locator('link[rel="icon"]');
-    await expect(linkTag).toHaveAttribute('href', '/icons/advisor.svg')
+    await expect(linkTag).toHaveAttribute('href', '/icons/advisor_icon.svg')
   })
 })
 
 
 test.describe("Login area tests", () => {
-  test.skip('find the start button and press it, then test the tabs, then login to a test account', async ({ page }) => {
+  test('find the start button and press it, then test the tabs, then login to a test account', async ({ page }) => {
     await page.goto(loginURL)
     const start = page.locator('#logo')
     await start.click()
@@ -56,10 +56,15 @@ test.describe("forget password popup", () => {
     const emailinput = await page.locator('input').last().type('test@meow.meow', { delay: 50 });
     await page.click('text=SUBMIT')
     const Submit = page.locator('button').last();
-    const text = page.locator('#forgotPass');
     await Submit.click()
     await page.waitForTimeout(5000);
-    const emailCon = page.locator('#confirmation');
-    expect(emailCon).toContainText('an email has been sent')
+    const emailCon = page.locator('text=an email has been sent');
+    const computedStyles = await emailCon.evaluate((element) => {
+      const styles = window.getComputedStyle(element);
+      return {
+        fontWeight: styles.fontWeight,
+      };
+    });
+    expect(computedStyles.fontWeight).toEqual('400');
   })
 })

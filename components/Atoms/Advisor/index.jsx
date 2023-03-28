@@ -62,7 +62,7 @@ export default function Advisor({
    return (
       <CatBox>
          <CatDiv>
-            <CatImage src={'/cats/advisor.svg'} id="advisor" width={180} height={150} alt={'this is your advisor'} onClick={HandleTextBox} />
+            <CatImage src={'/cats/advisor/sleeping.gif'} id="advisor" width={180} height={180} alt={'this is your advisor'} onClick={HandleTextBox} />
             <AnimatePresence>
                {textbox && <CatTextBox text={text} />}
             </AnimatePresence>

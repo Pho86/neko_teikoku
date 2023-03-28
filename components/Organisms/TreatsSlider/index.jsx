@@ -1,15 +1,13 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import TreatsData from "@/data/treats.json"
-import IconButton from "@/components/Atoms/IconButton";
 import { SliderTab } from "@/components/Atoms/Slider";
 import { userContext } from "@/pages";
 import { GameContext } from "@/pages/_app";
 import useSound from "use-sound";
-import { adjustUserTreat } from "@/server";
 
 
 const Grid = styled.div`

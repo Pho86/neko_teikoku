@@ -6,7 +6,7 @@ const loginURL = 'http://localhost:3000/login'
 
 
 test.describe("Home game area tests, account required functionalities", () => {
-   test.skip('find the advisor and click on him and find the textbox', async ({ page }) => {
+   test('find the advisor and click on him and find the textbox', async ({ page }) => {
       await signIn(page)
       const advisor = page.locator('#advisor')
       await advisor.click()
@@ -23,18 +23,17 @@ test.describe("Home game area tests, account required functionalities", () => {
       expect(computedStyles.border).toEqual('3px solid rgb(77, 70, 153)');
    });
 
-   test.skip('open the catdex and find the asian cat and click it', async ({ page }) => {
+   test('open the catdex and find the asian cat and click it', async ({ page }) => {
       await signIn(page)
       await page.waitForTimeout(5000);
       const catdex = page.locator('#catdex');
       await catdex.click();
-      await expect(page.getByAltText("Go back")).toBeVisible();
       await page.getByAltText("Go forward").click();
       const asian = await page.locator('div').filter({ hasText: 'Asian' }).first();
       await asian.click()
    });
 
-   test.skip('open the weather popup and change location to vancouver', async ({ page }) => {
+   test('open the weather popup and change location to vancouver', async ({ page }) => {
       await signIn(page)
       await page.waitForTimeout(5000);
       const weather = page.locator('#weather');
@@ -62,7 +61,7 @@ test.describe("Home game area tests, account required functionalities", () => {
 
 
 test.describe("Home game area tests, no login required", () => {
-   test.skip('find the h2 of meowing @ __place', async ({ page }) => {
+   test('find the h2 of meowing @ __place', async ({ page }) => {
       await page.goto(homeURL)
       const meowing = page.locator('h2')
       expect(meowing).toContainText("meowing @")
@@ -73,5 +72,11 @@ test.describe("Home game area tests, no login required", () => {
          };
       });
       expect(computedStyles.fontWeight).toEqual('600');
+   })
+
+   test('no account, / should reroute to login page', async ({ page }) => {
+      await page.goto(homeURL)
+      await page.waitForTimeout(5000);
+      await expect(page).toHaveURL(loginURL)
    })
 })

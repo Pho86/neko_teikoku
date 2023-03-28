@@ -31,24 +31,11 @@ const InvCont = styled.div`
 
 export default function Offerings(
     {
-        btnText,
-        btnClick = () => { },
-        onChange,
-        exit,
         onExit = () => { },
         active,
     }
 ) {
-    const { currentOfferings, setCurrentOfferings, setOfferings } = useContext(userContext)
-    const setOfferingState = async (offerings) => {
-        // for (let i = 0; i < offerings.length; i++) {
-        //     currentOfferings[offerings[i].id - 1].state = true
-        //     console.log(currentOfferings[offerings[i].id - 1])
-        //     await changeUserOfferingState(offerings[i]);
-        // }
-        // setCurrentOfferings(currentOfferings)
-        // console.log(currentOfferings)
-    }
+    const { currentOfferings, setOfferings } = useContext(userContext)
     return (
         <>
             <AnimatePresence>
@@ -60,11 +47,12 @@ export default function Offerings(
                             size={"1.2em"}
                             direction="column"
                             initial={{ y: "-100vh", x: 60 }}
-                            animate={{ y: "20%", x: 60 }}
+                            animate={{ y: "-5%", x: 60 }}
                             exit={{ y: "-100vh" }}
                             transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                             onExit={onExit}
                             exitTab
+                            pos="relative"
                             content={
                                 <>
                                     <InvCont>
@@ -76,7 +64,6 @@ export default function Offerings(
                                                 )
                                             }
                                             return
-
                                         })}
                                     </InvCont>
                                     <BtnCont>
