@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Button from "@/components/Atoms/Button";
-
 import { SignOut } from "/server";
 import { useState, useContext } from "react";
 import { auth } from "@/firebase/firebase.config";

@@ -1,6 +1,6 @@
 import { db, auth } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, sendPasswordResetEmail } from '@firebase/auth';
-import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc } from '@firebase/firestore';
+import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc, orderBy } from '@firebase/firestore';
 import OfferingsData from "@/data/ingredients.json"
 import ItemsData from "@/data/items.json"
 /**
@@ -22,9 +22,9 @@ export const SignUp = async (values) => {
             await addUserOfferings(OfferingsData[i])
         }
     }
-    // for (let i = 0; i < ItemsData.length; i++) {
-    //     await addUserItem(ItemsData[i])
-    // }
+    for (let i = 0; i < ItemsData.length; i++) {
+        await addUserItem(ItemsData[i])
+    }
 }
 
 /**
@@ -79,6 +79,22 @@ export const addCatData = async (cat) => {
     }
 }
 
+export const updateUserData = async (data) => {
+    let count = 0;
+    let progress = 0;
+    await data.forEach((element) => {
+        if (element.count != undefined) {
+            count += element.count
+            progress += 1
+        }
+    })
+    const ref = doc(db, "users", auth.currentUser.uid)
+    await updateDoc(ref, {
+        catsVisited: count,
+        catsCompletion: progress
+    });
+}
+
 export const fetchCatData = async () => {
     let data = []
     const q = query(collection(db, "cats"), where("uid", "==", auth.currentUser.uid));
@@ -120,7 +136,6 @@ export const fetchUserItems = async () => {
 
 export const addUserItem = async (item) => {
     let data;
-    console.log()
     const q = query(collection(db, "items"), where("itemID", "==", item.id), where("uid", "==", auth.currentUser.uid));
     const querySnapshot = await getDocs(q);
     try {
@@ -181,14 +196,33 @@ export const makeTreat = async (food, items) => {
     catch (error) {
         const treatData = {
             uid: auth.currentUser.uid,
-            name: food.name,
             count: 1,
             itemID: food.id,
-            image: food.image,
             ing1ID: items[food.ing1].itemID,
             ing2ID: items[food.ing2].itemID
         }
         const docRef = await addDoc(collection(db, "treats"), treatData);
+    }
+    const ref = doc(db, "users", auth.currentUser.uid)
+    const docSnap = await getDoc(ref)
+    try {
+        if (docSnap.exists()) {
+            if (docSnap.data().cooked) {
+                await updateDoc(ref, {
+                    cooked: docSnap.data().cooked + 1
+                });
+            }
+            else {
+                await updateDoc(ref, {
+                    cooked: 1
+                });
+            }
+        }
+    }
+    catch (error) {
+        await updateDoc(ref, {
+            cooked: 1
+        });
     }
     return true
 }
@@ -245,7 +279,6 @@ export const addUserOfferings = async (offering) => {
             uid: auth.currentUser.uid,
             count: 1,
             itemID: offering.id,
-            // cat: offering.cat,
             state: false,
         }
         const docRef = await addDoc(collection(db, "offerings"), offeringData);
@@ -263,14 +296,19 @@ export const fetchUserOfferings = async () => {
 }
 
 export const changeUserOfferingState = async (offering) => {
-    try {
-        const docRef = doc(db, "offerings", offering.itemID);
-        const docSnap = await getDoc(docRef);
-        await updateDoc(docRef, {
-            state: true,
-        });
-    } catch (error) {
-        // console.log(error)
-    }
+    const docRef = doc(db, "offerings", offering.itemID);
+    const docSnap = await getDoc(docRef);
+    await updateDoc(docRef, {
+        state: true,
+    });
 }
 
+export const fetchLeaderboard = async () => {
+    const userCollection = await query(collection(db, "users"), orderBy('catsVisited', "desc"));
+    const querySnapshot = await getDocs(userCollection);
+    let data = [];
+    querySnapshot.forEach((document) => {
+        data.push({ ...document.data(), id: document.id })
+    })
+    return data;
+}

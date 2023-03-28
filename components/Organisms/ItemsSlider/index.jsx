@@ -2,10 +2,8 @@ import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import ItemCard from "@/components/Atoms/ItemCard";
 import Typography from "@/components/Atoms/Text";
-import { useState, useEffect, useContext } from "react";
-import ItemData from "@/data/items.json"
+import { useState, useContext } from "react";
 import { SliderTab } from "@/components/Atoms/Slider";
-import Ingredients from "@/data/ingredients.json"
 import { userContext } from "@/pages";
 import { GameContext } from "@/pages/_app";
 import useSound from "use-sound";

@@ -19,7 +19,7 @@ display:grid
 export default function CatDex({
    catData,
    onExit = () => { },
-   catDex,
+   active,
    selectCatCard = (id) => { return id; },
 
 }) {
@@ -34,7 +34,7 @@ export default function CatDex({
 
    return (
       <AnimatePresence>
-         {catDex === true &&
+         {active === true &&
             <>
                <OpacityBackgroundFade key={"CatDex Fade"} onClick={onExit} />
                <PopUpWithTab
@@ -43,11 +43,12 @@ export default function CatDex({
                   size={"1.2em"}
                   direction="row"
                   initial={{ y: "-100vh" }}
-                  animate={{ y: "-5%" }}
+                  animate={{ y: "0vh" }}
                   exit={{ y: "-100vh" }}
                   transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                   exitTab
                   arrows
+                  pos="relative"
                   onPrevious={() => {
                      if (currentPage > 1) {
                         setCurrentPage(currentPage - 1);

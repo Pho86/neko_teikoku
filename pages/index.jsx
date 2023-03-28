@@ -7,14 +7,15 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserItem, addUserTreat, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
-import CatDex from '@/components/Organisms/CatDex';
+import CatDex from '@/components/Organisms/LeaderboardDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
 import ItemData from "@/data/items.json"
 import TreatsData from "@/data/treats.json"
+import CatData from "@/data/cat.json"
 import Item from '@/components/Atoms/Item';
 import Treats from '@/components/Atoms/Treats';
 import { EmptySpace } from '@/components/Atoms/EmptySpacer';
@@ -59,7 +60,8 @@ export default function Home() {
   const [activeItems, setActiveItems] = useState([]);
   const [activetreats, setActiveTreats] = useState([]);
   const [currentOfferings, setCurrentOfferings] = useState([])
-  const [currentTreats, setCurrentTreats] = useState([])
+  const [currentTreats, setCurrentTreats] = useState([]);
+  const [currentLeaderboard, setCurrentLeaderboard] = useState([])
 
   // user weather data
   const [location, setLocation] = useState("Vancouver");
@@ -159,6 +161,8 @@ export default function Home() {
       setRandomCats([...randomMeows, randomCat])
     }
     const offerings = await fetchOfferings();
+    const newCats = await fetchCats();
+    await updateUserData(newCats)
     setCurrentOfferings(offerings)
   }
 
@@ -205,6 +209,11 @@ export default function Home() {
       for (let i = 0; i < userCats.length; i++) {
         if (cat.id === userCats[i].catId) {
           cat.count = userCats[i].count;
+        }
+      }
+      for (let x = 0; x < CatData.length; x++) {
+        if (cat.id % 2 === 0) {
+          // console.log('x')
         }
       }
     })
@@ -259,6 +268,7 @@ export default function Home() {
     const offerings = await fetchOfferings();
     const items = await fetchItems();
     const treats = await fetchTreats();
+    await fetchLeaderboardUsers();
     try {
       setWeather(weatherResult);
       setCurrentItems(items);
@@ -269,6 +279,10 @@ export default function Home() {
     catch (error) {
       console.log(error)
     }
+  }
+  const fetchLeaderboardUsers = async () => {
+    const users = await fetchLeaderboard();
+    setCurrentLeaderboard(users)
   }
 
 
@@ -286,16 +300,10 @@ export default function Home() {
       treat.count -= 1
       setTimeout(async () => {
         const amountOfCats = generateRandomNumber(1, 3);
-        console.log(amountOfCats)
         await generateCats(cats, amountOfCats)
         await fetchCats();
       }, 1500);
     }
-  }
-
-  const Playit = () => {
-    var audio = new Audio({ src: ["/music/bgm1.mp3"], Volume: Volume });
-    audio.play();
   }
 
   useEffect(() => {
@@ -306,16 +314,15 @@ export default function Home() {
         setLocation(currentUserData.location);
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
         await fetchAllData();
-        // bgm1();
-        // Playit();
-
-        // PLACEHOLDER FOR TESTING
-        await addUserItem(ItemData[0]);
+        // for (let x = 0; x < 100; x++) {
+        //   for (let i = 0; i < OfferingsData.length; i++) {
+        //     await addUserOfferings(OfferingsData[i])
+        //   }
+        // }
       } else {
         router.push('/login')
       }
     })
-
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -330,8 +337,8 @@ export default function Home() {
         }
       }
     })
-    const fetchedofferings = await fetchOfferings();
-    setCurrentOfferings(fetchedofferings)
+    const fetchedOfferings = await fetchOfferings();
+    setCurrentOfferings(fetchedOfferings)
   }
   return (
 
@@ -344,12 +351,11 @@ export default function Home() {
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
 
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController }}>
-          {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} onCatDexClick={() => { setCatDex(!catDex) }} />}
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController, currentLeaderboard, cats }}>
+          {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} selectCatCard={(id) => { setCatCard(id) }} />}
           <GameArea id="game">
 
             <PopUps>
-              <CatDex catData={cats} catDex={catDex} onExit={() => { setCatDex(!catDex) }} activeCats={cats} selectCatCard={(id) => { setCatCard(id) }} />
             </PopUps>
 
             {cats && cats.map((cat, i) => {
