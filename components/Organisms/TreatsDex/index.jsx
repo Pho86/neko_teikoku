@@ -70,11 +70,12 @@ export default function TreatsDex({
                             size={"1.2em"}
                             direction="row"
                             initial={{ y: "-100vh" }}
-                            animate={{ y: "20vh" }}
+                            animate={{ y: "0" }}
                             exit={{ y: "-100vh" }}
                             transition={{ delay: .05, duration: .5, ease: "easeInOut" }}
                             exitTab
                             arrows
+                            pos="relative"
                             onPrevious={() => {
                                 if (currentPage > 1) {
                                     setCurrentPage(currentPage - 1);

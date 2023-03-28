@@ -1,9 +1,8 @@
 import '@/styles/globals.css';
 import { Fredoka } from '@next/font/google';
 import Head from 'next/head'
-import { AnimatePresence, LazyMotion, domAnimation, domMax } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domMax } from 'framer-motion';
 import { createContext, useState } from 'react';
-// If loading a variable font, you don't need to specify the font weight
 const fredoka = Fredoka({ subsets: ['latin'] })
 
 export const GameContext = createContext()

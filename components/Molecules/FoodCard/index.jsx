@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Typography from "@/components/Atoms/Text";
 import Image from "next/image";
-import TreatsData from "@/data/treats.json"
 import { StrokedText } from "stroked-text";
 
 const FoodCardDiv = styled.div`

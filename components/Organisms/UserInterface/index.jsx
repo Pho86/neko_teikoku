@@ -12,7 +12,8 @@ import SettingsPopup from "@/components/Molecules/SettingsPopup";
 import Image from "next/image";
 import { userContext } from "@/pages";
 import Offerings from "@/components/Molecules/OfferingPopup";
-import PopupPrompt from "@/components/Molecules/PopupPrompt";
+import LeaderboardDex from "@/components/Organisms/LeaderboardDex"
+import CatDex from "../CatDex";
 
 const UserInterfaceDiv = styled.div`
 position:fixed;
@@ -138,6 +139,7 @@ export default function UserInterface({
    location,
    onActiveClick = (item) => { return item },
    onTreatClick = (treat) => { return treat },
+   selectCatCard = (id) => { return id; },
 
 }) {
    const [cookShow, setCookShow] = useState(false);
@@ -148,8 +150,10 @@ export default function UserInterface({
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
-   const { weather, currentUser } = useContext(userContext);
+   const { weather, currentUser, cats } = useContext(userContext);
    const [popup, setPopup] = useState(false);
+   const [leaderboard, setLeaderboard] = useState(false);
+   const [catDex, setCatDex] = useState(false)
 
    useEffect(() => {
       if (weather) {
@@ -242,7 +246,7 @@ export default function UserInterface({
 
             </TopIcons>
             <BottomIcons>
-               <ColIcon onClick={onCatDexClick} id="catdex">
+               <ColIcon onClick={()=> { setCatDex(true) }} id="catdex">
                   <IconButton image={"/menuIcons/catdex.svg"} alt="CatDex Button" type={'menu'} />
                   <Typography
                      text={"cat dex"}
@@ -308,6 +312,15 @@ export default function UserInterface({
                   />
                </ColIcon>
 
+               <ColIcon onClick={() => { setLeaderboard(true) }}>
+                  <IconButton image={"/icons/advisor_icon.svg"} alt="Leaderboard Button" type={'menu'} />
+                  <Typography
+                     text={"leaderboard"}
+                     weight={"600"}
+                     size={"1.2rem"}
+                  />
+               </ColIcon>
+
             </BottomIcons>
             <TreatsSlider active={treats}
                onExit={() => { setTreatsShow(false) }} onTreatClick={onTreatClick} />
@@ -321,6 +334,9 @@ export default function UserInterface({
 
          <TreatsDex active={cookShow}
             onExit={() => { setCookShow(false) }} />
+         <CatDex catData={cats} active={catDex} onExit={() => { setCatDex(false) }} activeCats={cats} selectCatCard={(id) => { selectCatCard(id) }} />
+         <LeaderboardDex active={leaderboard}
+            onExit={() => { setLeaderboard(false) }} />
 
       </>
    )

@@ -108,7 +108,8 @@ export default function Login({
     const [ErrorMessage, setErrorMessage] = useState("")
     const [tabs, setTabs] = useState(true)
     const { BGMVolume } = useContext(GameContext);
-    const [bgm2] = useSound('/music/bgm2.mp3', {
+    
+    const [bgm] = useSound('/music/bgm2.mp3', {
         volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
     });
 
