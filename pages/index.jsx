@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard, addUserItem } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/LeaderboardDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -319,6 +319,9 @@ export default function Home() {
         //     await addUserOfferings(OfferingsData[i])
         //   }
         // }
+        for (let i = 0; i < ItemData.length; i++) {
+          await addUserItem(ItemData[i])
+        }
       } else {
         router.push('/login')
       }
