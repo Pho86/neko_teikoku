@@ -5,28 +5,28 @@
       "id": 1
    },
    {
-      "name": "grass",
-      "image": "/items/cat_lamp.svg",
+      "name": "cushion",
+      "image": "/items/cushion.svg",
       "id": 2
    },
    {
-      "name": "water",
-      "image": "/items/cat_lamp.svg",
+      "name": "scratch post",
+      "image": "/items/scratchpost.svg",
       "id": 3
    },
    {
-      "name": "ice",
-      "image": "/items/cat_lamp.svg",
+      "name": "blanket",
+      "image": "/items/blanket.svg",
       "id": 4
    },
    {
-      "name": "mice",
-      "image": "/items/cat_lamp.svg",
+      "name": "bonsai",
+      "image": "/items/bonsai.svg",
       "id": 5
    },
    {
-      "name": "monkey",
-      "image": "/items/cat_lamp.svg",
+      "name": "yarn",
+      "image": "/items/yarn.svg",
       "id": 6
    }
 ]
