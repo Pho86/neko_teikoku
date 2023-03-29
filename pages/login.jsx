@@ -121,8 +121,9 @@ export default function Login({
         try {
             await SignUp(loginInfo);
             setErrorMessage("you have successfully signed up! ")
-            setTimeout(() => {
-                router.push('/')
+            setTimeout(async () => {
+                await router.push('/')
+                await router.reload()
             }, 2000);
         }
         catch (error) {

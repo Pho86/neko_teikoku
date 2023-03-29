@@ -148,6 +148,7 @@ export default function Home() {
       await addCatData(randomCat)
       const x = generateRandomNumber(0, 100);
       let y;
+      randomCat.img = await selectRandomFromArray(CatData);
       randomCat.x = x;
       if (x < 15 || x < 85) y = generateRandomNumber(0, 100);
       else if (x > 15 || x < 85) {
@@ -211,7 +212,7 @@ export default function Home() {
     await apiCats.filter(async (cat) => {
       for (let i = 0; i < userCats.length; i++) {
         if (cat.id === userCats[i].catId) {
-          cat.img = await selectRandomFromArray(CatData);
+          // cat.img = await selectRandomFromArray(CatData);
           cat.count = userCats[i].count;
         }
       }
@@ -292,7 +293,7 @@ export default function Home() {
       soundPlace();
     }
   }
-  const [soundPlace] = useSound('/sound/place.mp3', { volume: Volume-.3, });
+  const [soundPlace] = useSound('/sound/place.mp3', { volume: Volume-.2, });
 
   const addTreat = async (treat) => {
     if (treat.count > 0) {
