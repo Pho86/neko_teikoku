@@ -53,8 +53,7 @@ export default function TreatsDex({
             const treats = await fetchTreats();
             setPopText(`${treat.name} acquired!`)
             setCurrentOfferings(offerings);
-            setCurrentTreats(treats)
-            await fetchLeaderboardUsers();
+            setCurrentTreats(treats);
         }
     }
     return (

@@ -172,7 +172,6 @@ export default function Home() {
     await meowSound();
     await updateUserData(newCats);
     setCurrentOfferings(offerings);
-    await fetchLeaderboardUsers();
   }
 
   const filterItems = async (items) => {
