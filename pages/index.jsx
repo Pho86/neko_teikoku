@@ -22,6 +22,7 @@ import Advisor from '@/components/Atoms/Advisor';
 import OfferingsData from "@/data/ingredients.json";
 import { GameContext } from './_app';
 import Loader from '@/components/Molecules/Loader';
+import catMeow from "@/data/meow.json";
 
 const GameArea = styled.div`
 position:absolute;
@@ -140,7 +141,8 @@ export default function Home() {
     const catResults = await axios.get(catUrl.current);
     return catResults.data
   }
-
+  const meow = useRef("/sound/meow1.mp3")
+  const [meowSound] = useSound(meow.current, { volume: Volume, });
   const generateCats = async (data, amountOfCats) => {
     let randomMeows = randomCats;
     for (let i = 0; i < amountOfCats; i++) {
@@ -160,11 +162,14 @@ export default function Home() {
       let offering = await selectRandomFromArray(OfferingsData)
       offering.cat = randomCat.breedName
       await addUserOfferings(offering);
-      randomMeows.push(randomCat)
+      randomMeows.push(randomCat);
     }
     const offerings = await fetchOfferings();
     const newCats = await fetchCats();
     setRandomCats(randomMeows)
+    let randomMeow = await selectRandomFromArray(catMeow[0]);
+    meow.current = await randomMeow;
+    await meowSound();
     await updateUserData(newCats);
     setCurrentOfferings(offerings);
     await fetchLeaderboardUsers();
@@ -293,7 +298,7 @@ export default function Home() {
       soundPlace();
     }
   }
-  const [soundPlace] = useSound('/sound/place.mp3', { volume: Volume-.2, });
+  const [soundPlace] = useSound('/sound/place.mp3', { volume: Volume - .2, });
 
   const addTreat = async (treat) => {
     if (treat.count > 0) {
@@ -323,7 +328,7 @@ export default function Home() {
     setCurrentOfferings(fetchedOfferings)
   }
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser != null) {
@@ -353,7 +358,7 @@ export default function Home() {
       <Head>
         <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
-        <Loader active={loading}/>
+      <Loader active={loading} />
 
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
