@@ -13,7 +13,6 @@ position:absolute;
 cursor:pointer;
 bottom:${props => props.bottom || ""};
 right:${props => props.right || ""};
-z-index:45;
 user-drag: none;
 -webkit-user-drag: none;
 user-select: none;
@@ -22,7 +21,6 @@ user-select: none;
 -ms-user-select: none;
 pointer-events:auto;
 transition: all ease-in-out ${props => props.transitionduration || "0"}s, transform ease-in-out .2s, filter ease-in-out .2s;
-transition:;
 &:hover{
    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.2));
    transform:scale(1.2);
@@ -30,6 +28,7 @@ transition:;
 `
 
 const CatBox = styled(m.div)`
+z-index:30;
 width:100vw;
 height:100vh;
 position:fixed;
@@ -46,10 +45,8 @@ user-select: none;
 -webkit-user-select: none;
 -ms-user-select: none;
 `
-const CatArea = styled(m.div)`
-`
+
 export default function Cat({
-   catData,
    onClick = () => { },
    alt,
    width = 100,
@@ -61,6 +58,7 @@ export default function Cat({
    const [x, setX] = useState(0);
    const [y, setY] = useState(0);
    const [duration, setDuration] = useState(0);
+
    useEffect(() => {
       setY(bottom)
       setX(right)
@@ -73,7 +71,8 @@ export default function Cat({
          setY(y)
          setX(x)
       }, 1000)
-   }, [])
+   }, []);
+   
    const meow = useRef("/sound/meow1.mp3")
    const { Volume } = useContext(GameContext);
    const [sound] = useSound(meow.current, { volume: Volume, });
