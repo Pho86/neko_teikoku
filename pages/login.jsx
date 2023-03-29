@@ -108,9 +108,8 @@ export default function Login({
     const [ErrorMessage, setErrorMessage] = useState("")
     const [tabs, setTabs] = useState(true)
     const { BGMVolume } = useContext(GameContext);
-    
-    const [bgm] = useSound('/music/bgm2.mp3', {
-        volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
+    const [bgm, bgmController] = useSound('/music/bgm2.mp3', {
+        volume: BGMVolume - .1, autoplay: true, loop: true,
     });
 
     const handleChange = (event) => {
@@ -136,8 +135,9 @@ export default function Login({
         try {
             await SignIn(loginInfo)
             setErrorMessage("successfully logged in!")
-            setTimeout(() => {
-                router.push('/')
+            setTimeout(async () => {
+                await router.push('/')
+                await router.reload()
             }, 2000);
         } catch (error) {
             setErrorMessage("ERROR OCCURED")
@@ -157,6 +157,7 @@ export default function Login({
     }
 
     useEffect(() => {
+        // bgmController.stop()
         onAuthStateChanged(auth, async (currentUser) => {
             setCurrentUser(currentUser);
         })

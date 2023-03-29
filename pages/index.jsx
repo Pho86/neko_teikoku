@@ -77,7 +77,7 @@ export default function Home() {
   // sound data
   const { Volume, setVolume, BGMVolume } = useContext(GameContext)
   const [bgm, bgmController] = useSound('/music/bgm1.mp3', {
-    volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
+    volume: BGMVolume - .1, autoplay: true, loop: true,
   }
   );
   const router = useRouter();
@@ -326,7 +326,8 @@ export default function Home() {
           await addUserItem(ItemData[i])
         }
       } else {
-        router.push('/login')
+        await router.push('/login')
+        await router.reload()
       }
     })
 
