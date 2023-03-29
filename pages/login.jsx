@@ -89,6 +89,9 @@ const StartDiv = styled(m.div)`
     cursor:pointer;
     z-index: 50;
 `
+const Fieldset = styled.fieldset`
+border: 0;
+`
 
 export default function Login({
 
@@ -108,6 +111,7 @@ export default function Login({
     const [ErrorMessage, setErrorMessage] = useState("")
     const [tabs, setTabs] = useState(true)
     const { BGMVolume } = useContext(GameContext);
+    const [disabled, setDisabled] = useState(false)
     const [bgm, bgmController] = useSound('/music/bgm2.mp3', {
         volume: BGMVolume - .1, autoplay: true, loop: true,
     });
@@ -117,6 +121,7 @@ export default function Login({
     };
 
     const handleRegisterSubmit = async () => {
+        setDisabled(true)
         setErrorMessage("signing up...")
         try {
             await SignUp(loginInfo);
@@ -129,9 +134,11 @@ export default function Login({
         catch (error) {
             setErrorMessage("ERROR OCCURED")
         }
+        setDisabled(false);
     }
 
     const handleLoginSubmit = async () => {
+        setDisabled(true)
         setErrorMessage("signing in...")
         try {
             await SignIn(loginInfo)
@@ -143,6 +150,7 @@ export default function Login({
         } catch (error) {
             setErrorMessage("ERROR OCCURED")
         }
+        setDisabled(false);
     }
 
 
@@ -156,9 +164,7 @@ export default function Login({
             setPasswordText("ERROR OCCURED")
         }
     }
-
     useEffect(() => {
-        // bgmController.stop()
         onAuthStateChanged(auth, async (currentUser) => {
             setCurrentUser(currentUser);
         })
@@ -230,109 +236,114 @@ export default function Login({
 
                                             {tabs ? <FormCont>
                                                 <LoginForm onChange={handleChange} name="login">
-                                                    <SpaceDiv>
-                                                        <Typography
-                                                            text={"Meowcome back!"}
-                                                            weight={"600"}
-                                                            size={"1.8rem"}
-                                                            color={"var(--black)"}
-                                                            align={"center"}
-                                                        />
-                                                        <Typography
-                                                            text={"meowmeowmewomeowmeow!"}
-                                                            weight={"500"}
-                                                            size={"1rem"}
-                                                            color={"var(--black)"}
-                                                            align={"center"}
-                                                        />
-                                                    </SpaceDiv>
-                                                    <InputDiv>
-                                                        <Typography
-                                                            text={ErrorMessage && ErrorMessage}
-                                                            color={"var(--border-hard)"}
-                                                            align={"center"}
-                                                            weight={"500"}
-                                                        />
-                                                        <InputLogin type="text" name="email" placeholder="enter email" />
-                                                        <InputLogin type="password" name="password" placeholder="enter password" />
-                                                        <Typography id='forgotPass'
-                                                            text={"Forgot Your Password?"}
-                                                            weight={"500"}
-                                                            size={"0.8rem"}
-                                                            color={"var(--border-hard)"}
-                                                            textHover={"var(--secondary-accent)"}
-                                                            align={"left"}
-                                                            onClick={() => { setForgot(true) }}
-                                                        />
+                                                    <Fieldset disabled={disabled}>
 
-                                                    </InputDiv>
-                                                    <BtnSpaceDiv>
+                                                        <SpaceDiv>
+                                                            <Typography
+                                                                text={"Meowcome back!"}
+                                                                weight={"600"}
+                                                                size={"1.8rem"}
+                                                                color={"var(--black)"}
+                                                                align={"center"}
+                                                            />
+                                                            <Typography
+                                                                text={"meowmeowmewomeowmeow!"}
+                                                                weight={"500"}
+                                                                size={"1rem"}
+                                                                color={"var(--black)"}
+                                                                align={"center"}
+                                                            />
+                                                        </SpaceDiv>
+                                                        <InputDiv>
+                                                            <Typography
+                                                                text={ErrorMessage && ErrorMessage}
+                                                                color={"var(--border-hard)"}
+                                                                align={"center"}
+                                                                weight={"500"}
+                                                            />
+                                                            <InputLogin type="text" name="email" placeholder="enter email" />
+                                                            <InputLogin type="password" name="password" placeholder="enter password" />
+                                                            <Typography id='forgotPass'
+                                                                text={"Forgot Your Password?"}
+                                                                weight={"500"}
+                                                                size={"0.8rem"}
+                                                                color={"var(--border-hard)"}
+                                                                textHover={"var(--secondary-accent)"}
+                                                                align={"left"}
+                                                                onClick={() => { setForgot(true) }}
+                                                            />
 
-                                                        <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
-                                                            color={"var(--button-light)"} colorhover={"var(--button-medium)"}
-                                                            border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                            textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"} />
+                                                        </InputDiv>
+                                                        <BtnSpaceDiv>
 
-                                                        <Typography
-                                                            text={"Need an account? Register!"}
-                                                            weight={"500"}
-                                                            size={"1rem"}
-                                                            color={"var(--border-hard)"}
-                                                            textHover={"var(--secondary-accent)"}
-                                                            padding={"1em"}
-                                                            align={"center"}
-                                                            onClick={() => { setTabs(false) }}
-                                                        />
-                                                    </BtnSpaceDiv>
+                                                            <Button type="button" text="LOGIN" onClick={handleLoginSubmit}
+                                                                color={"var(--button-light)"} colorhover={"var(--button-medium)"}
+                                                                border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
+                                                                textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"} />
+
+                                                            <Typography
+                                                                text={"Need an account? Register!"}
+                                                                weight={"500"}
+                                                                size={"1rem"}
+                                                                color={"var(--border-hard)"}
+                                                                textHover={"var(--secondary-accent)"}
+                                                                padding={"1em"}
+                                                                align={"center"}
+                                                                onClick={() => { setTabs(false) }}
+                                                            />
+                                                        </BtnSpaceDiv>
+                                                    </Fieldset>
                                                 </LoginForm>
 
 
                                             </FormCont> : <FormCont onChange={handleChange} name="register">
-                                                <LoginForm>
-                                                    <SpaceDiv>
-                                                        <Typography
-                                                            text={"Create a mew account!"}
-                                                            weight={"600"}
-                                                            size={"1.8rem"}
-                                                            color={"var(--black)"}
-                                                            align={"center"}
-                                                        />
-                                                        <Typography
-                                                            text={"meowmeowmewomeowmeow!"}
-                                                            weight={"500"}
-                                                            size={"1rem"}
-                                                            color={"var(--black)"}
-                                                            align={"center"}
-                                                        />
-                                                    </SpaceDiv>
-                                                    <InputDiv>
-                                                        <Typography
-                                                            text={ErrorMessage && ErrorMessage}
-                                                            color={"var(--border-hard)"}
-                                                            align={"center"}
-                                                            weight={"500"}
-                                                        />
-                                                        <InputLogin type="email" name="email" placeholder="enter email" />
-                                                        <InputLogin type="text" name="username" placeholder="enter username" />
-                                                        <InputLogin type="password" name="password" placeholder="enter password" />
-                                                    </InputDiv>
-                                                    <BtnSpaceDiv>
-                                                        <Button type="button" text="REGISTER" onClick={handleRegisterSubmit}
-                                                            color={"var(--button-light)"} colorhover={"var(--button-medium)"}
-                                                            border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
-                                                            textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"} />
-                                                        <Typography
-                                                            text={"Have an account? Login!"}
-                                                            weight={"500"}
-                                                            size={"1rem"}
-                                                            color={"var(--border-hard)"}
-                                                            textHover={"var(--secondary-accent)"}
-                                                            padding={"1em"}
-                                                            align={"center"}
-                                                            onClick={() => { setTabs(true) }}
-                                                        />
-                                                    </BtnSpaceDiv>
-                                                </LoginForm>
+                                                <Fieldset disabled={disabled}>
+                                                    <LoginForm>
+                                                        <SpaceDiv>
+                                                            <Typography
+                                                                text={"Create a mew account!"}
+                                                                weight={"600"}
+                                                                size={"1.8rem"}
+                                                                color={"var(--black)"}
+                                                                align={"center"}
+                                                            />
+                                                            <Typography
+                                                                text={"meowmeowmewomeowmeow!"}
+                                                                weight={"500"}
+                                                                size={"1rem"}
+                                                                color={"var(--black)"}
+                                                                align={"center"}
+                                                            />
+                                                        </SpaceDiv>
+                                                        <InputDiv>
+                                                            <Typography
+                                                                text={ErrorMessage && ErrorMessage}
+                                                                color={"var(--border-hard)"}
+                                                                align={"center"}
+                                                                weight={"500"}
+                                                            />
+                                                            <InputLogin type="email" name="email" placeholder="enter email" />
+                                                            <InputLogin type="text" name="username" placeholder="enter username" />
+                                                            <InputLogin type="password" name="password" placeholder="enter password" />
+                                                        </InputDiv>
+                                                        <BtnSpaceDiv>
+                                                            <Button type="button" text="REGISTER" onClick={handleRegisterSubmit}
+                                                                color={"var(--button-light)"} colorhover={"var(--button-medium)"}
+                                                                border={"4px solid var(--button-medium)"} borderradius={"1.5em"}
+                                                                textstroke={"1px var(--button-medium)"} width={"100%"} padding={"0.5em"} />
+                                                            <Typography
+                                                                text={"Have an account? Login!"}
+                                                                weight={"500"}
+                                                                size={"1rem"}
+                                                                color={"var(--border-hard)"}
+                                                                textHover={"var(--secondary-accent)"}
+                                                                padding={"1em"}
+                                                                align={"center"}
+                                                                onClick={() => { setTabs(true) }}
+                                                            />
+                                                        </BtnSpaceDiv>
+                                                    </LoginForm>
+                                                </Fieldset>
                                             </FormCont>
                                             }
                                         </PopCont>

@@ -10,27 +10,22 @@ import CatData from "@/data/meow.json"
  * @param {*} values an object of values for email, password, and username
  */
 export const SignUp = async (values) => {
-    try {
-        const userCred = await createUserWithEmailAndPassword(auth, values.email, values.password);
-        let pfp = await selectRandomFromArray(CatData[1]);
-        const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
-            username: values.username,
-            email: values.email,
-            location: "Vancouver",
-            avatar: pfp
-        });
-        const userUpdate = await updateProfile(userCred.user, {
-            displayName: values.username
-        });
-        for (let i = 0; i < OfferingsData.length; i++) {
-            await newUserOfferings(OfferingsData[i])
-        }
-        for (let i = 0; i < ItemsData.length; i++) {
-            await addUserItem(ItemsData[i])
-        }
+    const userCred = await createUserWithEmailAndPassword(auth, values.email, values.password);
+    let pfp = await selectRandomFromArray(CatData[1]);
+    const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
+        username: values.username,
+        email: values.email,
+        location: "Vancouver",
+        avatar: pfp
+    });
+    const userUpdate = await updateProfile(userCred.user, {
+        displayName: values.username
+    });
+    for (let i = 0; i < OfferingsData.length; i++) {
+        await newUserOfferings(OfferingsData[i])
     }
-    catch (error) {
-        console.log(error)
+    for (let i = 0; i < ItemsData.length; i++) {
+        await addUserItem(ItemsData[i])
     }
 }
 
@@ -41,7 +36,6 @@ export const SignUp = async (values) => {
 export const SignIn = async (values) => {
     const result = await signInWithEmailAndPassword(auth, values.email, values.password);
 }
-
 
 export const SignOut = async () => {
     await signOut(auth)

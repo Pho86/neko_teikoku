@@ -8,6 +8,7 @@ const loginURL = 'http://localhost:3000/login'
 test.describe("Home game area tests, account required functionalities", () => {
    test('find the advisor and click on him and find the textbox', async ({ page }) => {
       await signIn(page)
+      await page.waitForTimeout(10000);
       const advisor = page.locator('#advisor')
       await advisor.click()
       const advisor_text = page.locator('#advisor_text');
@@ -53,7 +54,7 @@ test.describe("Home game area tests, account required functionalities", () => {
       await logout.click();
       await page.waitForTimeout(1000);
       await page.click('#logoutbtn')
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(8000);
       await expect(page).toHaveURL(loginURL)
    });
 
