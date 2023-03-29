@@ -58,7 +58,7 @@ export default function WeatherPopup({
     const { weather } = useContext(userContext)
     useEffect(() => {
         if (weather.weather[0].main == "Clouds") {
-            setIcon('/weather-icons/Scattered-clouds.gif');
+            setIcon('/weather-icons/scattered-clouds.gif');
         } else if (weather.weather[0].main == "Clear") {
             setIcon('/weather-icons/clear-sky.gif');
         } else if (weather.weather[0].main == "Atmosphere") {
