@@ -28,13 +28,14 @@ export default function TreatsDex({
     const [activePop, setActivePop] = useState(false)
     const [treat, setTreat] = useState("")
     const [cooked, setCooked] = useState(false)
-    const [popText, setPopText] = useState("missing")
+    const [popText, setPopText] = useState("")
     const { currentOfferings, setCurrentOfferings, setCurrentTreats, fetchTreats, fetchOfferings, fetchLeaderboardUsers } = useContext(userContext);
     const { Volume } = useContext(GameContext);
 
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
 
     const cookTreat = async (treat) => {
+        setPopText(`cooking...`)
         const treats = await makeTreat(treat, currentOfferings)
         if (treats === 1) {
             setPopText(`Missing x1 ${currentOfferings[treat.ing1].name}`)
@@ -50,10 +51,10 @@ export default function TreatsDex({
             setCooked(true)
             const offerings = await fetchOfferings();
             const treats = await fetchTreats();
+            setPopText(`${treat.name} acquired!`)
             setCurrentOfferings(offerings);
             setCurrentTreats(treats)
-            await fetchLeaderboardUsers()
-            setPopText(`${treat.name} acquired!`)
+            await fetchLeaderboardUsers();
         }
     }
     return (
