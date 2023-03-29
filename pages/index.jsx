@@ -149,7 +149,6 @@ export default function Home() {
       const x = generateRandomNumber(0, 100);
       let y;
       randomCat.img = await selectRandomFromArray(CatData);
-      console.log(randomCat)
       randomCat.x = x;
       if (x < 15 || x < 85) y = generateRandomNumber(0, 100);
       else if (x > 15 || x < 85) {
