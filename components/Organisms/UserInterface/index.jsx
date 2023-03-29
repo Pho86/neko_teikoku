@@ -311,7 +311,7 @@ export default function UserInterface({
                </ColIcon>
 
                <ColIcon onClick={() => { setLeaderboard(true) }}>
-                  <IconButton image={"/icons/advisor_icon.svg"} alt="Leaderboard Button" type={'menu'} />
+                  <IconButton image={"/menuIcons/leaderboard.svg"} alt="Leaderboard Button" type={'menu'} />
                   <Typography
                      text={"leaderboard"}
                      weight={"600"}
