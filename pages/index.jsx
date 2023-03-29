@@ -217,7 +217,6 @@ export default function Home() {
     await apiCats.filter(async (cat) => {
       for (let i = 0; i < userCats.length; i++) {
         if (cat.id === userCats[i].catId) {
-          // cat.img = await selectRandomFromArray(CatData);
           cat.count = userCats[i].count;
         }
       }
@@ -339,15 +338,11 @@ export default function Home() {
         weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
         await fetchAllData();
         setLoading(false)
-        // for (let i = 0; i < ItemData.length; i++) {
-        //   await addUserItem(ItemData[i])
-        // }
       } else {
         await router.push('/login')
         await router.reload()
       }
     })
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -361,7 +356,6 @@ export default function Home() {
       <Loader active={loading} />
 
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
-        {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
 
         <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController, currentLeaderboard, cats, currentUserData, fetchLeaderboardUsers, catDex, setCatDex }}>
@@ -388,7 +382,6 @@ export default function Home() {
 
           </GameArea>
         </userContext.Provider>
-
 
         <h2 className={styles.head} id="meowing" >meowing @ {weather && weather.name.toLowerCase()}</h2>
 
