@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard } from '@/server';
+import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard, addUserItem } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
 import CatDex from '@/components/Organisms/LeaderboardDex';
 import UserInterface from '@/components/Organisms/UserInterface';
@@ -77,7 +77,7 @@ export default function Home() {
   // sound data
   const { Volume, setVolume, BGMVolume } = useContext(GameContext)
   const [bgm, bgmController] = useSound('/music/bgm1.mp3', {
-    volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
+    volume: BGMVolume - .1, autoplay: true, loop: true,
   }
   );
   const router = useRouter();
@@ -290,14 +290,17 @@ export default function Home() {
     if (item.count >= 1) {
       setActiveItems([...activeItems, item])
       item.count -= 1
+      soundPlace();
     }
   }
+  const [soundPlace] = useSound('/sound/place.mp3', { volume: Volume-.3, });
 
   const addTreat = async (treat) => {
     if (treat.count > 0) {
       const treats = await adjustUserTreat(treat)
       setActiveTreats([treat])
       treat.count -= 1
+      soundPlace();
       setTimeout(async () => {
         const amountOfCats = generateRandomNumber(1, 3);
         await generateCats(cats, amountOfCats)
@@ -319,8 +322,12 @@ export default function Home() {
         //     await addUserOfferings(OfferingsData[i])
         //   }
         // }
+        for (let i = 0; i < ItemData.length; i++) {
+          await addUserItem(ItemData[i])
+        }
       } else {
-        router.push('/login')
+        await router.push('/login')
+        await router.reload()
       }
     })
 
