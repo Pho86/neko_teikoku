@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc, orderBy } from '@firebase/firestore';
 import OfferingsData from "@/data/ingredients.json"
 import ItemsData from "@/data/items.json"
+import { selectRandomFromArray } from "@/util";
 /**
  * @desc signs a user up with your parameter values
  * @param {*} values an object of values for email, password, and username
@@ -14,6 +15,7 @@ export const SignUp = async (values) => {
         email: values.email,
         location: "Vancouver",
     });
+    let pfp = selectRandomFromArray(UserPFPs);
     const userUpdate = await updateProfile(userCred.user, {
         displayName: values.username
     });

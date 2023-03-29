@@ -9,7 +9,6 @@ import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
-import CatDex from '@/components/Organisms/LeaderboardDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
@@ -22,6 +21,7 @@ import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
 import OfferingsData from "@/data/ingredients.json";
 import { GameContext } from './_app';
+import Loader from '@/components/Molecules/Loader';
 
 const GameArea = styled.div`
 position:absolute;
@@ -78,8 +78,7 @@ export default function Home() {
   const { Volume, setVolume, BGMVolume } = useContext(GameContext)
   const [bgm, bgmController] = useSound('/music/bgm1.mp3', {
     volume: BGMVolume - .1, interrupt: true, autoplay: true, loop: true,
-  }
-  );
+  });
   const router = useRouter();
 
   const fetchWeather = async () => {
@@ -319,6 +318,7 @@ export default function Home() {
         //     await addUserOfferings(OfferingsData[i])
         //   }
         // }
+        setLoading(false)
       } else {
         router.push('/login')
       }
@@ -340,12 +340,15 @@ export default function Home() {
     const fetchedOfferings = await fetchOfferings();
     setCurrentOfferings(fetchedOfferings)
   }
+  const [loading, setLoading] = useState(true);
+
   return (
 
     <>
       <Head>
         <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
+        <Loader active={loading}/>
 
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}

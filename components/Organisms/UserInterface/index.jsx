@@ -185,7 +185,7 @@ export default function UserInterface({
                         onClick={() => { setSettings(!settings) }}
                         id="logout"
                      >
-                        <IconButton image={"/cats/caticon.svg"} alt="Profile Icon" />
+                        <IconButton image={"/user/emp.svg"} alt="Profile Icon" />
                         <TextCont>
                            <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
                               fontSize: '1.5rem',

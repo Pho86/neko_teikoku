@@ -23,10 +23,6 @@ const CatDexCardHead = styled.div`
 const CatDexCardContent = styled.div`
 display:grid;
 grid-template-columns:45% 55%;
-// @media (max-width: 1280px) {
-//    display:grid;
-//    grid-template-columns:1fr;
-// }
 `
 const CatDexImage = styled.div`
 display: flex;
