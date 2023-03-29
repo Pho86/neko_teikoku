@@ -9,7 +9,6 @@ import { auth } from '@/firebase/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addCatData, fetchCurrentUserData, updateWeatherData, fetchUserItems, addUserOfferings, fetchUserOfferings, changeUserOfferingState, fetchUserTreats, fetchCatData, adjustUserTreat, updateUserData, fetchLeaderboard, addUserItem } from '@/server';
 import CatDexCard from '@/components/Molecules/CatDexCard';
-import CatDex from '@/components/Organisms/LeaderboardDex';
 import UserInterface from '@/components/Organisms/UserInterface';
 import Cat from '@/components/Atoms/Cat';
 import styled from 'styled-components';
@@ -22,6 +21,7 @@ import { EmptySpace } from '@/components/Atoms/EmptySpacer';
 import Advisor from '@/components/Atoms/Advisor';
 import OfferingsData from "@/data/ingredients.json";
 import { GameContext } from './_app';
+import Loader from '@/components/Molecules/Loader';
 
 const GameArea = styled.div`
 position:absolute;
@@ -56,6 +56,7 @@ export default function Home() {
 
   // user data
   const [currentUser, setCurrentUser] = useState({});
+  const [currentUserData, setCurrentUserData] = useState([])
   const [currentItems, setCurrentItems] = useState([]);
   const [activeItems, setActiveItems] = useState([]);
   const [activetreats, setActiveTreats] = useState([]);
@@ -68,7 +69,7 @@ export default function Home() {
   const [weather, setWeather] = useState();
   const [lang, setLang] = useState("en");
   const [units, setUnits] = useState("metric");
-  const [background, setBackground] = useState('day')
+  const [background, setBackground] = useState('day');
 
   // api urls
   const weatherUrl = useRef(`/api/weather?lang=${lang}&units=${units}&location=${location}`)
@@ -158,12 +159,14 @@ export default function Home() {
       let offering = await selectRandomFromArray(OfferingsData)
       offering.cat = randomCat.breedName
       await addUserOfferings(offering);
-      setRandomCats([...randomMeows, randomCat])
+      randomMeows.push(randomCat)
     }
     const offerings = await fetchOfferings();
     const newCats = await fetchCats();
-    await updateUserData(newCats)
-    setCurrentOfferings(offerings)
+    setRandomCats(randomMeows)
+    await updateUserData(newCats);
+    setCurrentOfferings(offerings);
+    await fetchLeaderboardUsers();
   }
 
   const filterItems = async (items) => {
@@ -205,15 +208,11 @@ export default function Home() {
   }
 
   const filterNewCats = async (apiCats, userCats) => {
-    await apiCats.filter((cat) => {
+    await apiCats.filter(async (cat) => {
       for (let i = 0; i < userCats.length; i++) {
         if (cat.id === userCats[i].catId) {
+          cat.img = await selectRandomFromArray(CatData);
           cat.count = userCats[i].count;
-        }
-      }
-      for (let x = 0; x < CatData.length; x++) {
-        if (cat.id % 2 === 0) {
-          // console.log('x')
         }
       }
     })
@@ -280,11 +279,11 @@ export default function Home() {
       console.log(error)
     }
   }
+
   const fetchLeaderboardUsers = async () => {
     const users = await fetchLeaderboard();
     setCurrentLeaderboard(users)
   }
-
 
   const addActiveItem = async (item) => {
     if (item.count >= 1) {
@@ -309,31 +308,6 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser != null) {
-        const currentUserData = await fetchCurrentUserData();
-        setCurrentUser(currentUser);
-        setLocation(currentUserData.location);
-        weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
-        await fetchAllData();
-        // for (let x = 0; x < 100; x++) {
-        //   for (let i = 0; i < OfferingsData.length; i++) {
-        //     await addUserOfferings(OfferingsData[i])
-        //   }
-        // }
-        for (let i = 0; i < ItemData.length; i++) {
-          await addUserItem(ItemData[i])
-        }
-      } else {
-        await router.push('/login')
-        await router.reload()
-      }
-    })
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const setOfferings = async (offerings) => {
     offerings.filter(async (offers) => {
       if (offers.state === false) {
@@ -347,23 +321,46 @@ export default function Home() {
     const fetchedOfferings = await fetchOfferings();
     setCurrentOfferings(fetchedOfferings)
   }
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser != null) {
+        const currentUserData = await fetchCurrentUserData();
+        setCurrentUser(currentUser);
+        setCurrentUserData(currentUserData)
+        setLocation(currentUserData.location);
+        weatherUrl.current = `/api/weather?lang=${lang}&units=${units}&location=${currentUserData.location}`
+        await fetchAllData();
+        setLoading(false)
+        // for (let i = 0; i < ItemData.length; i++) {
+        //   await addUserItem(ItemData[i])
+        // }
+      } else {
+        await router.push('/login')
+        await router.reload()
+      }
+    })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+
   return (
 
     <>
       <Head>
         <title>{`${currentUser.displayName}'s Home - Neko Teikoku`}</title>
       </Head>
+        <Loader active={loading}/>
 
       <main className={`${styles.main} background`} style={{ backgroundImage: (`url('/backgrounds/${background}.png')`) }}>
         {/* <h1>Neko Teikoku</h1> */}
         <EmptySpace />
 
-        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController, currentLeaderboard, cats }}>
+        <userContext.Provider value={{ weather, currentUser, currentOfferings, currentItems, currentTreats, setCurrentOfferings, setCurrentTreats, setOfferings, fetchTreats, fetchItems, fetchOfferings, bgm, bgmController, currentLeaderboard, cats, currentUserData, fetchLeaderboardUsers, catDex, setCatDex }}>
           {currentUser && <UserInterface location={location} onWeatherSubmit={setNewWeather} onActiveClick={addActiveItem} onWeatherChange={onWeatherChange} onTreatClick={addTreat} selectCatCard={(id) => { setCatCard(id) }} />}
           <GameArea id="game">
-
-            <PopUps>
-            </PopUps>
 
             {cats && cats.map((cat, i) => {
               return <CatDexCard key={i} catData={cat} show={catCard} width={"65%"} onExit={() => { setCatCard(0) }} onCatExit={() => { setCatCard(0); setCatDex(true) }} />
@@ -376,7 +373,7 @@ export default function Home() {
             })}
 
             {randomCats && randomCats.map((cat, i) => {
-              return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={'/cats/catrest.svg'} alt={`${cat.breedName} image resting`} onClick={() => { setCatCard(cat.id); }} />
+              return <Cat key={i} catData={cat} bottom={cat.y} right={cat.x} image={cat.img} alt={`${cat.breedName} image resting`} onClick={() => { setCatCard(cat.id); }} />
             })}
 
             {activetreats && activetreats.map((treat, i) => {

@@ -62,7 +62,7 @@ export default function Advisor({
    return (
       <CatBox>
          <CatDiv>
-            <CatImage src={'/cats/advisor/sleeping.gif'} id="advisor" width={180} height={180} alt={'this is your advisor'} onClick={async ()=>{HandleTextBox(); let randomMeow = await selectRandomFromArray(catMeow); meow.current = await randomMeow; sound()}} />
+            <CatImage src={'/cats/advisor/base.svg'} id="advisor" width={180} height={180} alt={'this is your advisor'} onClick={async ()=>{HandleTextBox(); let randomMeow = await selectRandomFromArray(catMeow[0]); meow.current = await randomMeow; sound()}} />
             <AnimatePresence>
                {textbox && <CatTextBox text={text} />}
             </AnimatePresence>

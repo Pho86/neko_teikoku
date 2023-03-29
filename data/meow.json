@@ -1,7 +1,16 @@
 [
-    "/sound/meow1.mp3",
-    "/sound/meow2.mp3",
-    "/sound/meow3.mp3",
-    "/sound/meow4.mp3",
-    "/sound/meow5.mp3"
+    [
+        "/sound/meow1.mp3",
+        "/sound/meow2.mp3",
+        "/sound/meow3.mp3",
+        "/sound/meow4.mp3",
+        "/sound/meow5.mp3"
+    ],
+    [
+        "/user/pfp.svg",
+        "/user/pfp2.svg",
+        "/user/pfp3.svg",
+        "/user/pfp4.svg",
+        "/user/pfp5.svg"
+    ]
 ]

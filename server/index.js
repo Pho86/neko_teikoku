@@ -3,27 +3,34 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { doc, setDoc, addDoc, collection, query, where, getDocs, updateDoc, getDoc, orderBy } from '@firebase/firestore';
 import OfferingsData from "@/data/ingredients.json"
 import ItemsData from "@/data/items.json"
+import { selectRandomFromArray } from "@/util";
+import CatData from "@/data/meow.json"
 /**
  * @desc signs a user up with your parameter values
  * @param {*} values an object of values for email, password, and username
  */
 export const SignUp = async (values) => {
-    const userCred = await createUserWithEmailAndPassword(auth, values.email, values.password);
-    const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
-        username: values.username,
-        email: values.email,
-        location: "Vancouver",
-    });
-    const userUpdate = await updateProfile(userCred.user, {
-        displayName: values.username
-    });
-    for (let x = 0; x < 5; x++) {
+    try {
+        const userCred = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        let pfp = await selectRandomFromArray(CatData[1]);
+        const usersRef = await setDoc(doc(db, "users", userCred.user.uid), {
+            username: values.username,
+            email: values.email,
+            location: "Vancouver",
+            avatar: pfp
+        });
+        const userUpdate = await updateProfile(userCred.user, {
+            displayName: values.username
+        });
         for (let i = 0; i < OfferingsData.length; i++) {
-            await addUserOfferings(OfferingsData[i])
+            await newUserOfferings(OfferingsData[i])
+        }
+        for (let i = 0; i < ItemsData.length; i++) {
+            await addUserItem(ItemsData[i])
         }
     }
-    for (let i = 0; i < ItemsData.length; i++) {
-        await addUserItem(ItemsData[i])
+    catch (error) {
+        console.log(error)
     }
 }
 
@@ -285,6 +292,15 @@ export const addUserOfferings = async (offering) => {
     }
 }
 
+export const newUserOfferings = async (offering) => {
+    const offeringData = {
+        uid: auth.currentUser.uid,
+        count: 6,
+        itemID: offering.id,
+        state: false,
+    }
+    const docRef = await addDoc(collection(db, "offerings"), offeringData);
+}
 export const fetchUserOfferings = async () => {
     let data = []
     const q = query(collection(db, "offerings"), where("uid", "==", auth.currentUser.uid));

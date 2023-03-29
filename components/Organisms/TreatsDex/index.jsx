@@ -15,9 +15,6 @@ display:grid;
 grid-template-columns: repeat(2, 1fr);
 justify-items:center;
 gap:3em;
-@media (max-width: 1280px) {
-   // grid-template-columns: repeat(1, 1fr);
- }
 `
 
 export default function TreatsDex({
@@ -32,7 +29,7 @@ export default function TreatsDex({
     const [treat, setTreat] = useState("")
     const [cooked, setCooked] = useState(false)
     const [popText, setPopText] = useState("missing")
-    const { currentOfferings, setCurrentOfferings, setCurrentTreats, fetchTreats, fetchOfferings } = useContext(userContext);
+    const { currentOfferings, setCurrentOfferings, setCurrentTreats, fetchTreats, fetchOfferings, fetchLeaderboardUsers } = useContext(userContext);
     const { Volume } = useContext(GameContext);
 
     const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
@@ -50,12 +47,13 @@ export default function TreatsDex({
             return
         }
         else {
-            setPopText(`${treat.name} acquired!`)
             setCooked(true)
             const offerings = await fetchOfferings();
             const treats = await fetchTreats();
             setCurrentOfferings(offerings);
             setCurrentTreats(treats)
+            await fetchLeaderboardUsers()
+            setPopText(`${treat.name} acquired!`)
         }
     }
     return (

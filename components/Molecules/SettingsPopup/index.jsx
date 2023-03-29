@@ -16,7 +16,6 @@ const PopupCont = styled.div`
     border-radius: 1.2em;
     border: 3px solid var(--border);
     border-bottom: 8px solid var(--border);
-    // width: 320px;
     min-height: 245px;
     justify-content: space-around;
     cursor:auto;
@@ -43,7 +42,6 @@ const BotCont = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 0 0 0.5em 0;
-    // gap: 1em;
 `
 const AudCont = styled.div`
 display:flex;
@@ -53,7 +51,7 @@ align-items: flex-start;
 
 const AudBar = styled.div`
     width: 7.5em;
-    height:0.5em;
+    height:0.2em;
     background-color: var(--button-light);
     margin-top: 0.5em;
     border-radius: 5px;

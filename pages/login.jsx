@@ -120,7 +120,7 @@ export default function Login({
         setErrorMessage("signing up...")
         try {
             await SignUp(loginInfo);
-            setErrorMessage("you have successfully signed up ")
+            setErrorMessage("you have successfully signed up! ")
             setTimeout(() => {
                 router.push('/')
             }, 2000);

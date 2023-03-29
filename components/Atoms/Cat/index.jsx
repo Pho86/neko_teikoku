@@ -81,7 +81,7 @@ export default function Cat({
    return (
       <CatBox>
          <CatImage bottom={`${y}vh`} right={`${x}vw`} src={image} transitionduration={duration} width={width} height={height} 
-         onClick={async ()=>{ onClick(); let randomMeow = await selectRandomFromArray(catMeow); meow.current = await randomMeow; sound()}} alt={alt} />
+         onClick={async ()=>{ onClick(); let randomMeow = await selectRandomFromArray(catMeow[0]); meow.current = await randomMeow; sound()}} alt={alt} />
       </CatBox>
    )
 }

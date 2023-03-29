@@ -48,13 +48,12 @@ export default function OfferCard({
     const [text, setText] = useState("");
     useEffect(() => {
         let randomText = selectRandomFromArray(CatPhrases[0]);
-        setText(randomText)
+        setText(randomText);
     }, [])
     return (
         <OfferCardDiv onClick={onClick}>
             <OfferCardContent>
-
-                <Image src={'/cats/caticon.svg'} width={50} height={50} alt="cat" style={{ borderRadius: 15, alignSelf: "flex-end", marginRight: "0.2em" }} />
+                <Image src={'/cats/caticon.svg'} width={50} height={50} alt="cat image" style={{ borderRadius: 15, alignSelf: "flex-end", marginRight: "0.2em" }} />
                 <OfferTextDiv>
                     <Typography
                         text={catData.cat}
@@ -65,13 +64,12 @@ export default function OfferCard({
                         text={text}
                         color={"var(--secondary-accent)"}
                         weight={"400"}
-                        width={"10em"}
+                        width={"11em"}
                         height={"40px"}
                         size={"1rem"}
                     />
                 </OfferTextDiv>
                 <Image src={`/ingredients/${food}.png`} width={50} height={50} alt="cat" style={{ borderRadius: 50, alignSelf: "flex-end", backgroundColor: "#FFE5D2" }} />
-                {/* <Image src={`${catData.imgThumb}`} width={50} height={50} alt="cat" style={{ borderRadius: 50 }} /> */}
             </OfferCardContent>
             <OfferCardHighlight />
         </OfferCardDiv>
