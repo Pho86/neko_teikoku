@@ -1,10 +1,18 @@
 [
-   {
-      "breedName": "",
-      "name": "",
-      "image": ""
-   },
-   {
-
-   }
+   "/cats/cat1.png",
+   "/cats/cat2.png",
+   "/cats/cat3.png",
+   "/cats/cat4.png",
+   "/cats/cat5.png",
+   "/cats/cat6.png",
+   "/cats/cat7.png",
+   "/cats/cat8.png",
+   "/cats/cat9.png",
+   "/cats/cat10.png",
+   "/cats/cat11.png",
+   "/cats/cat12.png",
+   "/cats/cat13.png",
+   "/cats/cat14.png",
+   "/cats/cat15.png",
+   "/cats/cat16.png"
 ]

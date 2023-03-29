@@ -133,13 +133,13 @@ const SettingIcon = styled.div`
 
 
 export default function UserInterface({
-   onCatDexClick = () => { },
    onWeatherSubmit = () => { },
    onWeatherChange = () => { },
    location,
    onActiveClick = (item) => { return item },
    onTreatClick = (treat) => { return treat },
    selectCatCard = (id) => { return id; },
+   // catDex
 
 }) {
    const [cookShow, setCookShow] = useState(false);
@@ -150,10 +150,9 @@ export default function UserInterface({
    const [weatherShow, setWeatherShow] = useState(false);
    const [settings, setSettings] = useState(false);
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
-   const { weather, currentUser, cats } = useContext(userContext);
-   const [popup, setPopup] = useState(false);
+   const { weather, currentUser, cats, currentUserData, catDex, setCatDex } = useContext(userContext);
    const [leaderboard, setLeaderboard] = useState(false);
-   const [catDex, setCatDex] = useState(false)
+   // const [catDexActive, setCatDex] = useState(catDex)
 
    useEffect(() => {
       if (weather) {
@@ -174,7 +173,6 @@ export default function UserInterface({
          }
       }
    }, [weather]);
-
    return (
       <>
          <UserInterfaceDiv>
@@ -185,7 +183,7 @@ export default function UserInterface({
                         onClick={() => { setSettings(!settings) }}
                         id="logout"
                      >
-                        <IconButton image={"/user/emp.svg"} alt="Profile Icon" />
+                        <IconButton image={currentUserData.avatar ? currentUserData.avatar : "/user/pfp.svg"} alt="Profile Icon" />
                         <TextCont>
                            <StrokedText fill='var(--white)' stroke='var(--border-hard)' strokeWidth={5} style={{
                               fontSize: '1.5rem',

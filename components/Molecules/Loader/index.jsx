@@ -3,6 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
+import { StrokedText } from "stroked-text";
 const Container = styled(m.div)`
 position:fixed;
 left:0;
@@ -20,17 +21,16 @@ export default function Loader({
     active
 }) {
 
-    const [text, setText] = useState("loading");
-    useEffect(() => {
-        setInterval(() => {
-
-        }, 1000)
-    }, [])
-
     return <AnimatePresence>
-        {active && <Container animate={{ opacity: 1 }} transition={{ duration: .5, ease: "easeInOut" }} exit={{ opacity: 0 }}>
+        {active && <Container animate={{ opacity: 1 }} transition={{ duration: 1, ease: "easeInOut" }} exit={{ opacity: 0 }}>
             <Image src="/cats/advisor/sleep.gif" width={500} height={500} alt="goma sleeping..." />
-            <Typography text={text} />
+            <StrokedText
+                fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={5} style={{
+                    fontSize: '1.5rem', fontWeight: "600"
+                }}
+            >
+                please wait a meowment...
+            </StrokedText>
         </Container>
         }
     </AnimatePresence>

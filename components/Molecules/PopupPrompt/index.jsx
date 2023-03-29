@@ -17,6 +17,7 @@ const PopupCont = styled(m.div)`
     justify-content: space-around;
     position:absolute;
     z-index:55;
+    min-width: 18.5em;
 `
 
 const PopupText = styled.div`

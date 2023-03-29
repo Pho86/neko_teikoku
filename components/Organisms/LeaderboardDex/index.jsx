@@ -88,20 +88,20 @@ export default function LeaderboardDex({
                            <Table>
                               <TableHeader>
                                  <TableRow>
-                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                        fontSize: '1.2rem', fontWeight: "600"
                                     }}>#</StrokedText></TableHead>
                                     <TableHead></TableHead>
-                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                        fontSize: '1.2rem', fontWeight: "600"
                                     }}>emperor</StrokedText></TableHead>
-                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                        fontSize: '1.2rem', fontWeight: "600"
                                     }}>meals</StrokedText></TableHead>
-                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                        fontSize: '1.2rem', fontWeight: "600"
                                     }}>catdex</StrokedText></TableHead>
-                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                    <TableHead><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                        fontSize: '1.2rem', fontWeight: "600"
                                     }}>visits</StrokedText></TableHead>
                                  </TableRow>
@@ -111,10 +111,10 @@ export default function LeaderboardDex({
                                     if (user.id === currentUser.uid) {
                                        if( i === 0) {
                                           return <LeaderboardRow key={user.id} dropShadow="0" border>
-                                          <TableData bg="#D2CFF4" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData bg="#D2CFF4" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#D2CFF4" border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData bg="#D2CFF4" border><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData bg="#D2CFF4" border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData bg="#D2CFF4" border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData bg="#D2CFF4" border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -123,10 +123,10 @@ export default function LeaderboardDex({
                                        } 
                                        else if (i === 1) {
                                           return <LeaderboardRow key={user.id} dropShadow="0">
-                                          <TableData bg="#EAE9F9" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData bg="#EAE9F9" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#EAE9F9" border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData bg="#EAE9F9" border><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData bg="#EAE9F9" border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData bg="#EAE9F9" border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData bg="#EAE9F9" border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -135,10 +135,10 @@ export default function LeaderboardDex({
                                        }
                                        else if (i === 2) {
                                           return <LeaderboardRow key={user.id} >
-                                          <TableData bg="#F6F5FF" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData bg="#F6F5FF" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#F6F5FF" border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData bg="#F6F5FF" border><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData bg="#F6F5FF" border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData bg="#F6F5FF" border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData bg="#F6F5FF" border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -147,10 +147,10 @@ export default function LeaderboardDex({
                                        }
                                        else {
                                           return <LeaderboardRow key={user.id}>
-                                          <TableData border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData border><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -161,10 +161,10 @@ export default function LeaderboardDex({
                                     else {
                                        if( i === 0) {
                                           return <LeaderboardRow key={user.id} dropShadow="77, 70, 153,">
-                                          <TableData bg="#D2CFF4"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData bg="#D2CFF4"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#D2CFF4"><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData bg="#D2CFF4"><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData bg="#D2CFF4"><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData bg="#D2CFF4"><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData bg="#D2CFF4"><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -173,10 +173,10 @@ export default function LeaderboardDex({
                                        } 
                                        else if (i === 1) {
                                           return <LeaderboardRow key={user.id} dropShadow="132, 125, 210,">
-                                          <TableData bg="#EAE9F9"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData bg="#EAE9F9"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#EAE9F9"><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData bg="#EAE9F9"><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData bg="#EAE9F9"><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData bg="#EAE9F9"><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData bg="#EAE9F9"><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -185,10 +185,10 @@ export default function LeaderboardDex({
                                        }
                                        else if (i === 2) {
                                           return <LeaderboardRow key={user.id} >
-                                          <TableData bg="#F6F5FF"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData bg="#F6F5FF"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#F6F5FF"><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData bg="#F6F5FF"><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData bg="#F6F5FF"><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData bg="#F6F5FF"><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData bg="#F6F5FF"><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -197,113 +197,10 @@ export default function LeaderboardDex({
                                        }
                                        else {
                                           return <LeaderboardRow key={user.id}>
-                                          <TableData><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
+                                          <TableData><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={4} style={{
                                              fontSize: '1.2rem', fontWeight: "600" 
                                           }}>{i + 1}</StrokedText></TableData>
-                                          <TableData><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       }
-                                    }
-                                 }
-                                 )}
-                                 {currentLeaderboard?.map((user, i) => {
-                                    if (user.id === currentUser.uid) {
-                                       if( i === 0) {
-                                          return <LeaderboardRow key={user.id} dropShadow="0" border>
-                                          <TableData bg="#D2CFF4" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#D2CFF4" border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData bg="#D2CFF4" border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData bg="#D2CFF4" border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#D2CFF4" border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#D2CFF4" border><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       } 
-                                       else if (i === 1) {
-                                          return <LeaderboardRow key={user.id} dropShadow="0">
-                                          <TableData bg="#EAE9F9" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#EAE9F9" border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData bg="#EAE9F9" border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData bg="#EAE9F9" border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#EAE9F9" border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#EAE9F9" border><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       }
-                                       else if (i === 2) {
-                                          return <LeaderboardRow key={user.id} >
-                                          <TableData bg="#F6F5FF" border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#F6F5FF" border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData bg="#F6F5FF" border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData bg="#F6F5FF" border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#F6F5FF" border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#F6F5FF" border><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       }
-                                       else {
-                                          return <LeaderboardRow key={user.id}>
-                                          <TableData border><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData border><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData border><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData border><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData border><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData border><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       }
-                                    }
-                                    else {
-                                       if( i === 0) {
-                                          return <LeaderboardRow key={user.id} dropShadow="77, 70, 153,">
-                                          <TableData bg="#D2CFF4"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#D2CFF4"><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData bg="#D2CFF4"><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData bg="#D2CFF4"><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#D2CFF4"><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#D2CFF4"><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       } 
-                                       else if (i === 1) {
-                                          return <LeaderboardRow key={user.id} dropShadow="132, 125, 210,">
-                                          <TableData bg="#EAE9F9"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#EAE9F9"><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData bg="#EAE9F9"><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData bg="#EAE9F9"><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#EAE9F9"><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#EAE9F9"><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       }
-                                       else if (i === 2) {
-                                          return <LeaderboardRow key={user.id} >
-                                          <TableData bg="#F6F5FF"><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData bg="#F6F5FF"><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
-                                          <TableData bg="#F6F5FF"><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
-                                          <TableData bg="#F6F5FF"><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#F6F5FF"><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                          <TableData bg="#F6F5FF"><Typography text={user.catsVisited} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
-                                       </LeaderboardRow>
-                                       }
-                                       else {
-                                          return <LeaderboardRow key={user.id}>
-                                          <TableData><StrokedText fill='var(--white)' stroke={'var(--secondary-accent)'} strokeWidth={3} style={{
-                                             fontSize: '1.2rem', fontWeight: "600" 
-                                          }}>{i + 1}</StrokedText></TableData>
-                                          <TableData><Image width={50} height={50} src={"/user/emp.svg"} alt={`${user.username} image profile icon`} /></TableData>
+                                          <TableData><Image width={50} height={50} src={user.avatar ? user.avatar : "/user/pfp.svg"} alt={`${user.username} image profile icon`} /></TableData>
                                           <TableData><Typography text={user.username} weight="600" color="var(--secondary-accent)"></Typography></TableData>
                                           <TableData><Typography text={user.cooked} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
                                           <TableData><Typography text={`${user.catsCompletion}/${cats.length}`} weight="600" color="var(--secondary-accent)" align="center"></Typography></TableData>
@@ -324,10 +221,7 @@ export default function LeaderboardDex({
                   </PopUpWithTab>
                </>
             }
-
-
          </AnimatePresence>
-
       </>
    )
 }

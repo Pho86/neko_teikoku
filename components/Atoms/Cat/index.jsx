@@ -2,11 +2,11 @@ import Image from "next/image";
 import styled from "styled-components";
 import { m } from "framer-motion";
 import { generateRandomNumber } from "@/util";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import useSound from "use-sound";
 import { GameContext } from "@/pages/_app";
-
-
+import catMeow from "@/data/meow.json";
+import { selectRandomFromArray } from "@/util";
 
 const CatImage = styled(Image)`
 position:absolute;
@@ -74,13 +74,14 @@ export default function Cat({
          setX(x)
       }, 1000)
    }, [])
-
+   const meow = useRef("/sound/meow1.mp3")
    const { Volume } = useContext(GameContext);
-   const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
+   const [sound] = useSound(meow.current, { volume: Volume, });
 
    return (
       <CatBox>
-         <CatImage bottom={`${y}vh`} right={`${x}vw`} src={image} transitionduration={duration} width={width} height={height} onClick={onClick} alt={alt} />
+         <CatImage bottom={`${y}vh`} right={`${x}vw`} src={image} transitionduration={duration} width={width} height={height} 
+         onClick={async ()=>{ onClick(); let randomMeow = await selectRandomFromArray(catMeow[0]); meow.current = await randomMeow; sound()}} alt={alt} />
       </CatBox>
    )
 }

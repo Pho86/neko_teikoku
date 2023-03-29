@@ -4,9 +4,10 @@ import styled from "styled-components"
 import CatTextBox from "@/components/Molecules/CatTextBox";
 import AdvisorPhrases from "@/data/phrases.json"
 import { selectRandomFromArray } from "@/util";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import useSound from "use-sound";
 import { GameContext } from "@/pages/_app";
+import catMeow from "@/data/meow.json";
 
 const CatImage = styled(Image)`
 cursor:pointer;
@@ -55,14 +56,13 @@ export default function Advisor({
       setText(x)
       setTextBox(!textbox)
    };
+   const meow = useRef("/sound/meow1.mp3")
    const { Volume } = useContext(GameContext);
-
-   const [sound] = useSound('/sound/bamboohit.mp3', { volume: Volume, });
-   
+   const [sound] = useSound(meow.current, { volume: Volume, });
    return (
       <CatBox>
          <CatDiv>
-            <CatImage src={'/cats/advisor/base.svg'} id="advisor" width={180} height={150} alt={'this is your advisor'} onClick={HandleTextBox} />
+            <CatImage src={'/cats/advisor/base.svg'} id="advisor" width={180} height={180} alt={'this is your advisor'} onClick={async ()=>{HandleTextBox(); let randomMeow = await selectRandomFromArray(catMeow[0]); meow.current = await randomMeow; sound()}} />
             <AnimatePresence>
                {textbox && <CatTextBox text={text} />}
             </AnimatePresence>

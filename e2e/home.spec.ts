@@ -25,7 +25,7 @@ test.describe("Home game area tests, account required functionalities", () => {
 
    test('open the catdex and find the asian cat and click it', async ({ page }) => {
       await signIn(page)
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(10000);
       const catdex = page.locator('#catdex');
       await catdex.click();
       await page.getByAltText("Go forward").click();
@@ -35,7 +35,7 @@ test.describe("Home game area tests, account required functionalities", () => {
 
    test('open the weather popup and change location to vancouver', async ({ page }) => {
       await signIn(page)
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(10000);
       const weather = page.locator('#weather');
       await weather.click();
       await page.waitForTimeout(1000);
@@ -48,7 +48,7 @@ test.describe("Home game area tests, account required functionalities", () => {
 
    test('open the settings popup and logout', async ({ page }) => {
       await signIn(page)
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(10000);
       const logout = page.locator('#logout');
       await logout.click();
       await page.waitForTimeout(1000);
@@ -76,7 +76,7 @@ test.describe("Home game area tests, no login required", () => {
 
    test('no account, / should reroute to login page', async ({ page }) => {
       await page.goto(homeURL)
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(8000);
       await expect(page).toHaveURL(loginURL)
    })
 })
