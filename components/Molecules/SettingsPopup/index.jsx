@@ -92,7 +92,6 @@ export default function SettingsPopup(
     }) {
 
     const [currentUser, setCurrentUser] = useState({})
-    const [ErrorMessage, setErrorMessage] = useState("");
     const { Volume, setVolume, BGMVolume, setBGMVolume } = useContext(GameContext)
     const { bgm, bgmController, } = useContext(userContext)
 

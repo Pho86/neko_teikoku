@@ -139,8 +139,6 @@ export default function UserInterface({
    onActiveClick = (item) => { return item },
    onTreatClick = (treat) => { return treat },
    selectCatCard = (id) => { return id; },
-   // catDex
-
 }) {
    const [cookShow, setCookShow] = useState(false);
    const [expanded, setExpanded] = useState(false);
@@ -152,8 +150,6 @@ export default function UserInterface({
    const [icon, setIcon] = useState('/weather-icons/clear-sky.gif');
    const { weather, currentUser, cats, currentUserData, catDex, setCatDex } = useContext(userContext);
    const [leaderboard, setLeaderboard] = useState(false);
-   // const [catDexActive, setCatDex] = useState(catDex)
-
    useEffect(() => {
       if (weather) {
          if (weather.weather[0].main == "Clouds") {
