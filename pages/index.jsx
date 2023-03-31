@@ -160,18 +160,21 @@ export default function Home() {
       }
       randomCat.y = y;
       let offering = await selectRandomFromArray(OfferingsData)
-      offering.cat = randomCat.breedName
+      offering.cat = await randomCat.breedName
+      offering.catImg = await randomCat.imgThumb
+      console.log(offering)
       await addUserOfferings(offering);
       randomMeows.push(randomCat);
     }
     const offerings = await fetchOfferings();
     const newCats = await fetchCats();
-    setRandomCats(randomMeows)
     let randomMeow = await selectRandomFromArray(catMeow[0]);
+    setRandomCats(randomMeows)
     meow.current = await randomMeow;
     await meowSound();
     await updateUserData(newCats);
     setCurrentOfferings(offerings);
+    await fetchLeaderboardUsers();
   }
 
   const filterItems = async (items) => {

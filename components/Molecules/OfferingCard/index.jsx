@@ -53,7 +53,9 @@ export default function OfferCard({
     return (
         <OfferCardDiv onClick={onClick}>
             <OfferCardContent>
+                {catData.catImg ? <Image src={catData.catImg} width={50} height={50} alt="cat image" style={{ borderRadius: 50, alignSelf: "flex-end", marginRight: "0.2em" }} /> :
                 <Image src={'/cats/caticon.svg'} width={50} height={50} alt="cat image" style={{ borderRadius: 15, alignSelf: "flex-end", marginRight: "0.2em" }} />
+                }
                 <OfferTextDiv>
                     <Typography
                         text={catData.cat}
