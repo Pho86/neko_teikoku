@@ -73,8 +73,8 @@ export default function Cat({
       }, 1000)
    }, []);
    
-   const meow = useRef("/sound/meow1.mp3")
    const { Volume } = useContext(GameContext);
+   const meow = useRef("/sound/meow1.mp3")
    const [sound] = useSound(meow.current, { volume: Volume, });
 
    return (

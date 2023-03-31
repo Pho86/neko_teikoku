@@ -262,13 +262,14 @@ export const addUserOfferings = async (offering) => {
         const docSnap = await getDoc(ref);
         if (docSnap.exists()) {
             if (offering.cat) {
-                const update = updateDoc(ref, {
+                const update = await updateDoc(ref, {
                     count: docSnap.data().count + 1,
                     cat: offering.cat,
+                    catImg: offering.catImg,
                     state: false,
                 });
             } else {
-                const update = updateDoc(ref, {
+                const update = await updateDoc(ref, {
                     count: docSnap.data().count + 1,
                     state: false,
                 });
